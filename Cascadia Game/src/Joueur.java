@@ -1,7 +1,0 @@
-/**
- * Joueur
- */
-public class Joueur {
-
-    
-}
