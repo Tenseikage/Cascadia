@@ -1,8 +1,13 @@
 package game.player;
 import java.util.Objects;
 // Organisation en packages
-public record Joueur(String nom, int age) {
+public record Joueur(String name, int age) {
 	public Joueur {
-			Objects.requireNonNull(nom,"Nom de joueur inconnu !!!");
+			Objects.requireNonNull(name,"Nom de joueur inconnu !!!");
+	}
+	
+	@Override
+	public String toString() {
+		return name + " " + age;
 	}
 }
