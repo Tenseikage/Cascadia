@@ -33,3 +33,4 @@ Thumbs.db
 *.rar
 # tmp_files
 tmp/
+/bin/
