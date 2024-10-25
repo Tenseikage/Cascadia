@@ -3,15 +3,29 @@ package game.player;
 import java.util.LinkedHashMap;
 
 public class ListPlayers {
-	private final LinkedHashMap<Joueur, String> players;
+	private final LinkedHashMap<String, Joueur> players;
 	
 	public ListPlayers() {
-		players = new LinkedHashMap<Joueur, String>();
+		players = new LinkedHashMap<String, Joueur>();
 	}
 	
 	public void add(Joueur player) {
-	    players.put(player, player.name());
+	    players.put(player.name(), player);
 	  }
+	
+	public void winner() {
+		Joueur winner = null;
+		int scoreMax = 0;
+		var iterator = players.values().iterator();
+		while (iterator.hasNext()) {
+			Joueur next = iterator.next();
+			if (scoreMax < next.points()) {
+				scoreMax = next.points();
+				winner = next;
+				
+			}
+		}
+	}
 	
 	@Override
 	public String toString() {
@@ -19,7 +33,7 @@ public class ListPlayers {
 		var separator = "";
 		for (var elem: players.values()) {
 			builder.append(separator).append(elem);
-			separator = ", ";
+			separator = "\n";
 		}
 		return builder.toString();
 	}

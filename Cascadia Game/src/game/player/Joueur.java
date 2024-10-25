@@ -2,7 +2,7 @@ package game.player;
 
 import java.util.Objects;
 
-public record Joueur(String name, int age, int nomberOfTiles, int points) {
+public record Joueur(String name, int age, int numberOfTiles, int points) {
 	public Joueur {
 		Objects.requireNonNull(name,"Nom de joueur inconnu !!!");
 		if (age < 0){
@@ -12,7 +12,7 @@ public record Joueur(String name, int age, int nomberOfTiles, int points) {
 	
 	@Override
 	public String toString() {
-		return "<"+name+">" + " " + age + " " + "";
+		return "Name : "+name+ " / " + "Age : " +age + " / " + "Number of tiles : " +numberOfTiles+ " / " + "Points : " + points;
 		
 		  
 	}
