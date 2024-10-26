@@ -1,7 +1,7 @@
 package game.material;
 import java.util.Objects;
-public class Animal {
-	private final String espece;
+public record Animal(String espece) {
+ 
 	public Animal(String espece){
 		this.espece = espece;
 		Objects.requireNonNull(espece,"Erreur espèce obligatoire");
