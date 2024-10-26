@@ -3,22 +3,22 @@ package game.player;
 import java.util.LinkedHashMap;
 
 public class ListPlayers {
-	private final LinkedHashMap<String, Joueur> players;
+	private final LinkedHashMap<String, Player> players;
 	
 	public ListPlayers() {
-		players = new LinkedHashMap<String, Joueur>();
+		players = new LinkedHashMap<String, Player>();
 	}
 	
-	public void add(Joueur player) {
+	public void add(Player player) {
 	    players.put(player.name(), player);
 	  }
 	
 	public void winner() {
-		Joueur winner = null;
+		Player winner = null;
 		int scoreMax = 0;
 		var iterator = players.values().iterator();
 		while (iterator.hasNext()) {
-			Joueur next = iterator.next();
+			Player next = iterator.next();
 			if (scoreMax < next.points()) {
 				scoreMax = next.points();
 				winner = next;
