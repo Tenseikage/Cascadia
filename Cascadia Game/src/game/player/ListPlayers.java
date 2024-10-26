@@ -13,7 +13,7 @@ public class ListPlayers {
 	    players.put(player.name(), player);
 	  }
 	
-	public void winner() {
+	public Player winner() {
 		Player winner = null;
 		int scoreMax = 0;
 		var iterator = players.values().iterator();
@@ -22,9 +22,9 @@ public class ListPlayers {
 			if (scoreMax < next.points()) {
 				scoreMax = next.points();
 				winner = next;
-				
 			}
 		}
+		return winner;
 	}
 	
 	@Override
