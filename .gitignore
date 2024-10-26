@@ -34,3 +34,7 @@ Thumbs.db
 # tmp_files
 tmp/
 /bin/
+
+.classpath
+.project
+
