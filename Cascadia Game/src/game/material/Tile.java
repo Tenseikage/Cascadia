@@ -2,6 +2,7 @@ package game.material;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class Tile {
     private final ArrayList<String> places = new ArrayList<>();
@@ -81,10 +82,11 @@ public class Tile {
 			}
 			return tiles;
 		}
-
-	
-
-
+		public static void shuffTiles(ArrayList<Tile> tiles){
+			// Mélange des tuiles pour la distribution au hasars
+			Collections.shuffle(tiles);
+		}
+		
 	public static void drawTiles(){
 		System.out.println("---"); // Coin supérieur gauche, bord supérieur, coin supérieur droit
 		System.out.println("| |");     // Bord gauche, espace vide, bord droit
@@ -97,6 +99,8 @@ public class Tile {
 			System.out.println(tile);
 		}
 	}
+
+
 
   @Override
   public String toString(){
@@ -112,14 +116,4 @@ public class Tile {
     return builder.toString();
 
   }
-  public static void main(String[] args) throws IOException {
-		var tiles = ExploitCsv();
-		displayTiles(tiles);
-		Tile.drawTiles();
-	}
-  
- 
-
-
-
 }
