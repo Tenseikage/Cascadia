@@ -1,5 +1,5 @@
 package game.test;
-import game.material.Token;
+import game.material.Tile;
 import java.io.IOException;
 
 
@@ -15,14 +15,15 @@ public class Test {
 		System.out.println(lst);
 
 		/*Test des tuiles */
-		/*var tiles = Tile.ExploitCsv();
+		var tiles = Tile.ExploitCsv();
 		Tile.shuffTiles(tiles);
 		Tile.displayTiles(tiles);
-		Tile.drawTiles();*/
+		Tile.drawTiles();
 
 		/*Test des jetons */
-		var tokens = Token.tokenList();
+		/*var tokens = Token.tokenList();
 		Token.shuffeTokens(tokens);
 		Token.displayTokens(tokens);
+		System.out.println(tokens.size());*/
 	}
 }
