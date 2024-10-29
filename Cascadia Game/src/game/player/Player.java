@@ -2,7 +2,9 @@ package game.player;
 
 import java.util.Objects;
 
-public record Player(String name, int age, int numberOfTiles, int points) {
+import game.material.Board;
+
+public record Player(String name, int age, int numberOfTiles, int points, Board board) {
 	public Player {
 		Objects.requireNonNull(name,"Nom de joueur inconnu !!!");
 		if (age < 0){

@@ -1,9 +1,20 @@
 package game.test;
-import game.material.Tile;
 import java.io.IOException;
+
+import game.material.Tile;
 
 
 public class Test {
+	public void displayInstruction() {
+	}
+	
+	/*
+	public void diplayGameBoard(Player p1) {
+		System.out.println("Game board of : "+p1.name());
+		for (Tile tile : p1.board()) {
+			System.out.println(tile);
+		}
+	}*/
 
 	public static void main(String[] args) throws IOException {
 		/*Test des joueurs */

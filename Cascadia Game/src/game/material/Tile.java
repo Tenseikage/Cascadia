@@ -56,7 +56,7 @@ public class Tile {
 	public static ArrayList<Tile> ExploitCsv() throws IOException {
 		ArrayList<Tile> tiles = new ArrayList<>();
 		try {
-			FileReader filereader = new FileReader("Cascadia Game\\data\\Tuiles.csv");
+			FileReader filereader = new FileReader("Cascadia Game/data/Tuiles.csv");
 			BufferedReader reader = new BufferedReader(filereader);
 			var line = reader.readLine();
 			while(line != null){
