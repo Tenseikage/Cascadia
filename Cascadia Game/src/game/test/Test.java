@@ -1,7 +1,6 @@
 package game.test;
-import java.io.IOException;
-
 import game.material.Tile;
+import java.io.IOException;
 
 
 public class Test {
@@ -26,10 +25,15 @@ public class Test {
 		System.out.println(lst);
 
 		/*Test des tuiles */
-		var tiles = Tile.ExploitCsv();
+		/*var tiles = Tile.ExploitCsv();
 		Tile.shuffTiles(tiles);
 		Tile.displayTiles(tiles);
-		Tile.drawTiles();
+		Tile.drawTiles();*/
+
+		/*Tests tuiles départ */
+		var starTiles = Tile.startTile();
+		Tile.displayStartTiles(starTiles);
+
 
 		/*Test des jetons */
 		/*var tokens = Token.tokenList();

@@ -32,24 +32,24 @@ public class Tile {
     return this;
   }
 
-  public static Tile[][] startTile() {
+  public static ArrayList<ArrayList<Tile>> startTile() {
 		// Définition des habitats de départ en dur
-		var startTiles = new Tile[5][3];
-		startTiles[0][0] = new Tile().addPlaces("Marais").addAnimals("Buse").setBoolean("Oui");
-		startTiles[0][1] = new Tile().addPlaces("Riviere", "Foret").addAnimals("Saumon", "Wapiti", "Buse").setBoolean("Non");
-		startTiles[0][2] = new Tile().addPlaces("Montagne", "Prairie").addAnimals("Ours", "Saumon").setBoolean("Non");
-		startTiles[1][0] = new Tile().addPlaces("Montagne").addAnimals("Ours").setBoolean("Oui");
-		startTiles[1][1] = new Tile().addPlaces("Riviere", "Prairie").addAnimals("Saumon", "Ours").setBoolean("Non");
-		startTiles[1][2] = new Tile().addPlaces("Foret", "Marais").addAnimals("Wapiti", "Buse", "Renard").setBoolean("Non");
-		startTiles[2][0] = new Tile().addPlaces("Foret").addAnimals("Wapiti").setBoolean("Oui");
-		startTiles[2][1] = new Tile().addPlaces("Montagne").addAnimals("Buse", "Wapiti", "Ours").setBoolean("Non");
-		startTiles[2][2] = new Tile().addPlaces("Prairie", "Marais").addAnimals("Renard", "Saumon").setBoolean("Non");
-		startTiles[3][0] = new Tile().addPlaces("Riviere").addAnimals("Saumon").setBoolean("Oui");
-		startTiles[3][1] = new Tile().addPlaces("Prairie", "Foret").addAnimals("Saumon", "Wapiti", "Ours").setBoolean("Non");
-		startTiles[3][2] = new Tile().addPlaces("Montagne", "Marais").addAnimals("Renard", "Buse").setBoolean("Non");
-		startTiles[4][0] = new Tile().addPlaces("Prairie").addAnimals("Renard").setBoolean("Oui");
-		startTiles[4][1] = new Tile().addPlaces("Marais", "Riviere").addAnimals("Saumon", "Buse", "Renard").setBoolean("Non");
-		startTiles[4][2] = new Tile().addPlaces("Montagne", "Foret").addAnimals("Ours", "Wapiti").setBoolean("Non");
+		ArrayList<ArrayList<Tile>> startTiles = new ArrayList<>();
+		startTiles.add(new ArrayList<>(Arrays.asList(new Tile().addPlaces("Marais").addAnimals("Buse").setBoolean("Oui"),
+		new Tile().addPlaces("Riviere", "Foret").addAnimals("Saumon", "Wapiti", "Buse").setBoolean("Non"),
+		new Tile().addPlaces("Montagne", "Prairie").addAnimals("Ours", "Saumon").setBoolean("Non"))));
+		startTiles.add(new ArrayList<>(Arrays.asList(new Tile().addPlaces("Montagne").addAnimals("Ours").setBoolean("Oui"),
+		new Tile().addPlaces("Riviere", "Prairie").addAnimals("Saumon", "Ours").setBoolean("Non"),
+		new Tile().addPlaces("Foret", "Marais").addAnimals("Wapiti", "Buse", "Renard").setBoolean("Non"))));
+		startTiles.add(new ArrayList<>(Arrays.asList(new Tile().addPlaces("Foret").addAnimals("Wapiti").setBoolean("Oui"),
+		new Tile().addPlaces("Montagne").addAnimals("Buse", "Wapiti", "Ours").setBoolean("Non"),
+		new Tile().addPlaces("Prairie", "Marais").addAnimals("Renard", "Saumon").setBoolean("Non"))));
+		startTiles.add(new ArrayList<>(Arrays.asList(new Tile().addPlaces("Riviere").addAnimals("Saumon").setBoolean("Oui"),
+		new Tile().addPlaces("Prairie", "Foret").addAnimals("Saumon", "Wapiti", "Ours").setBoolean("Non"),
+		new Tile().addPlaces("Montagne", "Marais").addAnimals("Renard", "Buse").setBoolean("Non"))));
+		startTiles.add(new ArrayList<>(Arrays.asList(new Tile().addPlaces("Prairie").addAnimals("Renard").setBoolean("Oui"),
+		new Tile().addPlaces("Marais", "Riviere").addAnimals("Saumon", "Buse", "Renard").setBoolean("Non"),
+		new Tile().addPlaces("Montagne", "Foret").addAnimals("Ours", "Wapiti").setBoolean("Non"))));
 		return startTiles;
 	}
 
@@ -102,9 +102,14 @@ public class Tile {
 
 	}
 	public static void displayTiles(ArrayList<Tile> tiles) {
-    //Affichage des tuiles
+    //Affichage des tuiles normales
 		for (Tile tile : tiles) {
 			System.out.println(tile);
+		}
+	}
+	public static void displayStartTiles(ArrayList<ArrayList<Tile>> starTiles){
+		for (var startTile : starTiles){
+			System.out.println(startTile + "\n");
 		}
 	}
 
