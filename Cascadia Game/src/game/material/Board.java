@@ -1,13 +1,12 @@
 package game.material;
-
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 public class Board {
-	//faire une liste de liste de tile pour avoir le plateau des joueur
-	private final ArrayList<Tile> board;
+	//Environnement du joueur contenant les tuiles et jetons
+	private final LinkedHashMap<Tile,Token> board;
 	
 	public Board() {
-		board = new ArrayList<Tile>();
+		board = new LinkedHashMap<>();
 	}
 	
 	

@@ -7,13 +7,11 @@ import java.util.Collections;
 public class Tile {
   private final ArrayList<String> places;
   private final ArrayList<String> listAnimals;
-  private boolean ideal;
 
 	public Tile(){
 		// Constructeur initialisant les listes et le booléen
 		this.places = new ArrayList<>();
 		this.listAnimals = new ArrayList<>();
-		this.ideal = false;
 	}
 
 
@@ -27,29 +25,24 @@ public class Tile {
     return this;
     }
 
-  public Tile setBoolean(String choice) {
-  	this.ideal = choice.equals("Oui");
-    return this;
-  }
-
   public static ArrayList<ArrayList<Tile>> startTile() {
 		// Définition des habitats de départ en dur
 		ArrayList<ArrayList<Tile>> startTiles = new ArrayList<>();
-		startTiles.add(new ArrayList<>(Arrays.asList(new Tile().addPlaces("Marais").addAnimals("Buse").setBoolean("Oui"),
-		new Tile().addPlaces("Riviere", "Foret").addAnimals("Saumon", "Wapiti", "Buse").setBoolean("Non"),
-		new Tile().addPlaces("Montagne", "Prairie").addAnimals("Ours", "Saumon").setBoolean("Non"))));
-		startTiles.add(new ArrayList<>(Arrays.asList(new Tile().addPlaces("Montagne").addAnimals("Ours").setBoolean("Oui"),
-		new Tile().addPlaces("Riviere", "Prairie").addAnimals("Saumon", "Ours").setBoolean("Non"),
-		new Tile().addPlaces("Foret", "Marais").addAnimals("Wapiti", "Buse", "Renard").setBoolean("Non"))));
-		startTiles.add(new ArrayList<>(Arrays.asList(new Tile().addPlaces("Foret").addAnimals("Wapiti").setBoolean("Oui"),
-		new Tile().addPlaces("Montagne").addAnimals("Buse", "Wapiti", "Ours").setBoolean("Non"),
-		new Tile().addPlaces("Prairie", "Marais").addAnimals("Renard", "Saumon").setBoolean("Non"))));
-		startTiles.add(new ArrayList<>(Arrays.asList(new Tile().addPlaces("Riviere").addAnimals("Saumon").setBoolean("Oui"),
-		new Tile().addPlaces("Prairie", "Foret").addAnimals("Saumon", "Wapiti", "Ours").setBoolean("Non"),
-		new Tile().addPlaces("Montagne", "Marais").addAnimals("Renard", "Buse").setBoolean("Non"))));
-		startTiles.add(new ArrayList<>(Arrays.asList(new Tile().addPlaces("Prairie").addAnimals("Renard").setBoolean("Oui"),
-		new Tile().addPlaces("Marais", "Riviere").addAnimals("Saumon", "Buse", "Renard").setBoolean("Non"),
-		new Tile().addPlaces("Montagne", "Foret").addAnimals("Ours", "Wapiti").setBoolean("Non"))));
+		startTiles.add(new ArrayList<>(Arrays.asList(new Tile().addPlaces("Marais").addAnimals("Buse"),
+		new Tile().addPlaces("Rivieres").addAnimals("Saumon", "Buse"),
+		new Tile().addPlaces("Prairies").addAnimals("Ours", "Saumon"))));
+		startTiles.add(new ArrayList<>(Arrays.asList(new Tile().addPlaces("Montagne").addAnimals("Ours","Buse"),
+		new Tile().addPlaces("Marais").addAnimals("Saumon", "Ours"),
+		new Tile().addPlaces("Forets").addAnimals("Wapiti", "Renard"))));
+		startTiles.add(new ArrayList<>(Arrays.asList(new Tile().addPlaces("Foret").addAnimals("Wapiti","Buse"),
+		new Tile().addPlaces("Montagnes").addAnimals("Buse", "Ours"),
+		new Tile().addPlaces( "Marais").addAnimals("Renard", "Saumon"))));
+		startTiles.add(new ArrayList<>(Arrays.asList(new Tile().addPlaces("Riviere").addAnimals("Saumon","Buse"),
+		new Tile().addPlaces("Forets").addAnimals( "Wapiti", "Ours"),
+		new Tile().addPlaces("Montagnes").addAnimals("Renard", "Buse"))));
+		startTiles.add(new ArrayList<>(Arrays.asList(new Tile().addPlaces("Prairie").addAnimals("Renard","Buse"),
+		new Tile().addPlaces("Rivieres").addAnimals("Saumon", "Buse"),
+		new Tile().addPlaces("Montagnes").addAnimals("Ours", "Wapiti"))));
 		return startTiles;
 	}
 
@@ -65,23 +58,13 @@ public class Tile {
 				var array = line.split(";");
 				var biomes = array[0];
 				var animals = array[1];
-				if (biomes.contains(",")){
-					var splitted = array[0].split(",");
-					for (var data : splitted){
-						tiles.add(Tile.addPlaces(data));
-					}	
-				} else {
-					tiles.add(Tile.addPlaces(biomes));
-				}
+				tiles.add(Tile.addPlaces(biomes));
 				if (animals.contains(",")){
 					var splitted  = array[1].split(",");
 					for(var animal : splitted){
 						tiles.add(Tile.addAnimals(animal));
 					}
-				} else {
-					tiles.add(Tile.addAnimals(animals));
 				}
-				tiles.add(Tile.setBoolean(array[2]));
 				line = reader.readLine();
 			}
 			reader.close();
@@ -110,8 +93,6 @@ public class Tile {
     .append(places.toString())
     .append(",")
     .append(listAnimals.toString())
-    .append(",")
-    .append(Boolean.toString(ideal))
     .append("]").append("\n");
     return builder.toString();
 
