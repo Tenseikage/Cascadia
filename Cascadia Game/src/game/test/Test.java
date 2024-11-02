@@ -1,5 +1,5 @@
 package game.test;
-import game.material.Tile;
+import game.material.Token;
 import java.io.IOException;
 
 
@@ -27,18 +27,17 @@ public class Test {
 		/*Test des tuiles */
 		/*var tiles = Tile.ExploitCsv();
 		Tile.shuffTiles(tiles);
-		Tile.displayTiles(tiles);
-		Tile.drawTiles();*/
+		System.out.println(tiles);*/
 
 		/*Tests tuiles départ */
-		var starTiles = Tile.startTile();
-		Tile.displayStartTiles(starTiles);
+		/*var starTiles = Tile.startTile();
+		System.out.println(starTiles);*/
 
 
 		/*Test des jetons */
-		/*var tokens = Token.tokenList();
+		var tokens = Token.tokenList();
 		Token.shuffeTokens(tokens);
-		Token.displayTokens(tokens);
-		System.out.println(tokens.size());*/
+		System.out.println(tokens);
+		System.out.println(tokens.size());
 	}
 }

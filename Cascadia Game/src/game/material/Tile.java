@@ -54,6 +54,7 @@ public class Tile {
 	}
 
 	public static ArrayList<Tile> ExploitCsv() throws IOException {
+		// Création des tuiles du jeu
 		ArrayList<Tile> tiles = new ArrayList<>();
 		try {
 			FileReader filereader = new FileReader("Cascadia Game/data/Tuiles.csv");
@@ -80,7 +81,6 @@ public class Tile {
 				} else {
 					tiles.add(Tile.addAnimals(animals));
 				}
-				System.out.println(array[2]);
 				tiles.add(Tile.setBoolean(array[2]));
 				line = reader.readLine();
 			}
@@ -101,19 +101,6 @@ public class Tile {
 		System.out.println("---"); // Coin inférieur gauche, bord inférieur, coin inférieur droit
 
 	}
-	public static void displayTiles(ArrayList<Tile> tiles) {
-    //Affichage des tuiles normales
-		for (Tile tile : tiles) {
-			System.out.println(tile);
-		}
-	}
-	public static void displayStartTiles(ArrayList<ArrayList<Tile>> starTiles){
-		for (var startTile : starTiles){
-			System.out.println(startTile + "\n");
-		}
-	}
-
-
 
   @Override
   public String toString(){
@@ -125,7 +112,7 @@ public class Tile {
     .append(listAnimals.toString())
     .append(",")
     .append(Boolean.toString(ideal))
-    .append("]");
+    .append("]").append("\n");
     return builder.toString();
 
   }

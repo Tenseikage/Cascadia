@@ -32,13 +32,8 @@ public record Token(String espece, String color) {
 		
 	}
 	public static void shuffeTokens(ArrayList<Token> tokens){
+		//Mélange des jetons faune
 		Collections.shuffle(tokens);
-	}
-
-	public static void displayTokens(ArrayList<Token> tokens){
-		for(var element: tokens){
-			System.out.println(element);
-		}
 	}
 
 	@Override
