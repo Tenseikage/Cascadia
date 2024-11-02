@@ -28,7 +28,7 @@ public class Tile {
   public static ArrayList<ArrayList<Tile>> startTile() {
 		// Définition des habitats de départ en dur
 		ArrayList<ArrayList<Tile>> startTiles = new ArrayList<>();
-		startTiles.add(new ArrayList<>(Arrays.asList(new Tile().addPlaces("Marais").addAnimals("Buse"),
+		startTiles.add(new ArrayList<>(Arrays.asList(new Tile().addPlaces("Marais").addAnimals("Buse","Renard"),
 		new Tile().addPlaces("Rivieres").addAnimals("Saumon", "Buse"),
 		new Tile().addPlaces("Prairies").addAnimals("Ours", "Saumon"))));
 		startTiles.add(new ArrayList<>(Arrays.asList(new Tile().addPlaces("Montagne").addAnimals("Ours","Buse"),
