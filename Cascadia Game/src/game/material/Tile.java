@@ -1,5 +1,7 @@
 package game.material;
-import java.io.*;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -50,26 +52,19 @@ public class Tile {
 		// Création des tuiles du jeu
 		ArrayList<Tile> tiles = new ArrayList<>();
 		try {
-			FileReader filereader = new FileReader("Cascadia Game/data/Tuiles.csv");
-			BufferedReader reader = new BufferedReader(filereader);
-			var line = reader.readLine();
-			while(line != null){
-				var Tile = new Tile();
-				var array = line.split(";");
-				var biomes = array[0];
-				var animals = array[1];
-				tiles.add(Tile.addPlaces(biomes));
-				if (animals.contains(",")){
-					var splitted  = array[1].split(",");
-					for(var animal : splitted){
-						tiles.add(Tile.addAnimals(animal));
-					}
-				}
-				line = reader.readLine();
-			}
-			reader.close();
-		} catch(IOException e) {
-			throw new IllegalArgumentException("Error : no file/path found");
+			Path path = Path.of("Cascadia Game/data/Tuiles.csv");
+			var dataList = Files.readAllLines(path);
+			for(var line : dataList){
+				String[] parts = line.split(";");
+				if (parts.length >= 2) {
+          Tile tile = new Tile();
+          tile.addPlaces(parts[0].split(","));
+          tile.addAnimals(parts[1].split(","));
+          tiles.add(tile);
+        }
+			}	
+		} catch(IOException e){
+			  throw new IOException("file not found");
 		}
 		return tiles;
 	}
