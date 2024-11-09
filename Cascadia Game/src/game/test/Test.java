@@ -43,7 +43,7 @@ public class Test {
 		//System.out.println(tokens);
 		//System.out.println(tokens.size());
 		// Affichage des choix de tuiles et jetons pour le jeu
-	  var board = new Choice();
+	    var board = new Choice();
 		board.createChoiceBoard(tiles, tokens);
 		System.out.println(board.toString());
 	}
