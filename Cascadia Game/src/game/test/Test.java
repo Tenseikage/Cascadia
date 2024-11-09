@@ -25,19 +25,26 @@ public class Test {
 		System.out.println(lst);
 
 		/*Test des tuiles */
-		/*var tiles = Tile.ExploitCsv();
+		var tiles = Tile.ExploitCsv();
 		Tile.shuffTiles(tiles);
-		System.out.println(tiles);*/
+		//System.out.println(tiles);
+
+		/*Test choix tuiles */
+		
 
 		/*Tests tuiles départ */
-		var starTiles = Tile.startTile();
-		System.out.println(starTiles);
+		/*var starTiles = Tile.startTile();
+		System.out.println(starTiles);*/
 
 
 		/*Test des jetons */
-		/*var tokens = Token.tokenList();
+		var tokens = Token.tokenList();
 		Token.shuffeTokens(tokens);
-		System.out.println(tokens);
-		System.out.println(tokens.size());*/
+		//System.out.println(tokens);
+		//System.out.println(tokens.size());
+		// Affichage des choix de tuiles et jetons pour le jeu
+	  var board = new Choice();
+		board.createChoiceBoard(tiles, tokens);
+		System.out.println(board.toString());
 	}
 }

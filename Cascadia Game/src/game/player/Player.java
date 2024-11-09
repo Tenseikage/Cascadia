@@ -1,19 +1,17 @@
 package game.player;
-
+import game.material.Environment;
 import java.util.Objects;
 
-import game.material.Board;
-
-public record Player(String name, int age, int numberOfTiles, int points, Board board) {
+public record Player(String name, int age,int points,Environment boardPlayer) {
 	public Player {
 		Objects.requireNonNull(name,"Nom de joueur inconnu !!!");
+		Objects.requireNonNull(boardPlayer,"Erreur : Environnement inexistant");
 		if (age < 0){
 			throw new IllegalArgumentException("Age Incorrect !!!");
 		}
+		points = 0;
 	}
 	
-	@Override
-	public String toString() {
-		return "Name : "+name+ " / " + "Age : " +age + " / " + "Number of tiles : " +numberOfTiles+ " / " + "Points : " + points;
-	}
+	
+	
 }

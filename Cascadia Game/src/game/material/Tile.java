@@ -69,7 +69,7 @@ public class Tile {
 		return tiles;
 	}
 	public static void shuffTiles(ArrayList<Tile> tiles){
-		// Mélange des tuiles pour la distribution au hasars
+		// Mélange des tuiles pour la distribution au hasard
 		Collections.shuffle(tiles);
 	}
 		
@@ -79,7 +79,7 @@ public class Tile {
 		System.out.println("---"); // Coin inférieur gauche, bord inférieur, coin inférieur droit
 
 	}
-
+	
   @Override
   public String toString(){
     // Affichage sous forme de liste
