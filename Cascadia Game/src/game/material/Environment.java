@@ -1,6 +1,7 @@
 package game.material;
 import java.util.LinkedHashMap;
 import java.util.Objects;
+//
 
 public class Environment {
 	private final LinkedHashMap<Tile,Token> board = new LinkedHashMap<>();	

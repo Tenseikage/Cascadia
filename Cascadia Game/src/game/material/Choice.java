@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 import java.util.Random;
+
 public class Choice {
 	//Environnement du joueur contenant les tuiles et jetons
 	private final LinkedHashMap<Tile,Token> choiceBoard = new LinkedHashMap<>();		
