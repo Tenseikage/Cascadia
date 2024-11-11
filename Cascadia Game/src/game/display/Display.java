@@ -65,7 +65,7 @@ public class Display {
         }
       topBorder.append(animalColor.get()).append(" --------").append(AnimalColor.RESET.get()).append(separator);
       animalLine.append(animalColor.get()).append(" |  ").append(token.espece()).append("  |").append(AnimalColor.RESET.get()).append(separator);
-      colorLine.append(animalColor.get()).append(" |  ").append(token.color()).append("  |").append(AnimalColor.RESET.get()).append(separator);
+      colorLine.append(animalColor.get()).append(" |  ").append("  ").append("  |").append(AnimalColor.RESET.get()).append(separator);
       bottomBorder.append(animalColor.get()).append(" --------").append(AnimalColor.RESET.get()).append(separator);
     }
     // Affichage des bordures et des lignes
