@@ -11,11 +11,10 @@ public class Tile {
   private final ArrayList<String> listAnimals;
 
 	public Tile(){
-		// Constructeur initialisant les listes et le booléen
+		// Constructeur initialisant les listes
 		this.places = new ArrayList<>();
 		this.listAnimals = new ArrayList<>();
 	}
-
 
   public Tile addPlaces(String... places) {
     this.places.addAll(Arrays.asList(places));
@@ -25,7 +24,16 @@ public class Tile {
   public Tile addAnimals(String... animals) {
     this.listAnimals.addAll(Arrays.asList(animals));
     return this;
-    }
+  }
+
+	public ArrayList<String> getPlace(){
+		return places;
+	}
+
+	public ArrayList<String> getListAnimals(){
+		return listAnimals;
+	}
+
 
   public static ArrayList<ArrayList<Tile>> startTile() {
 		// Définition des habitats de départ en dur
@@ -58,8 +66,10 @@ public class Tile {
 				String[] parts = line.split(";");
 				if (parts.length >= 2) {
           Tile tile = new Tile();
-          tile.addPlaces(parts[0].split(","));
-          tile.addAnimals(parts[1].split(","));
+          tile.addPlaces(parts[0].substring(0, 2));
+					var animals = parts[1].split(",");
+          tile.addAnimals(animals[0].substring(0, 2));
+					tile.addAnimals(animals[1].substring(0, 2));
           tiles.add(tile);
         }
 			}	
@@ -73,13 +83,6 @@ public class Tile {
 		Collections.shuffle(tiles);
 	}
 		
-	public static void drawTiles(){
-		System.out.println("---"); // Coin supérieur gauche, bord supérieur, coin supérieur droit
-		System.out.println("| |");     // Bord gauche, espace vide, bord droit
-		System.out.println("---"); // Coin inférieur gauche, bord inférieur, coin inférieur droit
-
-	}
-	
   @Override
   public String toString(){
     // Affichage sous forme de liste

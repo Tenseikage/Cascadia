@@ -1,4 +1,5 @@
 package game.test;
+import game.display.Display;
 import game.material.*;
 import java.io.IOException;
 
@@ -42,9 +43,11 @@ public class Test {
 		Token.shuffeTokens(tokens);
 		//System.out.println(tokens);
 		//System.out.println(tokens.size());
-		// Affichage des choix de tuiles et jetons pour le jeu
-	    var board = new Choice();
+		// Affichage des choix de tuiles et jetons pour le jeu(Choix)
+	  var board = new Choice();
 		board.createChoiceBoard(tiles, tokens);
-		System.out.println(board.toString());
+		var display = new Display();
+		display.displayTile(board);
+		display.displayToken(board);
 	}
 }

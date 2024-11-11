@@ -3,7 +3,7 @@ import java.util.LinkedHashMap;
 import java.util.Objects;
 //
 
-public class Environment {
+public class Environment{
 	private final LinkedHashMap<Tile,Token> board = new LinkedHashMap<>();	
 
 	public void addTilePlayer(Tile tile){
@@ -17,6 +17,9 @@ public class Environment {
 		Objects.requireNonNull(token, "Erreur jeton nul !");
 		Objects.requireNonNull(tile," Erreur :  tuile requise pour l'ajout !");
 		board.put(tile, token);
+	}
+	public LinkedHashMap<Tile,Token> getEnvironment(){
+		return board;
 	}
 
 	@Override

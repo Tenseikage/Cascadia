@@ -6,7 +6,7 @@ public class ListPlayers {
 	private final LinkedHashMap<String, Player> players;
 	
 	public ListPlayers() {
-		players = new LinkedHashMap<String, Player>();
+		players = new LinkedHashMap<>();
 	}
 	
 	public void add(Player player) {

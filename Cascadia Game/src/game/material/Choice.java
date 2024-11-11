@@ -23,7 +23,7 @@ public class Choice {
 		chosenTokens = Token.chooseTokens(tokens,chosenTokens);
 		//System.out.println(chosenTokens + " : avant l'ajout");
 		if(!Token.checkOvercrowding(chosenTokens)){
-		  addTokensTiles(tiles, chosenTokens);
+			addTokensTiles(tiles, chosenTokens);
 			System.out.println("Pas surpopulation");
 		} else {
 				var discardedTokens = Token.discardTokens(chosenTokens);
@@ -32,8 +32,11 @@ public class Choice {
 		}		
 		//System.out.println(chosenTokens + "  : après l'ajout");
 	}
+	public  LinkedHashMap<Tile,Token> getChoiceBoard(){
+		return choiceBoard;
+	}
 
-  @Override
+	@Override
 	public String toString(){
 		return choiceBoard.toString();
 	}

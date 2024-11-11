@@ -19,16 +19,16 @@ public record Token(String espece, String color) {
 		var tokens = new ArrayList<Token>();
 		for (int i = 0; i < 100; i++) {
 			if (i < 20) {
-				tokens.add(new Token("Ours", "Marron"));
+				tokens.add(new Token("Ou", "Ma"));
 			} else if ((i >= 20) && (i < 40)){
-				tokens.add(new Token("Wapiti","Taupe"));
+				tokens.add(new Token("Wa","Ta"));
 			} else if ((i >= 40) && (i < 60)){
-				tokens.add(new Token("Saumon","Rose"));
+				tokens.add(new Token("Sa","Ro"));
 					
 			} else if ((i >= 60) && (i < 80)){
-				tokens.add(new Token("Buse","Bleu"));
+				tokens.add(new Token("Bu","Bl"));
 			} else {
-				tokens.add(new Token("Renard","Orange"));
+				tokens.add(new Token("Re","Or"));
 			}
 		}
 		return tokens;	
@@ -108,7 +108,7 @@ public record Token(String espece, String color) {
 	@Override
 	// Affichage du jeton
 	public String toString(){
-		return "[" + espece + "," + color + "]";
+		return "[" + espece.substring(0, 2) + "," + color.substring(0,2) + "]";
 	}
 
 
