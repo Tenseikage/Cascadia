@@ -31,9 +31,10 @@ public class Main {
 			display.displayToken(boardj1);
 			System.out.println("  ( 01 )      ( 02 )      ( 03 )      ( 04 )\n");
 			System.out.println("WHICH PAIR YOU CHOOSE (1 - 2 - 3 - 3) ? : ");
-			String choiceJ1 = scannerJ1.nextLine();
+			int choiceJ1 = scannerJ1.nextInt();
+			scannerJ1.close();
 			System.out.println("Vous avez choisis : \n"+choiceJ1);
-//			switch (Integer.parseInt(choiceJ1)) {
+//			switch (choiceJ1) {
 //				case 1 -> ;
 //				case 2 -> ;
 //				case 3 -> ;
@@ -42,21 +43,23 @@ public class Main {
 			
 			//tour joueur 2;
 			System.out.println("PLAYER 2\n");
+			Scanner scannerJ2 = new Scanner(System.in);
 			var boardj2 = new Choice();
 			boardj2.createChoiceBoard(tiles, tokens);
 			display.displayTile(boardj2); 
 			display.displayToken(boardj2);	
 			System.out.println("  ( 01 )      ( 02 )      ( 03 )      ( 04 )\n");
 			System.out.println("WHICH PAIR YOU CHOOSE (1 - 2 - 3 - 3) ? : ");
-			String choiceJ2 = scannerJ1.nextLine();
+			int choiceJ2 = scannerJ2.nextInt();
+			scannerJ2.close();
 			System.out.println("Vous avez choisis : \n"+choiceJ2);
-//			switch (Integer.parseInt(choiceJ2)) {
+//			switch (choiceJ2) {
 //				case 1 -> ;
 //				case 2 -> ;
 //				case 3 -> ;
 //				case 4 -> ;
 //			}
 		}
-	}
+	}	
 
 }
