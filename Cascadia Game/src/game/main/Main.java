@@ -32,7 +32,13 @@ public class Main {
 			System.out.println("  ( 01 )      ( 02 )      ( 03 )      ( 04 )\n");
 			System.out.println("WHICH PAIR YOU CHOOSE (1 - 2 - 3 - 3) ? : ");
 			String choiceJ1 = scannerJ1.nextLine();
-			System.out.println("Vous avez choisis : "+choiceJ1);
+			System.out.println("Vous avez choisis : \n"+choiceJ1);
+//			switch (Integer.parseInt(choiceJ1)) {
+//				case 1 -> ;
+//				case 2 -> ;
+//				case 3 -> ;
+//				case 4 -> ;
+//			}
 			
 			//tour joueur 2;
 			System.out.println("PLAYER 2\n");
@@ -43,8 +49,13 @@ public class Main {
 			System.out.println("  ( 01 )      ( 02 )      ( 03 )      ( 04 )\n");
 			System.out.println("WHICH PAIR YOU CHOOSE (1 - 2 - 3 - 3) ? : ");
 			String choiceJ2 = scannerJ1.nextLine();
-			System.out.println("Vous avez choisis : "+choiceJ2);
-			
+			System.out.println("Vous avez choisis : \n"+choiceJ2);
+//			switch (Integer.parseInt(choiceJ2)) {
+//				case 1 -> ;
+//				case 2 -> ;
+//				case 3 -> ;
+//				case 4 -> ;
+//			}
 		}
 	}
 
