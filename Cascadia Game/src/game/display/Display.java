@@ -28,7 +28,7 @@ public class Display {
     StringBuilder placeLine = new StringBuilder();
     StringBuilder animalLine = new StringBuilder();
     StringBuilder bottomBorder = new StringBuilder();
-		var separator = " ";
+		var separator = "  ";
 		for (var entry : tilesToken.entrySet()){
 			Tile tile = entry.getKey();
 			topBorder.append("----------").append(separator); // Coin supérieur gauche, bord supérieur, coin supérieur droit
@@ -63,10 +63,10 @@ public class Display {
         case "Or" -> animalColor = AnimalColor.ORANGE;
         default -> throw new IllegalArgumentException("Erreur : Couleur invalide ou inconnue");
         }
-      topBorder.append(animalColor.get()).append("--------").append(AnimalColor.RESET.get()).append(separator);
-      animalLine.append(animalColor.get()).append("|  ").append(token.espece()).append("  |").append(AnimalColor.RESET.get()).append(separator);
-      colorLine.append(animalColor.get()).append("|  ").append(token.color()).append("  |").append(AnimalColor.RESET.get()).append(separator);
-      bottomBorder.append(animalColor.get()).append("--------").append(AnimalColor.RESET.get()).append(separator);
+      topBorder.append(animalColor.get()).append(" --------").append(AnimalColor.RESET.get()).append(separator);
+      animalLine.append(animalColor.get()).append(" |  ").append(token.espece()).append("  |").append(AnimalColor.RESET.get()).append(separator);
+      colorLine.append(animalColor.get()).append(" |  ").append(token.color()).append("  |").append(AnimalColor.RESET.get()).append(separator);
+      bottomBorder.append(animalColor.get()).append(" --------").append(AnimalColor.RESET.get()).append(separator);
     }
     // Affichage des bordures et des lignes
     System.out.println(topBorder.toString());
@@ -74,4 +74,16 @@ public class Display {
     System.out.println(colorLine.toString());
     System.out.println(bottomBorder.toString());
   }
+	
+	public void displayRules() {
+		System.out.println("CASCADIA !!!\n");
+		System.out.println("WELCOME TO THIS WONDERFUL GAME\n");
+		System.out.println("HERE ARE SOME RULES :\n");
+		System.out.println("YOU START THE GAME WITH 3 RANDOM TILES");
+		System.out.println("AT EACH TURN, 4 TILES AND 4 TOKENS WILL BE PLACED ON THE TABLE");
+		System.out.println("YOU WILL HAVE TO CHOOSE 1 OF THEM TO PLACE ON YOUR BOARD");
+		System.out.println("BE CAREFUL, YOU MUST CHOOSE ACCORDING TO THE TILES ALREADY IN YOUR POSSESSION");
+		System.out.println("THE GAME STOPS AFTER 20 ROUNDS HAVE BEEN PLAYED");
+		System.out.println("THEN THE PLAYER WITH THE BEST COMBINATION OF TILES AND TOKENS WILL WIN\n\n");
+	}
 }
