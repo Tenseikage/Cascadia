@@ -93,6 +93,5 @@ public class Tile {
     .append(listAnimals.toString())
     .append("]").append("\n");
     return builder.toString();
-
   }
 }

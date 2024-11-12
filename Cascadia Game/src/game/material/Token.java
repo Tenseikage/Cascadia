@@ -34,6 +34,34 @@ public record Token(String espece, String color) {
 		return tokens;	
 		
 	}
+	public static ArrayList<Token> fillTokenList(ArrayList<Token> tokens, ArrayList<Token> chosenTokens){
+		for (int i = 0; i < 4; i++){
+			//Liste contenant les 4 jetons
+			Random random = new Random();
+			int indexToken = random.nextInt(tokens.size());
+			chosenTokens.add(tokens.remove(indexToken));
+		}
+		return chosenTokens;
+	}
+
+	public static ArrayList<Token> completeTokenList(ArrayList<Token> tokens, ArrayList<Token> chosenTokens,int size){
+		for (int i = 0; i < size; i++) {
+			Random random = new Random();
+			int indexToken = random.nextInt(tokens.size());
+			chosenTokens.add(tokens.remove(indexToken));		
+		}
+		return chosenTokens;
+	}
+
+	public static ArrayList<Token> changeTokenList(ArrayList<Token> tokens,ArrayList<Token> chosenTokens){
+		for (int i = 1; i < 4; i++){
+			//Nouveux jetons s'il y a surpopulation
+			Random random = new Random();
+			int indexToken = random.nextInt(tokens.size());
+			chosenTokens.add(tokens.remove(indexToken));
+		}
+		return chosenTokens;
+	}
 
 	public static ArrayList<Token> chooseTokens(ArrayList<Token> tokens,ArrayList<Token> chosenTokens){
 		Objects.requireNonNull(tokens, "Erreur : liste de tokens nulle !");
@@ -41,22 +69,15 @@ public record Token(String espece, String color) {
 			throw new IllegalArgumentException("Erreur : Liste vide");
 		}
 		if(chosenTokens.isEmpty()){
-			for (int i = 0; i < 4; i++){
-				//Liste contenant les 4 jetons
-				Random random = new Random();
-				int indexToken = random.nextInt(tokens.size());
-				chosenTokens.add(tokens.remove(indexToken));
-			}
-		} else{
-				for (int i = 1; i < 4; i++){
-					//Nouveux jetons s'il y a surpopulation
-					Random random = new Random();
-					int indexToken = random.nextInt(tokens.size());
-					chosenTokens.add(tokens.remove(indexToken));
-				}
+			chosenTokens =  Token.fillTokenList(tokens, chosenTokens);
+		}else if (chosenTokens.size() <= 2){
+			int size = 4 - chosenTokens.size();
+			chosenTokens = Token.completeTokenList(tokens, chosenTokens, size);
+		}
+		else{
+			chosenTokens = Token.changeTokenList(tokens, chosenTokens);
 		}
 		return chosenTokens;
-
 	}
 
 	public static ArrayList<Token> discardTokens(ArrayList<Token> chosenTokens){

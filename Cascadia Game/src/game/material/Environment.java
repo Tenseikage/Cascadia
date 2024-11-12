@@ -1,10 +1,12 @@
 package game.material;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 //
 
 public class Environment{
-	private final LinkedHashMap<Tile,Token> board = new LinkedHashMap<>();	
+	private final LinkedHashMap<Tile,Token> board = new LinkedHashMap<>();
+	private final ArrayList<Token> lisTokens = new ArrayList<>();
 
 	public void addTilePlayer(Tile tile){
 		// Ajout D'une tuile à l'environnement du joueur
@@ -18,6 +20,14 @@ public class Environment{
 		Objects.requireNonNull(tile," Erreur :  tuile requise pour l'ajout !");
 		board.put(tile, token);
 	}
+	public void addToken(Token token){
+		lisTokens.add(token);
+	}
+
+  public ArrayList<Token> getLisTokens(){
+		return lisTokens;
+	}
+	
 	public LinkedHashMap<Tile,Token> getEnvironment(){
 		return board;
 	}

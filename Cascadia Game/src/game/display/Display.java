@@ -42,6 +42,16 @@ public class Display {
     System.out.println(bottomBorder);
 		
 	}
+	public AnimalColor setColor(String color){
+		return switch (color) {
+			case "Ma" -> AnimalColor.BROWN;
+			case "Ta" -> AnimalColor.TAUPE;
+			case "Ro" -> AnimalColor.PINK;
+			case "Bl" -> AnimalColor.BLUE;
+			case "Or" -> AnimalColor.ORANGE;
+			default -> throw new IllegalArgumentException("Erreur : Couleur invalide ou inconnue");
+		};
+	}
 	
 	public void displayToken(Choice choiceBoard) throws IllegalArgumentException {
     Objects.requireNonNull(choiceBoard, "Erreur : choix de tuiles et jetons inexistant !");
@@ -54,15 +64,7 @@ public class Display {
     for (var entry : tilesToken.entrySet()) {
       Token token = entry.getValue();
       String color = token.color();
-      AnimalColor animalColor;
-      switch (color) {
-        case "Ma" -> animalColor = AnimalColor.BROWN;
-        case "Ta" -> animalColor = AnimalColor.TAUPE;
-        case "Ro" -> animalColor = AnimalColor.PINK;
-        case "Bl" -> animalColor = AnimalColor.BLUE;
-        case "Or" -> animalColor = AnimalColor.ORANGE;
-        default -> throw new IllegalArgumentException("Erreur : Couleur invalide ou inconnue");
-        }
+      AnimalColor animalColor = setColor(color);
       topBorder.append(animalColor.get()).append(" --------").append(AnimalColor.RESET.get()).append(separator);
       animalLine.append(animalColor.get()).append(" |  ").append(token.espece()).append("  |").append(AnimalColor.RESET.get()).append(separator);
       colorLine.append(animalColor.get()).append(" |  ").append("  ").append("  |").append(AnimalColor.RESET.get()).append(separator);
