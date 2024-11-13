@@ -50,8 +50,9 @@ public class Main {
 				System.out.println("Vous avez choisi : \n"+choiceJ1);
 				var chosenTile = getKeyByIndex(choiceBoard, choiceJ1 - 1);
 				env1.addTilePlayer(chosenTile);
-				//env1.addToken(choiceBoard.get(chosenTile));
+				env1.addToken(choiceBoard.get(chosenTile));
 				choiceBoard.remove(chosenTile);
+				display.displayEnvPlayer(env1);
 	//			switch (choiceJ1) {
 	//				case 1 -> ;
 	//				case 2 -> ;
@@ -69,8 +70,9 @@ public class Main {
 				System.out.println("Vous avez choisis : \n"+choiceJ2);
 				chosenTile = getKeyByIndex(choiceBoard, choiceJ2 - 1);
 				env2.addTilePlayer(chosenTile);
-				//env2.addToken(choiceBoard.get(chosenTile));
+				env2.addToken(choiceBoard.get(chosenTile));
 				choiceBoard.remove(chosenTile);
+				display.displayEnvPlayer(env2);
 	//			switch (choiceJ2) {
 	//				case 1 -> ;
 	//				case 2 -> ;
