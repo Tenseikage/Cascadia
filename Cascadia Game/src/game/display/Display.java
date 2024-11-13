@@ -1,9 +1,10 @@
 package game.display;
+import java.util.Objects;
+
 import game.material.Choice;
 import game.material.Environment;
 import game.material.Tile;
 import game.material.Token;
-import java.util.Objects;
 
 public class Display {
 	public void displayEnvPlayer(Environment environment){
@@ -11,9 +12,11 @@ public class Display {
 		var board = environment.getEnvironment();
 		var entry = board.entrySet().iterator().next();
 		Tile tile = entry.getKey();
+		Token token = entry.getValue();
 		System.out.println("---"); // Coin supérieur gauche, bord supérieur, coin supérieur droit
 		System.out.println("|" +  tile.getPlace() + "|");// Bord gauche, espace vide, bord droit
 		System.out.println("|" +  tile.getListAnimals() + "|"); 
+		System.out.println("|" +  token.espece() + "|");
 		System.out.println("---"); // Coin inférieur gauche, bord inférieur, coin inférieur droit
 	
 		
@@ -78,7 +81,7 @@ public class Display {
   }
 	
 	public void displayRules() {
-		System.out.println("CASCADIA !!!\n");
+		System.out.println("===== CASCADIA ======\n");
 		System.out.println("WELCOME TO THIS WONDERFUL GAME\n");
 		System.out.println("HERE ARE SOME RULES :\n");
 		System.out.println("YOU START THE GAME WITH 3 RANDOM TILES");
