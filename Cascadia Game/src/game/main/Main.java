@@ -1,13 +1,16 @@
 package game.main;
 import game.display.Display;
+import game.logic.Position;
 import game.material.Choice;
 import game.material.Environment;
 import game.material.Tile;
 import game.material.Token;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
+
 
 public class Main {
   public static <Key,Value> Key getKeyByIndex(LinkedHashMap<Key, Value> map, int index){
@@ -26,13 +29,20 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		int numberTurns = 0;
+		var position  = new Position(0,0); // Initialisation
+		int maxY = 1000;
+		int maxX = 1000;
 		var display = new Display();
 		display.displayRules();
 		var tiles = Tile.ExploitCsv();
 		var tokens = Token.tokenList();
-		var board = new Choice();
 		var env1 = new Environment();
-		var env2 = new Environment();
+		var board = new Choice();
+		var tile = new Tile();
+		var array = tile.startTiles();
+		var choice1 = tile.getStartiles();// Contient 3 tuiles sans les positions
+		var finalTiles1 = board.choseStartTile(choice1);
+		env1.setEnvironment(finalTiles1); // Ajout tuiles de départ à l'environnement
 		board.createChoiceBoard(tiles, tokens);
 		var choiceBoard = board.getChoiceBoard();
 
@@ -49,10 +59,31 @@ public class Main {
 				int choiceJ1 = scanner.nextInt();
 				System.out.println("Vous avez choisi : \n"+choiceJ1);
 				var chosenTile = getKeyByIndex(choiceBoard, choiceJ1 - 1);
-				env1.addTilePlayer(chosenTile);
-				env1.addToken(choiceBoard.get(chosenTile));
+				System.out.println("Choisissez la position où la tuile sera adjacente");
+				String answerPos = scanner.next();
+				var chosenPos = Position.fromString(answerPos);
+				System.out.println("Choisissez l'endroit où poser la tuile");
+				System.out.println("Haut/Bas/Gauche/Droite");
+				String answer = scanner.next();
+				chosenPos = chosenPos.updatePosition(answer);
+				if(!chosenPos.isValid(maxX, maxY)){
+					System.err.println("Erreur : position impossible ! ");
+				} else {
+					HashMap<Tile,Token> tilesTokens = new HashMap<>();
+					tilesTokens.put(chosenTile,null);
+					env1.addTilePlayer(tilesTokens, chosenPos);
+				}
+				//System.out.println(answer.equals("Haut"));
+				//position.updatePosition(answer);
+
+
+
+				//env1.addTilePlayer(chosenTile);
+				//env1.addToken(choiceBoard.get(chosenTile));
+				System.out.println("Environnement joueur 1");
 				choiceBoard.remove(chosenTile);
 				display.displayEnvPlayer(env1);
+				//display.displayEnvPlayer(env1);
 	//			switch (choiceJ1) {
 	//				case 1 -> ;
 	//				case 2 -> ;
@@ -61,7 +92,7 @@ public class Main {
 	//			}
 				
 				//tour joueur 2;
-				System.out.println("PLAYER 2\n");
+				/*System.out.println("PLAYER 2\n");
 				display.displayTile(board); 
 				display.displayToken(board);	
 				System.out.println("  ( 01 )      ( 02 )      ( 03 )      ( 04 )\n");
@@ -69,16 +100,16 @@ public class Main {
 				int choiceJ2 = scanner.nextInt();
 				System.out.println("Vous avez choisis : \n"+choiceJ2);
 				chosenTile = getKeyByIndex(choiceBoard, choiceJ2 - 1);
-				env2.addTilePlayer(chosenTile);
-				env2.addToken(choiceBoard.get(chosenTile));
+				//env2.addTilePlayer(chosenTile);
+				//env2.addToken(choiceBoard.get(chosenTile));
 				choiceBoard.remove(chosenTile);
-				display.displayEnvPlayer(env2);
+				//display.displayEnvPlayer(env2);
 	//			switch (choiceJ2) {
 	//				case 1 -> ;
 	//				case 2 -> ;
 	//				case 3 -> ;
 	//				case 4 -> ;
-	//			}
+	//			}*/
 	      System.out.println(board.uncompleteTokenList());
 	      board.updateChoiceBoard(tiles, tokens, board.uncompleteTokenList());
 			}

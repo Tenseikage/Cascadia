@@ -1,18 +1,33 @@
 package game.material;
+import game.logic.Position;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 import java.util.Random;
 
+//Modifier les methodes en réimplémentant les fonctions
 public class Choice {
 	//Choix contenant les tuiles et jetons
-	private final LinkedHashMap<Tile,Token> choiceBoard = new LinkedHashMap<>();	
+	private final LinkedHashMap<Tile,Token> choiceBoard = new LinkedHashMap<>();
+	private final LinkedHashMap<HashMap<Tile,Token>,Position> startTiles = new LinkedHashMap<>();	
 	public void addTokensTiles(ArrayList<Tile> tiles,ArrayList<Token> chosenTokens){
 		for(int i = 0; i < 4; i++){
 			Random random = new Random();
 			int indexTile = random.nextInt(tiles.size());
 			choiceBoard.put(tiles.remove(indexTile), chosenTokens.get(i));
 		}
+	}
+	public LinkedHashMap<HashMap<Tile,Token>,Position> choseStartTile(HashMap<Tile,Token> tokenTiles){
+		int i = 0;
+		for (var entry : tokenTiles.entrySet()){
+			HashMap<Tile, Token> entryMap = new HashMap<>();
+			entryMap.put(entry.getKey(), entry.getValue());
+			startTiles.put(entryMap, new Position(0, i));
+			i++;
+		}
+		return startTiles;
+
 	}
 
 	public void updateTokenTiles(ArrayList<Tile> tiles, ArrayList<Token> chosenTokens){

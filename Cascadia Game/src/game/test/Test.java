@@ -1,5 +1,4 @@
 package game.test;
-import game.display.Display;
 import game.material.*;
 import java.io.IOException;
 
@@ -31,11 +30,25 @@ public class Test {
 		//System.out.println(tokens);
 		//System.out.println(tokens.size());
 		// Affichage des choix de tuiles et jetons pour le jeu(Choix)
-	    var board = new Choice();
+	  var board = new Choice();
 		board.createChoiceBoard(tiles, tokens);
-		var display = new Display();
+		/*var display = new Display();
 		display.displayTile(board); 
 		display.displayToken(board);
-		display.displayRules();
+		display.displayRules();*/
+
+		//Test affichage tuiles départ joueur
+		var tile = new Tile();
+		var array = tile.startTiles();
+		System.out.println(array.size() + " size begin");
+		var choice1 = tile.getStartiles();// Contient 3 tuiles sans les positions
+		var choice2 = tile.getStartiles();
+		var finalTiles1 = board.choseStartTile(choice1);
+		var finalTiles2 = board.choseStartTile(choice2);
+		System.out.println(finalTiles1);
+		System.out.println(finalTiles2);
+		System.out.println(array.size() + " size end");
+
+		
 	}
 }

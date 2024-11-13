@@ -1,40 +1,57 @@
 package game.material;
+import game.logic.Position;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Objects;
 //
 
 public class Environment{
-	private final LinkedHashMap<Tile,Token> board = new LinkedHashMap<>();
-	private final ArrayList<Token> lisTokens = new ArrayList<>();
+	LinkedHashMap<HashMap<Tile,Token>,Position> tokenTilesList = new LinkedHashMap<>();
+	public static <Key,Value> Key getKeyByValue(LinkedHashMap<Key, Value> map, Value value){
+		for (Map.Entry<Key, Value> entry : map.entrySet()) {
+			if (entry.getValue() == value){
+				return entry.getKey();
+			}
+		}
+		throw new IllegalAccessError("Valeur introuvable");
+	}
 
-	public void addTilePlayer(Tile tile){
+	public void addTilePlayer(HashMap<Tile,Token> key,Position position){	
+			
 		// Ajout D'une tuile à l'environnement du joueur
-		Objects.requireNonNull(tile," Erreur :  tuile requise pour l'ajout !");
-		board.put(tile, null);
+		Objects.requireNonNull(key," Erreur :  tuile requise pour l'ajout !");
+		tokenTilesList.put(key, position);
 	}
 	
-	public void addTokenPlayer(Tile tile,Token token){
+	public void addTokenPlayer(Tile tile,Token token,Position position){
 		// Ajout du jeton par le joueur
 		Objects.requireNonNull(token, "Erreur jeton nul !");
 		Objects.requireNonNull(tile," Erreur :  tuile requise pour l'ajout !");
-		board.put(tile, token);
+		var key = Environment.getKeyByValue(tokenTilesList, position);
+		key.put(tile, token);
+		tokenTilesList.put(key,position);
 	}
-	public void addToken(Token token){
-		lisTokens.add(token);
+	public LinkedHashMap<HashMap<Tile,Token>,Position> getEnvironment(){
+		return tokenTilesList;
 	}
-
-  public ArrayList<Token> getLisTokens(){
-		return lisTokens;
-	}
-	
-	public LinkedHashMap<Tile,Token> getEnvironment(){
-		return board;
+	public void setEnvironment(LinkedHashMap<HashMap<Tile,Token>,Position> data){
+		Objects.requireNonNull(data, "Erreur : données requises pour la mise à jour !");
+		tokenTilesList.putAll(data);
 	}
 
+	public ArrayList<Position> getPositions(){
+		ArrayList<Position> listPositions = new ArrayList<>();
+		for (var entry : tokenTilesList.entrySet()){
+			listPositions.add(entry.getValue());
+		}
+		return listPositions;
+
+	}
 	@Override
 	public String toString(){
-		return board.toString();
+		return tokenTilesList.toString();
 	}
 
 }

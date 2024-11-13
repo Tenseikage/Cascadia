@@ -1,13 +1,12 @@
 package game.display;
-import java.util.Objects;
-
 import game.material.Choice;
 import game.material.Environment;
 import game.material.Tile;
 import game.material.Token;
+import java.util.Objects;
 
 public class Display {
-	public void displayEnvPlayer(Environment environment){
+	/*public void displayEnvPlayer(Environment environment){
 		Objects.requireNonNull(environment, "Erreur : environnement inexistant");
 		var board = environment.getEnvironment();
 		var entry = board.entrySet().iterator().next();
@@ -20,7 +19,7 @@ public class Display {
 		System.out.println("---"); // Coin inférieur gauche, bord inférieur, coin inférieur droit
 	
 		
-	}
+	}*/
 	
 
 	public void displayTile(Choice choiceBoard){
@@ -79,6 +78,22 @@ public class Display {
     System.out.println(colorLine.toString());
     System.out.println(bottomBorder.toString());
   }
+
+	public void displayEnvPlayer(Environment env){
+		var envPlayer = env.getEnvironment();
+		for(var entry : envPlayer.entrySet()){
+			for(var entryTile : entry.getKey().entrySet()){
+				Tile tile = entryTile.getKey();
+				System.out.println("----------"); // Coin supérieur gauche, bord supérieur, coin supérieur droit
+				System.out.println("|  " +  tile.getPlace() + "  |");// Bord gauche, espace vide, bord droit
+				System.out.println("|" +  tile.getListAnimals() + "|"); 
+				System.out.println("| " +  entry.getValue().toString() + "  |");
+				System.out.println("----------"); // Coin inférieur gauche, bord inférieur, coin inférieur droit
+			}
+			
+		}
+
+	}
 	
 	public void displayRules() {
 		System.out.println("===== CASCADIA ======\n");
