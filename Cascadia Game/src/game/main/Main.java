@@ -1,5 +1,6 @@
 package game.main;
 import game.display.Display;
+import game.display.DisplayTools;
 import game.logic.Position;
 import game.material.Choice;
 import game.material.Environment;
@@ -40,6 +41,8 @@ public class Main {
 		var board = new Choice();
 		var tile = new Tile();
 		var array = tile.startTiles();
+		var grid1 = new DisplayTools();
+		grid1.initGrid();
 		var choice1 = tile.getStartiles();// Contient 3 tuiles sans les positions
 		var finalTiles1 = board.choseStartTile(choice1);
 		env1.setEnvironment(finalTiles1); // Ajout tuiles de départ à l'environnement
@@ -66,6 +69,7 @@ public class Main {
 				System.out.println("Haut/Bas/Gauche/Droite");
 				String answer = scanner.next();
 				chosenPos = chosenPos.updatePosition(answer);
+				System.out.println(chosenPos + ": position");
 				if(!chosenPos.isValid(maxX, maxY)){
 					System.err.println("Erreur : position impossible ! ");
 				} else {
@@ -82,7 +86,7 @@ public class Main {
 				//env1.addToken(choiceBoard.get(chosenTile));
 				System.out.println("Environnement joueur 1");
 				choiceBoard.remove(chosenTile);
-				display.displayEnvPlayer(env1);
+				display.displayEnvPlayer(env1,grid1);
 				//display.displayEnvPlayer(env1);
 	//			switch (choiceJ1) {
 	//				case 1 -> ;

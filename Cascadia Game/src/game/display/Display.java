@@ -1,4 +1,5 @@
 package game.display;
+import game.logic.Position;
 import game.material.Choice;
 import game.material.Environment;
 import game.material.Tile;
@@ -6,22 +7,6 @@ import game.material.Token;
 import java.util.Objects;
 
 public class Display {
-	/*public void displayEnvPlayer(Environment environment){
-		Objects.requireNonNull(environment, "Erreur : environnement inexistant");
-		var board = environment.getEnvironment();
-		var entry = board.entrySet().iterator().next();
-		Tile tile = entry.getKey();
-		Token token = entry.getValue();
-		System.out.println("---"); // Coin supérieur gauche, bord supérieur, coin supérieur droit
-		System.out.println("|" +  tile.getPlace() + "|");// Bord gauche, espace vide, bord droit
-		System.out.println("|" +  tile.getListAnimals() + "|"); 
-		System.out.println("|" +  token.espece() + "|");
-		System.out.println("---"); // Coin inférieur gauche, bord inférieur, coin inférieur droit
-	
-		
-	}*/
-	
-
 	public void displayTile(Choice choiceBoard){
 		//affichage de la tuile
 		Objects.requireNonNull(choiceBoard,"Erreur : choix de tuiles et jetons inexistant !");
@@ -79,22 +64,6 @@ public class Display {
     System.out.println(bottomBorder.toString());
   }
 
-	public void displayEnvPlayer(Environment env){
-		var envPlayer = env.getEnvironment();
-		for(var entry : envPlayer.entrySet()){
-			for(var entryTile : entry.getKey().entrySet()){
-				Tile tile = entryTile.getKey();
-				System.out.println("----------"); // Coin supérieur gauche, bord supérieur, coin supérieur droit
-				System.out.println("|  " +  tile.getPlace() + "  |");// Bord gauche, espace vide, bord droit
-				System.out.println("|" +  tile.getListAnimals() + "|"); 
-				System.out.println("| " +  entry.getValue().toString() + "  |");
-				System.out.println("----------"); // Coin inférieur gauche, bord inférieur, coin inférieur droit
-			}
-			
-		}
-
-	}
-	
 	public void displayRules() {
 		System.out.println("===== CASCADIA ======\n");
 		System.out.println("WELCOME TO THIS WONDERFUL GAME\n");
@@ -105,5 +74,42 @@ public class Display {
 		System.out.println("BE CAREFUL, YOU MUST CHOOSE ACCORDING TO THE TILES ALREADY IN YOUR POSSESSION");
 		System.out.println("THE GAME STOPS AFTER 20 ROUNDS HAVE BEEN PLAYED");
 		System.out.println("THEN THE PLAYER WITH THE BEST COMBINATION OF TILES AND TOKENS WILL WIN\n\n");
-	}
+ }
+ public void displayGridEnvPlayer(DisplayTools gridEnv){
+	var maxPos = gridEnv.getMaxDim();
+	var grid = gridEnv.getGrid();
+	for (int i = 0; i <= maxPos.getY(); i++) {
+		// Afficher chaque ligne de la grille
+		for (int line = 0; line < 5; line++) { // Chaque tuile a 5 lignes
+			for (int j = 0; j <= maxPos.getX(); j++) {
+				if(!grid[i][j].equals("          ")){
+						String[] tileLines = grid[i][j].split("\n");
+						System.out.print(tileLines[line] + " ");
+				}		
+			}
+			System.out.println();
+		}
+	}	
+
+ }
+
+ public void displayEnvPlayer(Environment env,DisplayTools grid){
+	Objects.requireNonNull(env, "Erreur : environnement inexistant");
+		var envPlayer = env.getEnvironment();
+		// Placer les tuiles dans la grille
+		for (var entry : envPlayer.entrySet()) {
+				for (var entryTile : entry.getKey().entrySet()) {
+					Tile tile = entryTile.getKey();
+					Position pos = entry.getValue();
+					StringBuilder tileRepresentation = new StringBuilder();
+					tileRepresentation.append("----------\n"); // Coin supérieur gauche, bord supérieur, coin supérieur droit
+					tileRepresentation.append("| ").append(tile.getPlace()).append("   |\n"); // Bord gauche, espace vide, bord droit
+					tileRepresentation.append("|").append(tile.getListAnimals()).append("|\n");
+					tileRepresentation.append("| ").append(entry.getValue().toString()).append("  |\n");
+					tileRepresentation.append("----------"); // Coin inférieur gauche, bord inférieur, coin inférieur droit
+					grid.addTileRepresent(pos.getY(), pos.getX(), tileRepresentation.toString());
+				}
+		}
+		displayGridEnvPlayer(grid);
+  }
 }

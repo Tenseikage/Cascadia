@@ -3,6 +3,12 @@ package game.logic;
 import java.util.Objects;
 
 public record Position(int posX,int posY) {
+	public int getX(){
+		return posX;
+	}
+	public int getY(){
+		return posY;
+	}
 	public Position updatePosition(String direction){
 		Objects.requireNonNull(direction,"Direction obligatoire");
 		return switch (direction) {
