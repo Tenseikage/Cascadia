@@ -126,6 +126,8 @@ public record Token(String espece, String color) {
     
 	}
 
+	
+
 	@Override
 	// Affichage du jeton
 	public String toString(){

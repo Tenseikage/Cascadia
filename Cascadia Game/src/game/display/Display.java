@@ -4,6 +4,8 @@ import game.material.Choice;
 import game.material.Environment;
 import game.material.Tile;
 import game.material.Token;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Display {
@@ -36,7 +38,7 @@ public class Display {
 			case "Ro" -> AnimalColor.PINK;
 			case "Bl" -> AnimalColor.BLUE;
 			case "Or" -> AnimalColor.ORANGE;
-			default -> throw new IllegalArgumentException("Erreur : Couleur invalide ou inconnue");
+			default -> AnimalColor.RESET;
 		};
 	}
 	
@@ -75,41 +77,56 @@ public class Display {
 		System.out.println("THE GAME STOPS AFTER 20 ROUNDS HAVE BEEN PLAYED");
 		System.out.println("THEN THE PLAYER WITH THE BEST COMBINATION OF TILES AND TOKENS WILL WIN\n\n");
  }
- public void displayGridEnvPlayer(DisplayTools gridEnv){
-	var maxPos = gridEnv.getMaxDim();
-	var grid = gridEnv.getGrid();
-	for (int i = 0; i <= maxPos.getY(); i++) {
-		// Afficher chaque ligne de la grille
-		for (int line = 0; line < 5; line++) { // Chaque tuile a 5 lignes
-			for (int j = 0; j <= maxPos.getX(); j++) {
-				if(!grid[i][j].equals("          ")){
-						String[] tileLines = grid[i][j].split("\n");
-						System.out.print(tileLines[line] + " ");
-				}		
+	public void displayGridEnvPlayer(DisplayTools gridEnv){
+		var maxPos = gridEnv.getMaxDim();
+		var grid = gridEnv.getGrid();
+		for (int i = 0; i <= maxPos.getY(); i++) {
+			// Afficher chaque ligne de la grille
+			for (int line = 0; line < 5; line++) { // Chaque tuile a 5 lignes
+				for (int j = 0; j <= maxPos.getX(); j++) {
+					if(!grid[i][j].equals("          ")){
+							String[] tileLines = grid[i][j].split("\n");
+							System.out.print(tileLines[line] + " ");
+					}		
+				}
+				System.out.println();
 			}
-			System.out.println();
-		}
-	}	
+		}	
+	}
 
- }
+	public boolean checkTokenEnv(Token token){
+		return token != null;
+	}
 
+ 	public StringBuilder displayTileEnv(Tile tile, Map.Entry<HashMap<Tile, Token>, Position> entry, AnimalColor color) {
+    StringBuilder tileRepresentation = new StringBuilder();
+    tileRepresentation.append(color.get()).append("----------\n").append(AnimalColor.RESET.get()); // Coin supérieur gauche, bord supérieur, coin supérieur droit
+    tileRepresentation.append(color.get()).append("| ").append(tile.getPlace()).append("   |\n").append(AnimalColor.RESET.get()); // Bord gauche, espace vide, bord droit
+    tileRepresentation.append(color.get()).append("|").append(tile.getListAnimals()).append("|\n").append(AnimalColor.RESET.get());
+    tileRepresentation.append(color.get()).append("| ").append(entry.getValue().toString()).append("  |\n").append(AnimalColor.RESET.get());
+    tileRepresentation.append(color.get()).append("----------").append(AnimalColor.RESET.get()); // Coin inférieur gauche, bord inférieur, coin inférieur droit
+    return tileRepresentation;
+  }
  public void displayEnvPlayer(Environment env,DisplayTools grid){
 	Objects.requireNonNull(env, "Erreur : environnement inexistant");
 		var envPlayer = env.getEnvironment();
+		AnimalColor animalColor;
 		// Placer les tuiles dans la grille
 		for (var entry : envPlayer.entrySet()) {
 				for (var entryTile : entry.getKey().entrySet()) {
 					Tile tile = entryTile.getKey();
+					Token token = entryTile.getValue();
+					if (checkTokenEnv(token)){
+						String color = token.color();
+						animalColor = setColor(color);
+					} else {
+						animalColor = setColor("");
+					}
 					Position pos = entry.getValue();
-					StringBuilder tileRepresentation = new StringBuilder();
-					tileRepresentation.append("----------\n"); // Coin supérieur gauche, bord supérieur, coin supérieur droit
-					tileRepresentation.append("| ").append(tile.getPlace()).append("   |\n"); // Bord gauche, espace vide, bord droit
-					tileRepresentation.append("|").append(tile.getListAnimals()).append("|\n");
-					tileRepresentation.append("| ").append(entry.getValue().toString()).append("  |\n");
-					tileRepresentation.append("----------"); // Coin inférieur gauche, bord inférieur, coin inférieur droit
+					StringBuilder tileRepresentation = displayTileEnv(tile, entry,animalColor);
 					grid.addTileRepresent(pos.getY(), pos.getX(), tileRepresentation.toString());
 				}
 		}
 		displayGridEnvPlayer(grid);
   }
-}
+} 

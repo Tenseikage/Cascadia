@@ -8,15 +8,29 @@ import java.util.Objects;
 //
 
 public class Environment{
-	LinkedHashMap<HashMap<Tile,Token>,Position> tokenTilesList = new LinkedHashMap<>();
-	public static <Key,Value> Key getKeyByValue(LinkedHashMap<Key, Value> map, Value value){
+	LinkedHashMap<HashMap<Tile,Token>,Position> tokenTilesList = new LinkedHashMap<>(); // Environnement du joueur
+	public static <Key,Value> Key linkGetKeyByValue(LinkedHashMap<Key, Value> map, Value value){
 		for (Map.Entry<Key, Value> entry : map.entrySet()) {
-			if (entry.getValue() == value){
+			System.out.println(entry.getValue());
+			if (entry.getValue().equals(value)){
 				return entry.getKey();
 			}
 		}
 		throw new IllegalAccessError("Valeur introuvable");
 	}
+
+	public static <Key,Value> Key hashGetKeyByValue(HashMap<Key, Value> map, Value value){
+		for (Map.Entry<Key, Value> entry : map.entrySet()) {
+			if (entry.getValue() == null){
+				return entry.getKey();
+			}
+			else if (entry.getValue().equals(value)){
+				return entry.getKey();
+			}
+		}
+		throw new IllegalAccessError("Valeur introuvable");
+	}
+
 
 	public void addTilePlayer(HashMap<Tile,Token> key,Position position){	
 			
@@ -24,15 +38,32 @@ public class Environment{
 		Objects.requireNonNull(key," Erreur :  tuile requise pour l'ajout !");
 		tokenTilesList.put(key, position);
 	}
+	public Boolean checkPutToken(Tile tile, Token token){
+		return tile.getListAnimals().get(0).equals(token.espece())
+    || tile.getListAnimals().get(1).equals(token.espece());
+	}
+
+	public void addTokenPlayer(Tile tile,Token token, Position position){
+		Objects.requireNonNull(token, "Erreur jeton nul !");
+		Objects.requireNonNull(tile," Erreur :  tuile requise pour l'ajout !");
+		if(checkPutToken(tile, token)){
+			var key = Environment.linkGetKeyByValue(tokenTilesList, position);
+			key.put(tile, token);
+			tokenTilesList.put(key,position);
+		} else {
+			System.out.println("Boo !!!!");
+		}
+
+	}
 	
-	public void addTokenPlayer(Tile tile,Token token,Position position){
+	/*public void addTokenPlayer(Tile tile,Token token,Position position){
 		// Ajout du jeton par le joueur
 		Objects.requireNonNull(token, "Erreur jeton nul !");
 		Objects.requireNonNull(tile," Erreur :  tuile requise pour l'ajout !");
 		var key = Environment.getKeyByValue(tokenTilesList, position);
 		key.put(tile, token);
 		tokenTilesList.put(key,position);
-	}
+	}*/
 	public LinkedHashMap<HashMap<Tile,Token>,Position> getEnvironment(){
 		return tokenTilesList;
 	}

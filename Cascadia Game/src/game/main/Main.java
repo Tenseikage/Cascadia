@@ -35,8 +35,8 @@ public class Main {
 		int maxX = 1000;
 		var display = new Display();
 		display.displayRules();
-		var tiles = Tile.ExploitCsv();
-		var tokens = Token.tokenList();
+		var tiles = Tile.ExploitCsv(); // Liste de tuiles
+		var tokens = Token.tokenList(); // Liste de jetons
 		var env1 = new Environment();
 		var board = new Choice();
 		var tile = new Tile();
@@ -61,7 +61,10 @@ public class Main {
 				System.out.println("WHICH PAIR YOU CHOOSE (1 - 2 - 3 - 4) ? : ");
 				int choiceJ1 = scanner.nextInt();
 				System.out.println("Vous avez choisi : \n"+choiceJ1);
-				var chosenTile = getKeyByIndex(choiceBoard, choiceJ1 - 1);
+				var chosenTile = getKeyByIndex(choiceBoard, choiceJ1 - 1); // Tuile choisie
+				var chosenToken = choiceBoard.get(chosenTile);// Jeton choisi
+				HashMap<Tile,Token> tilesTokens1 = new HashMap<>(); // Map pour l'ajout des tuiles (Sans jetons)
+
 				System.out.println("Choisissez la position où la tuile sera adjacente");
 				String answerPos = scanner.next();
 				var chosenPos = Position.fromString(answerPos);
@@ -73,21 +76,28 @@ public class Main {
 				if(!chosenPos.isValid(maxX, maxY)){
 					System.err.println("Erreur : position impossible ! ");
 				} else {
-					HashMap<Tile,Token> tilesTokens = new HashMap<>();
-					tilesTokens.put(chosenTile,null);
-					env1.addTilePlayer(tilesTokens, chosenPos);
+					//System.out.println("bawls \n");
+					tilesTokens1.put(chosenTile,null);
+					env1.addTilePlayer(tilesTokens1, chosenPos);
 				}
-				//System.out.println(answer.equals("Haut"));
-				//position.updatePosition(answer);
-
-
-
-				//env1.addTilePlayer(chosenTile);
-				//env1.addToken(choiceBoard.get(chosenTile));
+				//Vérifier que la position est danns l'environnement
 				System.out.println("Environnement joueur 1");
 				choiceBoard.remove(chosenTile);
 				display.displayEnvPlayer(env1,grid1);
-				//display.displayEnvPlayer(env1);
+				System.out.println("Choisissez la position où poser votre jeton");
+				answerPos = scanner.next();
+				chosenPos = Position.fromString(answerPos); // Choix de la position pour poser la tuile
+				var maptilePos = Environment.linkGetKeyByValue(env1.getEnvironment(), chosenPos);
+				System.out.println(maptilePos);
+				var tilePos = Environment.hashGetKeyByValue(maptilePos, null);
+				env1.addTokenPlayer(tilePos, chosenToken, chosenPos); // Ajout du jeton sur une tuile
+				display.displayEnvPlayer(env1,grid1);
+
+
+
+
+
+				
 	//			switch (choiceJ1) {
 	//				case 1 -> ;
 	//				case 2 -> ;
