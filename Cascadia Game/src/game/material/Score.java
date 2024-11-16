@@ -29,7 +29,7 @@ public class Score {
 //		
 //	}
 	
-	public int calcul(Environment environement) {
+	public int calculModeFamille(Environment environement) {
 		int scount = 0;
 		Set<String> especeTraitee = new HashSet<String>();
 		
