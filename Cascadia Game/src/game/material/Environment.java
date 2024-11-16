@@ -11,7 +11,6 @@ public class Environment{
 	LinkedHashMap<HashMap<Tile,Token>,Position> tokenTilesList = new LinkedHashMap<>(); // Environnement du joueur
 	public static <Key,Value> Key linkGetKeyByValue(LinkedHashMap<Key, Value> map, Value value){
 		for (Map.Entry<Key, Value> entry : map.entrySet()) {
-			System.out.println(entry.getValue());
 			if (entry.getValue().equals(value)){
 				return entry.getKey();
 			}

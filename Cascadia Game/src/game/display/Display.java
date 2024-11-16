@@ -17,17 +17,20 @@ public class Display {
     StringBuilder placeLine = new StringBuilder();
     StringBuilder animalLine = new StringBuilder();
     StringBuilder bottomBorder = new StringBuilder();
+		StringBuilder blankLine = new StringBuilder();
 		var separator = "  ";
 		for (var entry : tilesToken.entrySet()){
 			Tile tile = entry.getKey();
 			topBorder.append("----------").append(separator); // Coin supérieur gauche, bord supérieur, coin supérieur droit
-			placeLine.append("|  ").append(tile.getPlace()).append("  |").append(separator);// Bord gauche, espace vide, bord droit
+			placeLine.append("|   ").append(tile.getPlace()).append("   |").append(separator);// Bord gauche, espace vide, bord droit
 			animalLine.append("|").append(tile.getListAnimals()).append("|").append(separator); 
+			blankLine.append("|   ").append("  ").append("   |").append(separator);
 			bottomBorder.append("----------").append(separator); // Coin inférieur gauche, bord inférieur, coin inférieur droit
 		}
 		System.out.println(topBorder);
     System.out.println(placeLine);
     System.out.println(animalLine);
+		System.out.println(blankLine);
     System.out.println(bottomBorder);
 		
 	}
@@ -102,13 +105,13 @@ public class Display {
     StringBuilder tileRepresentation = new StringBuilder();
 		if (token == null){
 			tileRepresentation.append(color.get()).append("----------\n").append(AnimalColor.RESET.get()); // Coin supérieur gauche, bord supérieur, coin supérieur droit
-			tileRepresentation.append(color.get()).append("| ").append(tile.getPlace()).append("   |\n").append(AnimalColor.RESET.get()); // Bord gauche, espace vide, bord droit
+			tileRepresentation.append(color.get()).append("|   ").append(tile.getPlace()).append("   |\n").append(AnimalColor.RESET.get()); // Bord gauche, espace vide, bord droit
 			tileRepresentation.append(color.get()).append("|").append(tile.getListAnimals()).append("|\n").append(AnimalColor.RESET.get());
 			tileRepresentation.append(color.get()).append("| ").append(entry.getValue().toString()).append("  |\n").append(AnimalColor.RESET.get());
 			tileRepresentation.append(color.get()).append("----------").append(AnimalColor.RESET.get()); // Coin inférieur gauche, bord inférieur, coin inférieur droit
 		} else{
 			tileRepresentation.append(color.get()).append("----------\n").append(AnimalColor.RESET.get()); // Coin supérieur gauche, bord supérieur, coin supérieur droit
-			tileRepresentation.append(color.get()).append("| ").append(tile.getPlace()).append("   |\n").append(AnimalColor.RESET.get()); // Bord gauche, espace vide, bord droit
+			tileRepresentation.append(color.get()).append("|   ").append(tile.getPlace()).append("   |\n").append(AnimalColor.RESET.get()); // Bord gauche, espace vide, bord droit
 			tileRepresentation.append(color.get()).append("|  ").append(token.espece()).append("    |\n").append(AnimalColor.RESET.get());
 			tileRepresentation.append(color.get()).append("| ").append(entry.getValue().toString()).append("  |\n").append(AnimalColor.RESET.get());
 			tileRepresentation.append(color.get()).append("----------").append(AnimalColor.RESET.get()); // Coin inférieur gauche, bord inférieur, coin inférieur droit
