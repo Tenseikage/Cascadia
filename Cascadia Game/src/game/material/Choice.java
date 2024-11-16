@@ -55,7 +55,6 @@ public class Choice {
 		chosenTokens = Token.chooseTokens(tokens,chosenTokens);
 		if(!Token.checkOvercrowding(chosenTokens)){
 			addTokensTiles(tiles, chosenTokens);
-			System.out.println("Pas surpopulation");
 		} else {
 				var discardedTokens = Token.discardTokens(chosenTokens);
 				Token.chooseTokens(tokens, chosenTokens); 

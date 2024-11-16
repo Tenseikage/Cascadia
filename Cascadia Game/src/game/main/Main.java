@@ -1,16 +1,19 @@
 package game.main;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Scanner;
+import java.util.Set;
+
 import game.display.Display;
 import game.display.DisplayTools;
 import game.logic.Position;
 import game.material.Choice;
 import game.material.Environment;
+import game.material.Score;
 import game.material.Tile;
 import game.material.Token;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Scanner;
 
 
 public class Main {
@@ -19,7 +22,7 @@ public class Main {
 			throw new IndexOutOfBoundsException("Index out of bounds: " + index);
 		}
 		int position = 0;
-		for (Map.Entry<Key, Value> entry : map.entrySet()) {
+		for (var entry : map.entrySet()) {
 			if (position == index){
 				return entry.getKey();
 			}
@@ -53,6 +56,20 @@ public class Main {
 			while (numberTurns < 20) {
 				//RECAP : a chaque tour il faut afficher 1 le choix, le board du jour 1, géréer les entrées du j1, faire la meme pour le joueur 2;
 				numberTurns++;
+				
+				System.out.println("SELECTIONNER LE MODE :\n\t(1) -> MODE FAMILIALE\n\t(2) -> MODE INTERMEDIAIRE\n");
+				int mode = scanner.nextInt();
+				if (mode == 1) {
+					System.out.println("MODE FAMILIALE \nMarquez des points pour chaque groupe d’animaux de la même espèce, en fonction de sa taille. La forme du groupe n'importe pas. \nEntrez ok pour commencer.");
+					scanner.next();
+				} else if (mode == 2) {
+					System.out.println("MODE INTERMEDIAIRE \nLa variante intermédiaire se joue de la même manière que la variante familiale, mais en utilisant la carte Décompte de la faune spécifique à la variante intermédiaire. \nEntrez ok pour commencer.");
+					scanner.next();
+				} else {
+					System.out.println("ERREUR SUR LA SELECTION -> MODE FAMILIALE PAR DEFAULT.");
+					mode = 1;
+				}
+				
 				//tour joueur 1;
 				System.out.println("PLAYER 1\n");
 				display.displayTile(board); 
@@ -126,7 +143,8 @@ public class Main {
 	      System.out.println(board.uncompleteTokenList());
 	      board.updateChoiceBoard(tiles, tokens, board.uncompleteTokenList());
 			}
-			
+			Score score = new Score();
+			System.out.println("Le score du J1 est : "+score.calcul(env1));
 		}	
   }
 

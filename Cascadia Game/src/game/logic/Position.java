@@ -1,5 +1,7 @@
 package game.logic;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public record Position(int posX,int posY) {
@@ -32,7 +34,16 @@ public record Position(int posX,int posY) {
 		int x = Integer.parseInt(parts[0].trim());
 		int y = Integer.parseInt(parts[1].trim());
 		return new Position(x, y);
-  }    
+  }  
+	
+	public List<Position> voisin() {
+		List<Position> list = new ArrayList<Position>();
+		list.add(new Position(posX-1,posY));
+		list.add(new Position(posX+1,posY));
+		list.add(new Position(posX,posY-1));
+		list.add(new Position(posX,posY+1));
+		return list;
+	}
 
 	@Override
 	public String toString(){

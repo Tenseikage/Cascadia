@@ -1,11 +1,13 @@
 package game.material;
-import game.logic.Position;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 //
+import java.util.Set;
+
+import game.logic.Position;
 
 public class Environment{
 	LinkedHashMap<HashMap<Tile,Token>,Position> tokenTilesList = new LinkedHashMap<>(); // Environnement du joueur
@@ -79,6 +81,17 @@ public class Environment{
 		return listPositions;
 
 	}
+	
+	public ArrayList<Position> getValidVoisin(Position p) {
+		ArrayList<Position> list = new ArrayList<Position>();
+		for (Position voisin: p.voisin()) {
+			if (tokenTilesList.containsValue(voisin)) {
+				list.add(voisin);
+			}
+		}
+		return list;
+	}
+	
 	@Override
 	public String toString(){
 		return tokenTilesList.toString();
