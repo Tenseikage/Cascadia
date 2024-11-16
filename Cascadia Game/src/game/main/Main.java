@@ -88,7 +88,6 @@ public class Main {
 				answerPos = scanner.next();
 				chosenPos = Position.fromString(answerPos); // Choix de la position pour poser la tuile
 				var maptilePos = Environment.linkGetKeyByValue(env1.getEnvironment(), chosenPos);
-				System.out.println(maptilePos);
 				var tilePos = Environment.hashGetKeyByValue(maptilePos, null);
 				env1.addTokenPlayer(tilePos, chosenToken, chosenPos); // Ajout du jeton sur une tuile
 				display.displayEnvPlayer(env1,grid1);
