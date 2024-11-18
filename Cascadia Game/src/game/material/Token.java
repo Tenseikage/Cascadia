@@ -123,15 +123,17 @@ public record Token(String espece, String color) {
         case 4 -> true;
         default -> false;
     }; 
-    
 	}
-
-	
 
 	@Override
 	// Affichage du jeton
 	public String toString(){
 		return "[" + espece.substring(0, 2) + "," + color.substring(0,2) + "]";
+	}
+
+	public static ArrayList<Token> returnToken(Token token, ArrayList<Token> tokens){
+		tokens.add(token);
+		return tokens;
 	}
 
 
