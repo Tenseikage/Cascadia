@@ -40,7 +40,7 @@ public class Choice {
 			choiceBoard.put(tiles.remove(indexTile), chosenTokens.get(3 - i));
 		}
 	}
-	public ArrayList<Token> uncompleteTokenList(){
+	public ArrayList<Token> completeTokenList(){
 		ArrayList<Token> chosenTokens = new ArrayList<>();
 		for(var entry : choiceBoard.entrySet()){
 			chosenTokens.add(entry.getValue());
@@ -56,8 +56,10 @@ public class Choice {
 		if(!Token.checkOvercrowding(chosenTokens)){
 			addTokensTiles(tiles, chosenTokens);
 		} else {
+			  System.out.println("Surpopulation : choix de nouveaux jetons");
 				var discardedTokens = Token.discardTokens(chosenTokens);
 				Token.chooseTokens(tokens, chosenTokens); 
+				addTokensTiles(tiles, chosenTokens); // Ajouts des nouveaux jetons
 				tokens.addAll(discardedTokens);
 		}		
 	}

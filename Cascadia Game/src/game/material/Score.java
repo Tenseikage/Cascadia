@@ -1,10 +1,9 @@
 package game.material;
 
+import game.logic.Position;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-
-import game.logic.Position;
 
 public class Score {
 //	public static int calcul(Map<Map<Tile,Token> ,Position> environement) {
@@ -31,7 +30,7 @@ public class Score {
 	
 	public int calculModeFamille(Environment environement) {
 		int scount = 0;
-		Set<String> especeTraitee = new HashSet<String>();
+		Set<String> especeTraitee = new HashSet<>();
 		
 		for (Position pos: environement.getPositions()) {
 			for (var entry: environement.getEnvironment().entrySet()) {
@@ -41,6 +40,8 @@ public class Score {
 						int taille = tailleGroup(environement, pos, token.espece(), new HashSet<>());
 						scount+= calculPoints(taille);
 						especeTraitee.add(token.espece());
+					} else{
+						scount += 0;
 					}
 				}
 			}

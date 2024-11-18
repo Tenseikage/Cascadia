@@ -12,10 +12,8 @@ public class Tile {
   private String places = new String();
   private final ArrayList<String> listAnimals = new ArrayList<>();
 	private final ArrayList<HashMap<Tile,Token>> starTiles = new ArrayList<>();
-	
 
-  
-  public Tile addAnimals(String... animals) {
+	public Tile addAnimals(String... animals) {
     this.listAnimals.addAll(Arrays.asList(animals));
     return this;
   }
@@ -94,10 +92,6 @@ public class Tile {
 		return chosenTokenTile;
 	}
 
-	/*public LinkedHashMap<HashMap<Tile,Token>, Position> starTiles(){
-		var tilesTokens1 = new HashMap<>();
-		tilesTokens.put(new Tile, this)
-	}*/
 	public static ArrayList<Tile> ExploitCsv() throws IOException {
 		// Création des tuiles du jeu
 		ArrayList<Tile> tiles = new ArrayList<>();
@@ -123,6 +117,13 @@ public class Tile {
 	public static void shuffTiles(ArrayList<Tile> tiles){
 		// Mélange des tuiles pour la distribution au hasard
 		Collections.shuffle(tiles);
+	}
+	@Override
+	public String toString() {
+		return "Tile{" +
+				"place='" + places + '\'' +
+				", animals=" + listAnimals +
+				'}';
 	}
 		
 }

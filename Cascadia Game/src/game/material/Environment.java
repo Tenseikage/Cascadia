@@ -11,7 +11,7 @@ import game.logic.Position;
 
 public class Environment{
 	LinkedHashMap<HashMap<Tile,Token>,Position> tokenTilesList = new LinkedHashMap<>(); // Environnement du joueur
-	public static <Key,Value> Key linkGetKeyByValue(LinkedHashMap<Key, Value> map, Value value){
+	public static <Key,Value> Key getKeyByValue(LinkedHashMap<Key, Value> map, Value value){
 		for (Map.Entry<Key, Value> entry : map.entrySet()) {
 			if (entry.getValue().equals(value)){
 				return entry.getKey();
@@ -20,7 +20,7 @@ public class Environment{
 		throw new IllegalAccessError("Valeur introuvable");
 	}
 
-	public static <Key,Value> Key hashGetKeyByValue(HashMap<Key, Value> map, Value value){
+	public static <Key,Value> Key getKeyByValue(HashMap<Key, Value> map, Value value){
 		for (Map.Entry<Key, Value> entry : map.entrySet()) {
 			if (entry.getValue() == null){
 				return entry.getKey();
@@ -40,19 +40,28 @@ public class Environment{
 		tokenTilesList.put(key, position);
 	}
 	public Boolean checkPutToken(Tile tile, Token token){
+		System.out.println(tile.getListAnimals().get(0) + " animal tile");
+		System.out.println(token.espece() + " animal token");
+		System.out.println("\n");
+		System.out.println(tile.getListAnimals().get(0).equals(token.espece()) + "blak");
+		System.out.println(tile.getListAnimals().get(1) + " animal tile");
+		System.out.println(token.espece() + " animal token");
+		//System.out.println(tile.getListAnimals().get(1).equals(token.espece() + "white"));
 		return tile.getListAnimals().get(0).equals(token.espece())
     || tile.getListAnimals().get(1).equals(token.espece());
 	}
 
-	public void addTokenPlayer(Tile tile,Token token, Position position){
+	public boolean addTokenPlayer(Tile tile,Token token, Position position){
 		Objects.requireNonNull(token, "Erreur jeton nul !");
 		Objects.requireNonNull(tile," Erreur :  tuile requise pour l'ajout !");
 		if(checkPutToken(tile, token)){
-			var key = Environment.linkGetKeyByValue(tokenTilesList, position);
+			var key = Environment.getKeyByValue(tokenTilesList, position);
 			key.put(tile, token);
 			tokenTilesList.put(key,position);
+			return true;
 		} else {
-			System.out.println("Boo !!!!");
+			System.out.println("Erreur : Placement du jeton impossible");
+			return false;
 		}
 
 	}

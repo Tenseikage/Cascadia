@@ -25,6 +25,10 @@ public record Position(int posX,int posY) {
 		return posX >= 0 && posX < maxX && posY >= 0 && posY < maxY;
 	}
 
+	public static Position setMaxPos(){
+		return new Position(25, 25); // Dimension maximale de la grille
+	}
+
 	public static Position fromString(String positionStr) {
 		if (positionStr == null || !positionStr.matches("\\(\\d+,\\d+\\)")) {
 				throw new IllegalArgumentException("Erreur : Position invalide ou inconnue");
@@ -37,7 +41,7 @@ public record Position(int posX,int posY) {
   }  
 	
 	public List<Position> voisin() {
-		List<Position> list = new ArrayList<Position>();
+		List<Position> list = new ArrayList<>();
 		list.add(new Position(posX-1,posY));
 		list.add(new Position(posX+1,posY));
 		list.add(new Position(posX,posY-1));

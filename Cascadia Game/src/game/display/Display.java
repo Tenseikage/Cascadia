@@ -7,6 +7,7 @@ import game.material.Token;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Display {
 	public void displayTile(Choice choiceBoard){
@@ -35,6 +36,7 @@ public class Display {
 		
 	}
 	public AnimalColor setColor(String color){
+		// Ajout de la couleur à la tuile ou jeton
 		return switch (color) {
 			case "Ma" -> AnimalColor.BROWN;
 			case "Ta" -> AnimalColor.TAUPE;
@@ -46,6 +48,7 @@ public class Display {
 	}
 	
 	public void displayToken(Choice choiceBoard) throws IllegalArgumentException {
+		// Affichage du jeton de choix
     Objects.requireNonNull(choiceBoard, "Erreur : choix de tuiles et jetons inexistant !");
     var tilesToken = choiceBoard.getChoiceBoard();
     StringBuilder topBorder = new StringBuilder();
@@ -70,6 +73,7 @@ public class Display {
   }
 
 	public void displayRules() {
+		// Affichage des règles
 		System.out.println("===== CASCADIA ======\n");
 		System.out.println("WELCOME TO THIS WONDERFUL GAME\n");
 		System.out.println("HERE ARE SOME RULES :\n");
@@ -81,6 +85,7 @@ public class Display {
 		System.out.println("THEN THE PLAYER WITH THE BEST COMBINATION OF TILES AND TOKENS WILL WIN\n\n");
  }
 	public void displayGridEnvPlayer(DisplayTools gridEnv){
+		// Affichage de la grille contenant l'environnement du joueur
 		var maxPos = gridEnv.getMaxDim();
 		var grid = gridEnv.getGrid();
 		for (int i = 0; i <= maxPos.getY(); i++) {
@@ -124,9 +129,9 @@ public class Display {
 		AnimalColor animalColor;
 		// Placer les tuiles dans la grille
 		for (var entry : envPlayer.entrySet()) {
-				for (var entryTile : entry.getKey().entrySet()) {
-					Tile tile = entryTile.getKey();
-					Token token = entryTile.getValue();
+			for (var entryTile : entry.getKey().entrySet()) {
+				Tile tile = entryTile.getKey();
+				Token token = entryTile.getValue();
 					if (checkTokenEnv(token)){
 						String color = token.color();
 						animalColor = setColor(color);
@@ -140,4 +145,32 @@ public class Display {
 		}
 		displayGridEnvPlayer(grid);
   }
+
+	public int displayChoiceMod(Scanner scanner){
+		System.out.println("SELECTIONNER LE MODE :\n\t(1) -> MODE FAMILIALE\n\t(2) -> MODE INTERMEDIAIRE\n");
+		int mode = scanner.nextInt();
+    switch (mode) {
+    	case 1 -> {
+        System.out.println("MODE FAMILIALE \nMarquez des points pour chaque groupe d’animaux de la même espèce, en fonction de sa taille. La forme du groupe n'importe pas. \nEntrez ok pour commencer.");
+        scanner.next();
+      }
+      case 2 -> {
+        System.out.println("MODE INTERMEDIAIRE \nLa variante intermédiaire se joue de la même manière que la variante familiale, mais en utilisant la carte Décompte de la faune spécifique à la variante intermédiaire. \nEntrez ok pour commencer.");
+        scanner.next();
+      }
+      default -> {
+        System.out.println("ERREUR SUR LA SELECTION -> MODE FAMILIALE PAR DEFAULT.");
+        mode = 1;
+      }
+    }
+		return mode;
+	}
+
+	public void displayAll(Choice board){
+		displayTile(board); 
+		displayToken(board);
+	}
+
+
+
 } 
