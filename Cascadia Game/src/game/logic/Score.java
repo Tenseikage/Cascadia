@@ -1,9 +1,12 @@
-package game.material;
+package game.logic;
 
-import game.logic.Position;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+
+import game.material.Environment;
+import game.material.Tile;
+import game.material.Token;
 
 public class Score {
 //	public static int calcul(Map<Map<Tile,Token> ,Position> environement) {

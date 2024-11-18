@@ -1,10 +1,11 @@
-package game.material;
-import game.logic.Position;
+package game.logic;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 import java.util.Random;
+import game.material.Tile;
+import game.material.Token;
 
 //Modifier les methodes en réimplémentant les fonctions
 public class Choice {

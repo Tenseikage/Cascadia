@@ -1,10 +1,10 @@
 package game.main;
 import game.display.Display;
 import game.display.DisplayTools;
+import game.logic.Choice;
 import game.logic.GameLogic;
-import game.material.Choice;
+import game.logic.Score;
 import game.material.Environment;
-import game.material.Score;
 import game.material.Tile;
 import game.material.Token;
 import game.player.Player;
