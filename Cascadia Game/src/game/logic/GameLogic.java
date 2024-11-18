@@ -1,7 +1,6 @@
 package game.logic;
 import game.display.Display;
 import game.display.DisplayTools;
-import game.material.Choice;
 import game.material.Environment;
 import game.material.Tile;
 import game.material.Token;
