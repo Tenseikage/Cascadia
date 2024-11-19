@@ -44,12 +44,12 @@ public class GameLogic {
 	public int getPlayerChoice(Scanner scanner, Choice board){
 		if(board.getChoiceBoard().size() == 4){
 			System.out.println("  ( 01 )      ( 02 )      ( 03 )      ( 04 )\n");
-      System.out.println("WHICH PAIR YOU CHOOSE (1 - 2 - 3 - 4) ? : ");
+            System.out.println("WHICH PAIR YOU CHOOSE (1 - 2 - 3 - 4) ? : ");
 		}else if (board.getChoiceBoard().size() == 3) {
 			System.out.println("  ( 01 )      ( 02 )      ( 03 )\n");
 			System.out.println("WHICH PAIR YOU CHOOSE (1 - 2 - 3) ? : ");
 		}
-    int choice = scanner.nextInt();
+        int choice = scanner.nextInt();
 		System.out.println("Vous avez choisi : \n"+choice);
 		return choice;
 	}
