@@ -4,6 +4,7 @@ import game.logic.Position;
 import game.material.Environment;
 import game.material.Tile;
 import game.material.Token;
+import game.player.Player;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -88,18 +89,24 @@ public class Display {
 		// Affichage de la grille contenant l'environnement du joueur
 		var maxPos = gridEnv.getMaxDim();
 		var grid = gridEnv.getGrid();
+		int presentTile = gridEnv.lengthGrid() * 5;
+		int dataTiles = 0;
 		for (int i = 0; i <= maxPos.getY(); i++) {
 			// Afficher chaque ligne de la grille
 			for (int line = 0; line < 5; line++) { // Chaque tuile a 5 lignes
 				for (int j = 0; j <= maxPos.getX(); j++) {
-					if(!grid[i][j].equals("          ")){
+					if(!grid[i][j].equals("")){
+							//System.out.println(grid[i][j]);
+							dataTiles++;
 							String[] tileLines = grid[i][j].split("\n");
 							System.out.print(tileLines[line] + " ");
 					}		
 				}
-				System.out.println();
+				if (dataTiles < presentTile)
+					System.out.println();
 			}
 		}	
+		System.out.println("\n");
 	}
 
 	public boolean checkTokenEnv(Token token){
@@ -123,8 +130,10 @@ public class Display {
 		}
     return tileRepresentation;
   }
- public void displayEnvPlayer(Environment env,DisplayTools grid){
-	Objects.requireNonNull(env, "Erreur : environnement inexistant");
+
+ public void displayEnvPlayer(Environment env,DisplayTools grid, Player player){
+		Objects.requireNonNull(env, "Erreur : environnement inexistant");
+	  System.out.println("Environnement de " + player.name());
 		var envPlayer = env.getEnvironment();
 		AnimalColor animalColor;
 		// Placer les tuiles dans la grille

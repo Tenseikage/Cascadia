@@ -1,11 +1,10 @@
 package game.material;
+import game.logic.Position;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import game.logic.Position;
 
 public class Environment{
 	LinkedHashMap<HashMap<Tile,Token>,Position> tokenTilesList = new LinkedHashMap<>(); // Environnement du joueur
@@ -38,13 +37,6 @@ public class Environment{
 		tokenTilesList.put(key, position);
 	}
 	public Boolean checkPutToken(Tile tile, Token token){
-		System.out.println(tile.getListAnimals().get(0) + " animal tile");
-		System.out.println(token.espece() + " animal token");
-		System.out.println("\n");
-		System.out.println(tile.getListAnimals().get(0).equals(token.espece()) + "blak");
-		System.out.println(tile.getListAnimals().get(1) + " animal tile");
-		System.out.println(token.espece() + " animal token");
-		//System.out.println(tile.getListAnimals().get(1).equals(token.espece() + "white"));
 		return tile.getListAnimals().get(0).equals(token.espece())
     || tile.getListAnimals().get(1).equals(token.espece());
 	}
@@ -64,14 +56,6 @@ public class Environment{
 
 	}
 	
-	/*public void addTokenPlayer(Tile tile,Token token,Position position){
-		// Ajout du jeton par le joueur
-		Objects.requireNonNull(token, "Erreur jeton nul !");
-		Objects.requireNonNull(tile," Erreur :  tuile requise pour l'ajout !");
-		var key = Environment.getKeyByValue(tokenTilesList, position);
-		key.put(tile, token);
-		tokenTilesList.put(key,position);
-	}*/
 	public LinkedHashMap<HashMap<Tile,Token>,Position> getEnvironment(){
 		return tokenTilesList;
 	}
@@ -89,8 +73,13 @@ public class Environment{
 
 	}
 	
+
+	public static boolean validPos(ArrayList<Position> positions, Position position){
+		return positions.contains(position);
+	}
+	
 	public ArrayList<Position> getValidVoisin(Position p) {
-		ArrayList<Position> list = new ArrayList<Position>();
+		ArrayList<Position> list = new ArrayList<>();
 		for (Position voisin: p.voisin()) {
 			if (tokenTilesList.containsValue(voisin)) {
 				list.add(voisin);

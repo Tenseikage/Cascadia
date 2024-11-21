@@ -15,7 +15,7 @@ public class DisplayTools {
 	public void initGrid(){
 		for (int i = 0; i <= maxY; i++) {
 			for (int j = 0; j <= maxX; j++) {
-				gridEnv[i][j] = "          "; // Espace vide pour les tuiles non placées
+				gridEnv[i][j] = ""; // Espace vide pour les tuiles non placées
 			}
 	  }
 	}
@@ -31,6 +31,16 @@ public class DisplayTools {
 		return new Position(maxX,maxY);
 	}
 
-
+	public int lengthGrid(){
+		int length = 0;
+		for(int i = 0; i < maxX; i++){
+			for(int j = 0; j < maxY; j++){
+				if(!gridEnv[i][j].equals("")){
+					length++;
+				}
+			}
+		}
+		return length;
+	}
 
 }

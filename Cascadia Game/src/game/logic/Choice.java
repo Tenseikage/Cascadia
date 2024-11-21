@@ -1,17 +1,19 @@
 package game.logic;
+import game.material.Tile;
+import game.material.Token;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 import java.util.Random;
-import game.material.Tile;
-import game.material.Token;
+import java.util.Scanner;
 
 //Modifier les methodes en réimplémentant les fonctions
 public class Choice {
 	//Choix contenant les tuiles et jetons
 	private final LinkedHashMap<Tile,Token> choiceBoard = new LinkedHashMap<>();
-	private final LinkedHashMap<HashMap<Tile,Token>,Position> startTiles = new LinkedHashMap<>();	
+	private final LinkedHashMap<HashMap<Tile,Token>,Position> startTiles = new LinkedHashMap<>();
+		
 	public void addTokensTiles(ArrayList<Tile> tiles,ArrayList<Token> chosenTokens){
 		for(int i = 0; i < 4; i++){
 			Random random = new Random();
@@ -54,7 +56,7 @@ public class Choice {
 		Objects.requireNonNull(tiles, "Erreur liste de tuiles nulle !");
 		Objects.requireNonNull(tokens, "Erreur : liste de tokens nulle !"); 
 		chosenTokens = Token.chooseTokens(tokens,chosenTokens);
-		if(!Token.checkOvercrowding(chosenTokens)){
+		if(!Token.checkOvercrowding(chosenTokens, null)){
 			addTokensTiles(tiles, chosenTokens);
 		} else {
 			  System.out.println("Surpopulation : choix de nouveaux jetons");
@@ -65,10 +67,10 @@ public class Choice {
 		}		
 	}
 
-	public void updateChoiceBoard(ArrayList<Tile> tiles, ArrayList<Token> tokens,ArrayList<Token> chosenTokens){
+	public void updateChoiceBoard(ArrayList<Tile> tiles, ArrayList<Token> tokens,ArrayList<Token> chosenTokens, Scanner scanner){
 		int size = 4 - chosenTokens.size();
 		Token.completeTokenList(tokens, chosenTokens, size);
-		if(!Token.checkOvercrowding(chosenTokens)){
+		if(!Token.checkOvercrowding(chosenTokens,scanner)){
 			updateTokenTiles(tiles, chosenTokens);
 		} else {
 				var discardedTokens = Token.discardTokens(chosenTokens);

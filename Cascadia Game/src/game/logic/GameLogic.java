@@ -56,10 +56,17 @@ public class GameLogic {
 	
 
 	//Choix de la position du joueur
-	public Position getPosition(Scanner scanner){
+	public Position getPosition(Environment env,Scanner scanner){
 		System.out.println("Choisissez la position où poser votre tuile (format: (x,y))");
 		String answerPos = scanner.next();
-		return Position.fromString(answerPos);
+		var pos = Position.fromString(answerPos);
+		var positions = env.getPositions();
+		var bool = Environment.validPos(positions, pos);
+		if(!bool){
+			throw new IllegalAccessError("Position not in environnement");
+		} else{
+			return pos;
+		}
 	}
 
 	public Position geTokenPosition(Scanner scanner){
@@ -137,29 +144,16 @@ public class GameLogic {
 		var choiceBoard = board.getChoiceBoard();
 		var maPlayer = finalChoiceTile(choice - 1, choiceBoard);
 		var chosenToken = geTokenPlayer(board, getKeyByIndex(choiceBoard, choice - 1));
-		var posPlayer = getPosition(scanner);
+		var posPlayer = getPosition(env,scanner);
 		env = getDirection(scanner, posPlayer, getKeyByIndex(choiceBoard, choice - 1), maPlayer, env);
-		display.displayEnvPlayer(env,grid);
+		display.displayEnvPlayer(env,grid,player);
 		var bool = puTokenToEnv(board, scanner, display, grid, env, getKeyByIndex(choiceBoard, choice - 1)
 		, chosenToken, player,tokens);
 		if (bool) {
-			display.displayEnvPlayer(env,grid); // Affichage environnement
+			display.displayEnvPlayer(env,grid,player); // Affichage environnement
 		}
-		display.displayEnvPlayer(env,grid);
+		display.displayEnvPlayer(env,grid,player);
 		choiceBoard.remove(getKeyByIndex(choiceBoard, choice - 1));
-
-
-
-
-
-
-
-
-		
-
-
-
-
-		}
+	}
 }
 

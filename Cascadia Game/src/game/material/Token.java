@@ -1,9 +1,11 @@
 package game.material;
+import game.player.Player;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Set;
 
 // Création des jetons du jeux
@@ -104,7 +106,7 @@ public record Token(String espece, String color) {
 		Collections.shuffle(tokens);
 	}
 
-	public static boolean checkOvercrowding(ArrayList<Token> chosenTokens){
+	public static boolean checkOvercrowding(ArrayList<Token> chosenTokens, Scanner scanner){
 		//Vérifie s'il y a surpopulation
 		if (chosenTokens.isEmpty()){
 			return false;
@@ -118,8 +120,7 @@ public record Token(String espece, String color) {
 		}
     return switch (sameToken) {
 				// Cas ou le joueur decide d'écarter les jetons
-				// A faire pour le case 3
-        case 3 -> true;
+        case 3 -> Player.choiceKeepOrPass(scanner);
         case 4 -> true;
         default -> false;
     }; 
