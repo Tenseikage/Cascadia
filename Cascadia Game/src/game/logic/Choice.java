@@ -51,12 +51,12 @@ public class Choice {
 		return chosenTokens;
 	}
 
-	public void createChoiceBoard(ArrayList<Tile> tiles, ArrayList<Token> tokens){
+	public void createChoiceBoard(ArrayList<Tile> tiles, ArrayList<Token> tokens,Scanner scanner){
 		ArrayList<Token> chosenTokens = new ArrayList<>();
 		Objects.requireNonNull(tiles, "Erreur liste de tuiles nulle !");
 		Objects.requireNonNull(tokens, "Erreur : liste de tokens nulle !"); 
 		chosenTokens = Token.chooseTokens(tokens,chosenTokens);
-		if(!Token.checkOvercrowding(chosenTokens, null)){
+		if(!Token.checkOvercrowding(chosenTokens, scanner)){
 			addTokensTiles(tiles, chosenTokens);
 		} else {
 			  System.out.println("Surpopulation : choix de nouveaux jetons");

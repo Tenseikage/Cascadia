@@ -63,7 +63,7 @@ public class Main {
 			var finalTiles2 = board.choseStartTile(choice2);
 			env1.setEnvironment(finalTiles1); // Ajout tuiles de départ à l'environnement
 			env2.setEnvironment(finalTiles2);
-			board.createChoiceBoard(tiles, tokens);
+			board.createChoiceBoard(tiles, tokens,scanner);
 			loopWithExecptions(scanner,display,player1,player2,board,env1,env2,grid1,grid2,tokens,tiles);
 		if (mode == 1) {
 			System.out.println("Le score du J1 est : "+score.calculModeFamille(env1));

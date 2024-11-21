@@ -70,7 +70,7 @@ public class GameLogic {
 	}
 
 	public Position geTokenPosition(Scanner scanner){
-		System.out.println("Choisissez la position où poser votre jeton, Tapez non si impossibilité");
+		System.out.println("Choisissez la position où poser votre jeton, Tapez Non si impossibilité");
 		var answerPos = scanner.next();
 		if(answerPos.equals("Non")){
 			System.out.println("Jeton remis dans le sac");
