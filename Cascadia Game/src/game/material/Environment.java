@@ -7,14 +7,14 @@ import java.util.Map;
 import java.util.Objects;
 
 public class Environment{
-	LinkedHashMap<HashMap<Tile,Token>,Position> tokenTilesList = new LinkedHashMap<>(); // Environnement du joueur
+	private final LinkedHashMap<HashMap<Tile,Token>,Position> tokenTilesList = new LinkedHashMap<>(); // Environnement du joueur
 	public static <Key,Value> Key getKeyByValue(LinkedHashMap<Key, Value> map, Value value){
 		for (Map.Entry<Key, Value> entry : map.entrySet()) {
 			if (entry.getValue().equals(value)){
 				return entry.getKey();
 			}
 		}
-		throw new IllegalAccessError("Valeur introuvable");
+		return null;
 	}
 
 	public static <Key,Value> Key getKeyByValue(HashMap<Key, Value> map, Value value){
@@ -72,9 +72,9 @@ public class Environment{
 		return listPositions;
 
 	}
-	
 
-	public static boolean validPos(ArrayList<Position> positions, Position position){
+
+	public boolean validPos(ArrayList<Position> positions, Position position){
 		return positions.contains(position);
 	}
 	
@@ -86,6 +86,10 @@ public class Environment{
 			}
 		}
 		return list;
+	}
+
+	public boolean noTileInPos(Position position){
+		return getKeyByValue(tokenTilesList,position) != null;
 	}
 	
 	@Override

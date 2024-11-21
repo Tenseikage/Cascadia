@@ -23,6 +23,7 @@ public class Choice {
 	}
 	public LinkedHashMap<HashMap<Tile,Token>,Position> choseStartTile(HashMap<Tile,Token> tokenTiles){
 		int i = 0;
+		startTiles.clear(); // Réinitialiser startTiles
 		for (var entry : tokenTiles.entrySet()){
 			HashMap<Tile, Token> entryMap = new HashMap<>();
 			entryMap.put(entry.getKey(), entry.getValue());

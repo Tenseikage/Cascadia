@@ -24,7 +24,7 @@ public class Main {
 				while(!validInput){
 					try {
 						logic.gameTurn(scanner, display, player1, board, env1, grid1, tokens);
-						logic.gameTurn(scanner, display, player2, board, env2, grid2, tokens);
+						//logic.gameTurn(scanner, display, player2, board, env2, grid2, tokens);
 						board.updateChoiceBoard(tiles, tokens, board.completeTokenList(),scanner);
 						validInput = true;
 					} catch (Exception e) {
@@ -57,8 +57,8 @@ public class Main {
 			tile.startTiles();
 			grid1.initGrid();
 			grid2.initGrid();
-			var choice1 = tile.getStartiles();// Contient 3 tuiles sans les positions
-			var choice2 = tile.getStartiles(); //
+			var choice1 = tile.getStartiles(); // Contient 3 tuiles sans les positions
+			var choice2 = tile.getStartiles(); // Contient 3 tuiles sans les positions
 			var finalTiles1 = board.choseStartTile(choice1);
 			var finalTiles2 = board.choseStartTile(choice2);
 			env1.setEnvironment(finalTiles1); // Ajout tuiles de départ à l'environnement

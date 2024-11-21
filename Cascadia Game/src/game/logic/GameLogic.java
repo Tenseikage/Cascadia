@@ -61,7 +61,7 @@ public class GameLogic {
 		String answerPos = scanner.next();
 		var pos = Position.fromString(answerPos);
 		var positions = env.getPositions();
-		var bool = Environment.validPos(positions, pos);
+		var bool = env.validPos(positions, pos); // Position valide
 		if(!bool){
 			throw new IllegalAccessError("Position not in environnement");
 		} else{
@@ -80,14 +80,18 @@ public class GameLogic {
 		return chosenPos;
 	}
 
+	
+
 	//Choix de la direction adjacente de la tuile
 	public Environment getDirection(Scanner scanner,Position chosenPos,Tile chosenTile,HashMap<Tile,Token> tilesTokens,Environment env){
 		System.out.println("Choisissez l'endroit où poser la tuile");
 		System.out.println("Haut/Bas/Gauche/Droite");
 		String answer = scanner.next();
 		chosenPos = chosenPos.updatePosition(answer);
-		if(!chosenPos.isValid(Position.setMaxPos().getX(), Position.setMaxPos().getY())){
-			System.err.println("Erreur : position impossible ! ");
+		var bool = env.noTileInPos(chosenPos);
+		System.out.println(bool);
+		if(!chosenPos.isValid(Position.setMaxPos().getX(), Position.setMaxPos().getY()) || bool){
+			throw new IllegalArgumentException("Erreur tuile déja présente !!!");
 		} else {
 			tilesTokens.put(chosenTile,null);
 			env.addTilePlayer(tilesTokens, chosenPos);
@@ -139,6 +143,7 @@ public class GameLogic {
 	Environment env, DisplayTools grid, ArrayList<Token> tokens){
 		//int mode = display.displayChoiceMod(scanner);
 		System.out.println(player.name()); // Nom joueur
+		display.displayEnvPlayer(env,grid,player);
 		display.displayAll(board); //Affichage jetons/tuiles
 		int choice = getPlayerChoice(scanner,board);
 		var choiceBoard = board.getChoiceBoard();

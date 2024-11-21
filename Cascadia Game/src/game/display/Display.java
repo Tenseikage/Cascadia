@@ -132,8 +132,9 @@ public class Display {
   }
 
  public void displayEnvPlayer(Environment env,DisplayTools grid, Player player){
+	  //System.out.println("environemment " + env);
+		System.out.println("player" + player.name());
 		Objects.requireNonNull(env, "Erreur : environnement inexistant");
-	  System.out.println("Environnement de " + player.name());
 		var envPlayer = env.getEnvironment();
 		AnimalColor animalColor;
 		// Placer les tuiles dans la grille
