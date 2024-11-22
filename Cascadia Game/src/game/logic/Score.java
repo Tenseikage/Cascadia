@@ -9,28 +9,6 @@ import game.material.Tile;
 import game.material.Token;
 
 public class Score {
-//	public static int calcul(Map<Map<Tile,Token> ,Position> environement) {
-//		int count = 0;
-//		Map<String, Integer> grp = new HashMap<>();
-//		for (var entry: environement.entrySet()) {
-//			Map<Tile,Token> duo = entry.getKey();
-//			for (var elem: duo.entrySet()) {
-//				Token token = elem.getValue();
-//				if (token != null) {
-//					String espece = token.espece();
-//					grp.put(espece, grp.getOrDefault(espece, 0)+1);
-//				}
-//			}
-//		}
-//		
-//		for (var elem: grp.entrySet()) {
-//			count+= calculPoints(elem.getValue());
-//		}
-//		
-//		return count;
-//		
-//	}
-	
 	public int calculModeFamille(Environment environement) {
 		int scount = 0;
 		Set<String> especeTraitee = new HashSet<>();
@@ -52,7 +30,14 @@ public class Score {
 		return scount;
 	}
 	
-	public int tailleGroup(Environment environement, Position p, String espece, Set<Position> connu) {
+	public int calculModeInter(Environment environement) {
+		int nbGroupPointsOurs = nbGroupOursPoints(environement, "Ou");
+		int nbGroupPointsAigle = tailleGroupAigle(nbAigle(environement, "Bu"));
+		
+		return nbGroupPointsOurs + nbGroupPointsAigle;
+	}
+	
+	public static int tailleGroup(Environment environement, Position p, String espece, Set<Position> connu) {
 		if (connu.contains(p)) {
 			return 0;
 		}
@@ -67,7 +52,7 @@ public class Score {
 		return count;
 	}
 	
-	public boolean sameEspece(Environment environement, Position pos, String espece) {
+	public static boolean sameEspece(Environment environement, Position pos, String espece) {
 		for (var entry: environement.getEnvironment().entrySet()) {
 			HashMap<Tile,Token> m = entry.getKey();
 			for (Token token: m.values()) {
@@ -89,4 +74,99 @@ public class Score {
 			default -> 15;
 		};
 	}
+	
+//	public static int tailleGroupOurs(int taille) {
+//		return switch (taille) {
+//		case 0 -> 0;
+//		case 1 -> 0;
+//		case 2 -> 5;
+//		case 3 -> 8;
+//		default -> 0;
+//		};
+//	}
+	
+	public static int tailleGroupOurs(int taille) {
+		return switch (taille) {
+		case 0 -> 0;
+		case 1 -> 4;
+		case 2 -> 11;
+		case 3 -> 19;
+		default -> 27;
+		};
+	}
+	
+	public static int nbGroupOursPoints(Environment environement, String espece) {
+		int countGroupOurs = 0;
+		for (Position pos: environement.getPositions()) {
+			for (var entry: environement.getEnvironment().entrySet()) {
+				var tiles  = entry.getKey();
+				for (Token token: tiles.values()) {
+					if (token.espece().equals(espece)) {
+						int nbOurs = tailleGroup(environement,pos,espece,new HashSet<>());
+						if (nbOurs == 2) {
+							countGroupOurs++;
+						}
+					}
+				}
+			}
+		}
+		return tailleGroupOurs(countGroupOurs);
+	}
+	
+	public static int tailleGroupAigle(int taille) {
+		return switch (taille) {
+		case 0 -> 0;
+		case 1 -> 2;
+		case 2 -> 5;
+		case 3 -> 8;
+		case 4 -> 11;
+		case 5 -> 14;
+		case 6 -> 18;
+		case 7 -> 22;
+		default -> 28;
+		};
+	}
+	
+	public static int nbAigle(Environment env, String espece) {
+		int count = 0;
+		
+		for (Position pos: env.getPositions()) {
+			for (var entry: env.getEnvironment().entrySet()) {
+				var tiles  = entry.getKey();
+				for (Token token: tiles.values()) {
+					if (token.espece().equals(espece) && tailleGroup(env,pos,espece,new HashSet<>()) == 1) {
+						count++;
+					}
+				}
+			}
+		}
+		return count;
+	}
+	
+	public static int tailleGroupWa(int taille) {
+		return switch (taille) {
+		case 0 -> 0;
+		case 1 -> 2;
+		case 3 -> 9;
+		default -> 13;
+		};
+	}
+	
+	public static int lineWap(Environment env, String espece) {
+		int count = 0;
+		
+		for (Position pos: env.getPositions()) {
+			for (var entry: env.getEnvironment().entrySet()) {
+				var tiles  = entry.getKey();
+				for (Token token: tiles.values()) {
+					
+				}
+			}
+		}
+		
+		return count;
+	}
+	
 }
+
+	

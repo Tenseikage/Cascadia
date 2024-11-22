@@ -50,7 +50,6 @@ public class GameLogic {
 			System.out.println("WHICH PAIR YOU CHOOSE (1 - 2 - 3) ? : ");
 		}
         int choice = scanner.nextInt();
-		System.out.println("Vous avez choisi : \n"+choice);
 		return choice;
 	}
 	
@@ -89,7 +88,6 @@ public class GameLogic {
 		String answer = scanner.next();
 		chosenPos = chosenPos.updatePosition(answer);
 		var bool = env.noTileInPos(chosenPos);
-		System.out.println(bool);
 		if(!chosenPos.isValid(Position.setMaxPos().getX(), Position.setMaxPos().getY()) || bool){
 			throw new IllegalArgumentException("Erreur tuile déja présente !!!");
 		} else {
@@ -111,7 +109,6 @@ public class GameLogic {
 		env.addTokenPlayer(tilePos, chosenToken, chosenPos);
   }
 	public HashMap<Tile,Token> finalChoiceTile(int choice,HashMap<Tile,Token> choiceBoard){
-		System.out.println("Choice :" + choice);
 		HashMap<Tile,Token> choicePlayer = new HashMap<>();
 		var chosenTile = getKeyByIndex(choiceBoard, 0); // Tuile choisie
 	  choicePlayer.put(chosenTile, null);

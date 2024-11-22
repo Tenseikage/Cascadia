@@ -67,6 +67,8 @@ public class Main {
 			loopWithExecptions(scanner,display,player1,player2,board,env1,env2,grid1,grid2,tokens,tiles);
 		if (mode == 1) {
 			System.out.println("Le score du J1 est : "+score.calculModeFamille(env1));
+	  } else {
+		  	System.out.println("Le score du J1 est : "+score.calculModeInter(env1));
 	  }
 	}
 }
