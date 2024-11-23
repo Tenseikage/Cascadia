@@ -72,7 +72,13 @@ public class Environment{
 		return listPositions;
 
 	}
-
+	
+	public boolean checkEspece(Tile tile, Token token, Position pos, String esp) {
+		if (getKeyByValue(tokenTilesList,pos).get(tile).espece().equals(esp)) {
+			return true;
+		}
+		return false;
+	}
 
 	public boolean validPos(ArrayList<Position> positions, Position position){
 		return positions.contains(position);

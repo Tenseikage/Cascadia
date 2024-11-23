@@ -11,6 +11,23 @@ public record Position(int posX,int posY) {
 	public int getY(){
 		return posY;
 	}
+	
+	public Position droit() {
+		return new Position(posX+1, posY);
+	}
+	
+	public Position gauche() {
+		return new Position(posX-1, posY);
+	}
+	
+	public Position haut() {
+		return new Position(posX, posY+1);
+	}
+	
+	public Position bas() {
+		return new Position(posX, posY-1);
+	}
+	
 	public Position updatePosition(String direction){
 		Objects.requireNonNull(direction,"Direction obligatoire");
 		return switch (direction) {

@@ -1,7 +1,9 @@
 package game.logic;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import game.material.Environment;
@@ -33,8 +35,11 @@ public class Score {
 	public int calculModeInter(Environment environement) {
 		int nbGroupPointsOurs = nbGroupOursPoints(environement, "Ou");
 		int nbGroupPointsAigle = tailleGroupAigle(nbAigle(environement, "Bu"));
+		int nbGroupPointsWap = tailleGroupWap(maxLine(environement, "Wa"));
+		int nbGroupPointsSau = 0;
+		int nbGroupPointsRen = 0;
 		
-		return nbGroupPointsOurs + nbGroupPointsAigle;
+		return nbGroupPointsOurs + nbGroupPointsAigle + nbGroupPointsWap + nbGroupPointsSau + nbGroupPointsRen;
 	}
 	
 	public static int tailleGroup(Environment environement, Position p, String espece, Set<Position> connu) {
@@ -74,16 +79,6 @@ public class Score {
 			default -> 15;
 		};
 	}
-	
-//	public static int tailleGroupOurs(int taille) {
-//		return switch (taille) {
-//		case 0 -> 0;
-//		case 1 -> 0;
-//		case 2 -> 5;
-//		case 3 -> 8;
-//		default -> 0;
-//		};
-//	}
 	
 	public static int tailleGroupOurs(int taille) {
 		return switch (taille) {
@@ -143,30 +138,139 @@ public class Score {
 		return count;
 	}
 	
-	public static int tailleGroupWa(int taille) {
-		return switch (taille) {
-		case 0 -> 0;
-		case 1 -> 2;
-		case 3 -> 9;
-		default -> 13;
-		};
-	}
+//	public static int tailleGroupWap(int taille) {
+//		return switch (taille) {
+//		case 0 -> 0;
+//		case 1 -> 2;
+//		case 2 -> 5;
+//		case 3 -> 9;
+//		default -> 13;
+//		};
+//	}
+//	
+//	public static int lineWapDroit(Environment env, String espece) {
+//		int count = 0;
+//		
+//		for (Position pos: env.getPositions()) {
+//			for (var entry: env.getEnvironment().entrySet()) {
+//				var tiles  = entry.getKey();
+//				for (Token token: tiles.values()) {
+//					if (token.espece().equals(espece)) {
+//						if (pos.droit().isValid(25, 25) && env.checkEspece(Environment.getKeyByValue(tiles, token), token, pos, espece)) {
+//							count = count + 1 + lineWapDroit(env, espece);
+//						}
+//					}
+//				}
+//			}
+//		}	
+//		return count;
+//	}
+//	
+//	public static int lineWapGauche(Environment env, String espece) {
+//		int count = 0;
+//		
+//		for (Position pos: env.getPositions()) {
+//			for (var entry: env.getEnvironment().entrySet()) {
+//				var tiles  = entry.getKey();
+//				for (Token token: tiles.values()) {
+//					if (token.espece().equals(espece)) {
+//						if (pos.gauche().isValid(25, 25) && env.checkEspece(Environment.getKeyByValue(tiles, token), token, pos, espece)) {
+//							count = count + 1 + lineWapGauche(env, espece);
+//						}
+//					}
+//				}
+//			}
+//		}	
+//		return count;
+//	}
+//	
+//	public static int lineWapHaut(Environment env, String espece) {
+//		int count = 0;
+//		
+//		for (Position pos: env.getPositions()) {
+//			for (var entry: env.getEnvironment().entrySet()) {
+//				var tiles  = entry.getKey();
+//				for (Token token: tiles.values()) {
+//					if (token.espece().equals(espece)) {
+//						if (pos.haut().isValid(25, 25) && env.checkEspece(Environment.getKeyByValue(tiles, token), token, pos, espece)) {
+//							count = count + 1 + lineWapHaut(env, espece);
+//						}
+//					}
+//				}
+//			}
+//		}	
+//		return count;
+//	}
+//	
+//	public static int lineWapBas(Environment env, String espece) {
+//		int count = 0;
+//		
+//		for (Position pos: env.getPositions()) {
+//			for (var entry: env.getEnvironment().entrySet()) {
+//				var tiles  = entry.getKey();
+//				for (Token token: tiles.values()) {
+//					if (token.espece().equals(espece)) {
+//						if (pos.gauche().isValid(25, 25) && env.checkEspece(Environment.getKeyByValue(tiles, token), token, pos, espece)) {
+//							count = count + 1 + lineWapBas(env, espece);
+//						}
+//					}
+//				}
+//			}
+//		}	
+//		return count;
+//	}
+//	
+//	public static int maxLine(Environment env, String espece) {
+//		int lineBas = lineWapBas(env, espece);
+//		int lineDroit = lineWapDroit(env, espece);
+//		int lineGauche = lineWapGauche(env, espece);
+//		int lineHaut = lineWapHaut(env, espece);
+//		List<Integer> list = new ArrayList<>();
+//		int line = 0;
+//		list.add(lineBas);
+//		list.add(lineGauche);
+//		list.add(lineDroit);
+//		list.add(lineHaut);
+//		for (var elem: list) {
+//			if (elem > line) {
+//				line = elem;
+//			}
+//		}
+//		return line;
+//	}
 	
-	public static int lineWap(Environment env, String espece) {
-		int count = 0;
-		
-		for (Position pos: env.getPositions()) {
-			for (var entry: env.getEnvironment().entrySet()) {
-				var tiles  = entry.getKey();
-				for (Token token: tiles.values()) {
-					
-				}
-			}
-		}
-		
-		return count;
-	}
 	
+//	public static int tailleGroupSau(int taille) {
+//		return switch (taille) {
+//		case 0 -> 0;
+//		case 1 -> 2;
+//		case 2 -> 5;
+//		case 3 -> 8;
+//		case 4 -> 12;
+//		case 5 -> 18;
+//		case 6 -> 20;
+//		default -> 25;
+//		};
+//	}
+//	
+//	
+//	public static int nbGroupSauPoints (Environment env, String espece) {
+//		int count = 0;
+//		
+//		for (Position pos: env.getPositions()) {
+//			for (var entry: env.getEnvironment().entrySet()) {
+//				var tiles  = entry.getKey();
+//				for (Token token: tiles.values()) {
+//					if (token.espece().equals(espece)) {
+//						if (pos.droit().isValid(25, 25) && env.checkEspece(Environment.getKeyByValue(tiles, token), token, pos, espece)) {
+//							
+//						}
+//					}
+//				}
+//			}
+//		}	
+//		return count;
+//	}
 }
 
 	
