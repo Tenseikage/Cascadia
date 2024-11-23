@@ -4,32 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Class which represents a position on the grid
+ */
 public record Position(int posX,int posY) {
+
+	/**
+	 * Method to get the x coordinate of the position
+	 * @return the x coordinate
+	 */
 	public int getX(){
 		return posX;
 	}
+
+	/**
+	 * Method to get the y coordinate of the position
+	 * @return the y coordinate
+	 */
 	public int getY(){
 		return posY;
 	}
 	
-	public Position droit() {
-		return new Position(posX+1, posY);
-	}
-	
-	public Position gauche() {
-		return new Position(posX-1, posY);
-	}
-	
-	public Position haut() {
-		return new Position(posX, posY+1);
-	}
-	
-	public Position bas() {
-		return new Position(posX, posY-1);
-	}
-	
+	/**
+	 * Method to update the position of the player
+	 * @param direction the direction to move
+	 * @return the new position
+	 */
 	public Position updatePosition(String direction){
-		Objects.requireNonNull(direction,"Direction obligatoire");
+		Objects.requireNonNull(direction, "Error: Null direction");
 		return switch (direction) {
 			case "Haut" -> new Position(posX, posY - 1);
 			case "Bas" -> new Position(posX, posY + 1);
@@ -38,25 +40,45 @@ public record Position(int posX,int posY) {
 			default -> throw new IllegalArgumentException("Direction invalide: " + direction);
 		};
 	}
+
+	/**
+	 * Method to check if the position is valid
+	 * @param maxX the maximum x coordinate
+	 * @param maxY the maximum y coordinate
+	 * @return true if the position is valid, false otherwise
+	 */
 	public boolean isValid(int maxX, int maxY) {
 		return posX >= 0 && posX < maxX && posY >= 0 && posY < maxY;
 	}
 
+	/**
+	 * Method to set the maximum position
+	 * @return the maximum position
+	 */
 	public static Position setMaxPos(){
-		return new Position(25, 25); // Dimension maximale de la grille
+		return new Position(25, 25);
 	}
 
+	/**
+	 * Method to get the position of the player
+	 * @param positionStr the position of the player
+	 * @return the position of the player
+	 */
 	public static Position fromString(String positionStr) {
 		if (positionStr == null || !positionStr.matches("\\(\\d+,\\d+\\)")) {
 				throw new IllegalArgumentException("Erreur : Position invalide ou inconnue");
 		}
-		positionStr = positionStr.replaceAll("[()]", ""); // Supprime les parenthèses
+		positionStr = positionStr.replaceAll("[()]", "");
 		String[] parts = positionStr.split(",");
 		int x = Integer.parseInt(parts[0].trim());
 		int y = Integer.parseInt(parts[1].trim());
 		return new Position(x, y);
   }  
 	
+	/**
+	 * Method to get the adjacent positions
+	 * @return list of the adjacent positions
+	 */
 	public List<Position> voisinAdjacent() {
 		List<Position> list = new ArrayList<>();
 		List<Position> validPositions = new ArrayList<>();

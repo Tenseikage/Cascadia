@@ -8,16 +8,29 @@ import java.util.Collections;
 import java.util.HashMap;
 
 
+/**
+ * Class which represents a tile of the game
+ */
 public class Tile {
   private String places = new String();
   private final ArrayList<String> listAnimals = new ArrayList<>();
 	private final ArrayList<HashMap<Tile,Token>> starTiles = new ArrayList<>();
 
+	/**
+	 * Method to add animals to the tile
+	 * @param animals the animals to add
+	 * @return the tile with the animals
+	 */
 	public Tile addAnimals(String... animals) {
     this.listAnimals.addAll(Arrays.asList(animals));
     return this;
   }
 
+	/**
+	 * Method to set the place of the tile
+	 * @param place	the place of the tile
+	 * @return the tile with the place
+	 */
 	public Tile setPlace(String place) {
 		this.places = place;
 		return this;
@@ -31,14 +44,22 @@ public class Tile {
 		return listAnimals;
 	}
 
+	/**
+	 * Method to add the first starting tile
+	 * @return the first starting tile
+	 */
 	public HashMap<Tile, Token> addStart1(){
-		// Première tuile de départ
 		HashMap<Tile, Token> tilesTokens1 = new HashMap<>();
 		tilesTokens1.put(new Tile().setPlace("Ma").addAnimals("Bu","Re"), null);
 		tilesTokens1.put(new Tile().setPlace("Ri").addAnimals("Sa", "Bu"),null);
 		tilesTokens1.put(new Tile().setPlace("Pr").addAnimals("Ou", "Sa"),null);
 		return tilesTokens1;
 	}
+
+	/**
+	 * Method to add the second starting tile
+	 * @return the second starting tile
+	 */
 	public HashMap<Tile, Token> addStart2(){
 		//Deuxième tuile départ
 		HashMap<Tile, Token> tilesTokens2 = new HashMap<>();
@@ -48,6 +69,11 @@ public class Tile {
 		return tilesTokens2;
 	}
 
+
+	/**
+	 * Method to add the third starting tile
+	 * @return the third starting tile
+	 */
 	public HashMap<Tile, Token> addStart3(){
 		//Troisième tuile de départ
 		HashMap<Tile, Token> tilesTokens3 = new HashMap<>();
@@ -57,6 +83,11 @@ public class Tile {
 		return tilesTokens3;
 
 	}
+
+	/**
+	 * Method to add the fourth starting tile
+	 * @return the fourth starting tile
+	 */
 	public HashMap<Tile, Token> addStart4(){
 		// Quatrième tuile de départ
 		HashMap<Tile, Token> tilesTokens4 = new HashMap<>();
@@ -66,6 +97,11 @@ public class Tile {
 		return tilesTokens4;
 	}
 
+
+	/**
+	 * Method to add the fifth starting tile
+	 * @return the fifth starting tile
+	 */
 	public HashMap<Tile, Token> addStart5(){
 		//Cinquième tuile de départ
 		HashMap<Tile, Token> tilesTokens5 = new HashMap<>();
@@ -76,6 +112,11 @@ public class Tile {
     
 	}
 
+
+	/**
+	 * Method to add the starting tiles
+	 * @return the list of starting tiles
+	 */
 	public ArrayList<HashMap<Tile, Token>> startTiles(){
 		starTiles.add(addStart1());
 		starTiles.add(addStart2());
@@ -86,14 +127,22 @@ public class Tile {
 		return starTiles;
 	}	
 
+	/**
+	 * Method to get the starting tiles (3 tiles)
+	 * @return the starting tiles
+	 */
 	public HashMap<Tile, Token> getStartiles(){
-		// HashMap contenant 3 tuiles
 		var chosenTokenTile = starTiles.remove(0);
 		return chosenTokenTile;
 	}
 
+
+	/**
+	 * Method to exploit the csv file which contains the tiles
+	 * @return the list of tiles
+	 * @throws IOException if the file is not found
+	 */
 	public static ArrayList<Tile> ExploitCsv() throws IOException {
-		// Création des tuiles du jeu
 		ArrayList<Tile> tiles = new ArrayList<>();
 		try {
 			Path path = Path.of("Cascadia Game/data/Tuiles.csv");
@@ -114,10 +163,16 @@ public class Tile {
 		}
 		return tiles;
 	}
+
+	/**
+	 * Method to shuffle the tiles
+	 * @param tiles the list of tiles
+	 */
 	public static void shuffTiles(ArrayList<Tile> tiles){
-		// Mélange des tuiles pour la distribution au hasard
 		Collections.shuffle(tiles);
 	}
+
+
 	@Override
 	public String toString() {
 		return "Tile{" +

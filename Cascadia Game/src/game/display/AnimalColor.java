@@ -1,4 +1,5 @@
 package game.display;
+import java.util.Objects;
 
 /**
  * This class enums the colors which are used for the game
@@ -27,6 +28,7 @@ public enum AnimalColor {
 	 * @param ansiCode
 	 */
 	AnimalColor(String ansiCode) {
+		Objects.requireNonNull(ansiCode, "ansiCode cannot be null");
 		this.ansiCode = ansiCode;
 	}
 

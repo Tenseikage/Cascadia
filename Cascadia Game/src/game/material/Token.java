@@ -10,7 +10,9 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
-// Création des jetons du jeux
+/**
+ * Class which represents a token of the game
+ */
 public record Token(String espece, String color) {
 	public Token(String espece,String color){
 		this.espece = espece;
@@ -18,8 +20,13 @@ public record Token(String espece, String color) {
 		Objects.requireNonNull(espece,"Specie allowed for the token !");
 		Objects.requireNonNull(color, "Color allowed for the token");
 	}
+
+	/**
+	 * Method to create a list of tokens
+	 * @return the list of tokens
+	 */
 	public static ArrayList<Token> tokenList(){
-		// Création des jetons de faune
+
 		var tokens = new ArrayList<Token>();
 		for (int i = 0; i < 100; i++) {
 			if (i < 20) {
@@ -36,11 +43,18 @@ public record Token(String espece, String color) {
 			}
 		}
 		return tokens;	
-		
 	}
+
+	/**
+	 * Method to fill the list of tokens
+	 * @param tokens list of tokens
+	 * @param chosenTokens list of chosen tokens
+	 * @return the list of chosen tokens
+	 */
 	public static ArrayList<Token> fillTokenList(ArrayList<Token> tokens, ArrayList<Token> chosenTokens){
+		Objects.requireNonNull(tokens, "Error : Null token list");
+		Objects.requireNonNull(chosenTokens, "Error : Null chosen token list");
 		for (int i = 0; i < 4; i++){
-			//Liste contenant les 4 jetons
 			Random random = new Random();
 			int indexToken = random.nextInt(tokens.size());
 			chosenTokens.add(tokens.remove(indexToken));
@@ -48,7 +62,16 @@ public record Token(String espece, String color) {
 		return chosenTokens;
 	}
 
+	/**
+	 * Method to complete the list of tokens
+	 * @param tokens list of tokens
+	 * @param chosenTokens list of chosen tokens
+	 * @param size size of the list
+	 * @return the list of chosen tokens
+	 */
 	public static ArrayList<Token> completeTokenList(ArrayList<Token> tokens, ArrayList<Token> chosenTokens,int size){
+		Objects.requireNonNull(tokens, "Error : Null token list");
+		Objects.requireNonNull(chosenTokens, "Error : Null chosen token list");
 		for (int i = 0; i < size; i++) {
 			Random random = new Random();
 			int indexToken = random.nextInt(tokens.size());
@@ -57,9 +80,17 @@ public record Token(String espece, String color) {
 		return chosenTokens;
 	}
 
+
+	/**
+	 * Method to change the list of tokens when there is overcrowding
+	 * @param tokens list of tokens
+	 * @param chosenTokens list of chosen tokens
+	 * @return the list of chosen tokens
+	 */
 	public static ArrayList<Token> changeTokenList(ArrayList<Token> tokens,ArrayList<Token> chosenTokens){
+		Objects.requireNonNull(tokens, "Error : Null token list");
+		Objects.requireNonNull(chosenTokens, "Error : Null chosen token list");
 		for (int i = 1; i < 4; i++){
-			//Nouveux jetons s'il y a surpopulation
 			Random random = new Random();
 			int indexToken = random.nextInt(tokens.size());
 			chosenTokens.add(tokens.remove(indexToken));
@@ -67,8 +98,15 @@ public record Token(String espece, String color) {
 		return chosenTokens;
 	}
 
+	/**
+	 * Method to choose the tokens
+	 * @param tokens list of tokens
+	 * @param chosenTokens list of chosen tokens
+	 * @return the list of chosen tokens
+	 */
 	public static ArrayList<Token> chooseTokens(ArrayList<Token> tokens,ArrayList<Token> chosenTokens){
-		Objects.requireNonNull(tokens, "Erreur : liste de tokens nulle !");
+		Objects.requireNonNull(tokens, "Error : Null token list");
+		Objects.requireNonNull(chosenTokens, "Error : Null chosen token list");
 		if(tokens.isEmpty()){
 			throw new IllegalArgumentException("Erreur : Liste vide");
 		}
@@ -84,11 +122,16 @@ public record Token(String espece, String color) {
 		return chosenTokens;
 	}
 
+	/**
+	 * Method to discard the tokens
+	 * @param chosenTokens list of chosen tokens
+	 * @return the list of discarded tokens
+	 */
 	public static ArrayList<Token> discardTokens(ArrayList<Token> chosenTokens){
-		Objects.requireNonNull(chosenTokens, "Erreur : liste de tokens nulle !");
+		Objects.requireNonNull(chosenTokens, "Error : Null chosen token list");
 		ArrayList<Token> discardedTokens = new ArrayList<>();
 		if(chosenTokens.isEmpty()){
-			throw new IllegalArgumentException("Erreur : Liste vide");
+			throw new IllegalArgumentException("Error : Empty list of tokens");
 		}
 		Set<Token> uniqueTokens = new HashSet<>();
 		for(var element  : chosenTokens){
@@ -97,18 +140,26 @@ public record Token(String espece, String color) {
 			}
 		}
 		discardedTokens.add(discardedTokens.get(0));
-	  chosenTokens.removeAll(discardedTokens); // écartement des jetons
-	  //System.out.println(discardedTokens);
-		//System.out.println("Surpopulation");
+	  chosenTokens.removeAll(discardedTokens); 
 		return discardedTokens;
 
 	}
+
+	/**
+	 * Method to shuffle the tokens
+	 * @param tokens list of tokens
+	 */
 	public static void shuffeTokens(ArrayList<Token> tokens){
-		//Mélange des jetons faune
 		Collections.shuffle(tokens);
 	}
 
+	/**
+	 * Method to count the occurrences of the tokens
+	 * @param tokens list of tokens
+	 * @return the map of occurrences
+	 */
 	public static Map<Token,Integer> countOccurrences(ArrayList<Token> tokens){
+		Objects.requireNonNull(tokens, "Error : Null token list");
 		Map<Token,Integer> mapOccur = new HashMap<>();
 		for(var item : tokens){
 			mapOccur.put(item,mapOccur.getOrDefault(item, 0) + 1);
@@ -117,15 +168,21 @@ public record Token(String espece, String color) {
 				
 	}
 
+	/**
+	 * Method to check if there is overcrowding
+	 * @param chosenTokens list of chosen tokens
+	 * @param scanner scanner to read the player's choice
+	 * @return true if there is overcrowding, false otherwise
+	 */
 	public static boolean checkOvercrowding(ArrayList<Token> chosenTokens, Scanner scanner){
-		//Vérifie s'il y a surpopulation
+		Objects.requireNonNull(chosenTokens, "Error : Null chosen token list");
+		Objects.requireNonNull(scanner, "Error : Null scanner");
 		if (chosenTokens.isEmpty()){
 			return false;
 		}
 		var mapTokens = countOccurrences(chosenTokens);
 	  int sameToken = Collections.max(mapTokens.values());
     return switch (sameToken) {
-				// Cas ou le joueur decide d'écarter les jetons
         case 3 -> Player.choiceKeepOrPass(scanner);
         case 4 -> true;
         default -> false;
@@ -133,11 +190,16 @@ public record Token(String espece, String color) {
 	}
 
 	@Override
-	// Affichage du jeton
 	public String toString(){
 		return "[" + espece.substring(0, 2) + "," + color.substring(0,2) + "]";
 	}
 
+	/**
+	 * Method to return the token in the list of tokens (bag)
+	 * @param token the token to return
+	 * @param tokens the list of tokens
+	 * @return the list of tokens
+	 */
 	public static ArrayList<Token> returnToken(Token token, ArrayList<Token> tokens){
 		tokens.add(token);
 		return tokens;
