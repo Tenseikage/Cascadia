@@ -33,9 +33,8 @@ public class Main {
 		Environment env1,Environment env2, DisplayTools grid1, 
 		DisplayTools grid2, ArrayList<Token> tokens,ArrayList<Tile> tiles){
 			var logic = new GameLogic();
-			int nbturns = 0;
-			for(int i = 0; i < 6; i++){
-				System.out.println(nbturns);
+			int nbturns = 6;
+			for(int i = 0; i < nbturns; i++){
 				boolean validInput = false;
 				while(!validInput){
 					try {
@@ -53,6 +52,7 @@ public class Main {
 				}
 			
 			}
+
 		}
 
 		/**

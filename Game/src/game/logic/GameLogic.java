@@ -76,10 +76,10 @@ public class GameLogic {
 		Objects.requireNonNull(board, "Error : Null board");
 		if (board.getChoiceBoard().size() == 4) {
 			System.out.println("  ( 01 )      ( 02 )      ( 03 )      ( 04 )\n");
-			System.out.println("WHICH PAIR YOU CHOOSE (1 - 2 - 3 - 4) ? : ");
+			System.out.println("QUELLE PAIRE CHOISISSEZ VOUS (1 - 2 - 3 - 4) ? : ");
 		} else if (board.getChoiceBoard().size() == 3) {
 			System.out.println("  ( 01 )      ( 02 )      ( 03 )\n");
-			System.out.println("WHICH PAIR YOU CHOOSE (1 - 2 - 3) ? : ");
+			System.out.println("QUELLE PAIRE CHOISISSEZ VOUS (1 - 2 - 3) ? : ");
 		}
 		int choice = scanner.nextInt();
 		return choice;
@@ -246,7 +246,7 @@ public class GameLogic {
 		Objects.requireNonNull(env, "Error : Null env");
 		Objects.requireNonNull(grid, "Error : Null grid");
 		Objects.requireNonNull(tokens, "Error : Null tokens");
-		System.out.println("Environnement " + player.name()); 
+		//System.out.println("Environnement " + player.name()); 
 		display.displayEnvPlayer(env, grid, player);
 		display.displayAll(board);
 		int choice = getPlayerChoice(scanner, board);
