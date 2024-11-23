@@ -34,7 +34,7 @@ public class Main {
 		DisplayTools grid2, ArrayList<Token> tokens,ArrayList<Tile> tiles){
 			var logic = new GameLogic();
 			int nbturns = 0;
-			for(int i = 0; i < 20; i++){
+			for(int i = 0; i < 6; i++){
 				System.out.println(nbturns);
 				boolean validInput = false;
 				while(!validInput){

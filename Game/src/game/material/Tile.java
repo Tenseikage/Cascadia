@@ -145,7 +145,9 @@ public class Tile {
 	public static ArrayList<Tile> ExploitCsv() throws IOException {
 		ArrayList<Tile> tiles = new ArrayList<>();
 		try {
-			Path path = Path.of("Cascadia Game/data/Tuiles.csv");
+		  Path path = Path.of("Cascadia Game\\data\\Tuiles.csv");
+			System.out.println("Chemin du fichier CSV : " + path.toString());
+
 			var dataList = Files.readAllLines(path);
 			for(var line : dataList){
 				String[] parts = line.split(";");
