@@ -56,7 +56,7 @@ public class GameLogic {
 
 	//Choix de la position du joueur
 	public Position getPosition(Environment env,Scanner scanner){
-		System.out.println("Choisissez la position où poser votre tuile (format: (x,y))");
+		System.out.println("Choisissez la position d'une tuile existante où poser votre tuile (format: (x,y))");
 		String answerPos = scanner.next();
 		var pos = Position.fromString(answerPos);
 		var positions = env.getPositions();

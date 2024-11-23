@@ -9,10 +9,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
-
+/**
+ * Class which implements token and tile displaying on terminal
+ */
 public class Display {
+	/**
+	 * Method which displays the tile in ASCII
+	 * @param choiceBoard Board which contains the 4 chosen tiles and tokens
+	 */
 	public void displayTile(Choice choiceBoard){
-		//affichage de la tuile
 		Objects.requireNonNull(choiceBoard,"Erreur : choix de tuiles et jetons inexistant !");
 		var tilesToken = choiceBoard.getChoiceBoard();
 		StringBuilder topBorder = new StringBuilder();
@@ -36,8 +41,12 @@ public class Display {
     System.out.println(bottomBorder);
 		
 	}
+	/**
+	 * Method which set colors to tiles or tokens
+	 * @param color color(Animal,represented with 2 letters
+	 * @return Color attributed, default blank
+	 */
 	public AnimalColor setColor(String color){
-		// Ajout de la couleur à la tuile ou jeton
 		return switch (color) {
 			case "Ma" -> AnimalColor.BROWN;
 			case "Ta" -> AnimalColor.TAUPE;
@@ -48,8 +57,12 @@ public class Display {
 		};
 	}
 	
-	public void displayToken(Choice choiceBoard) throws IllegalArgumentException {
-		// Affichage du jeton de choix
+	/**
+	 * Method which displays the token in ASCII.
+	 * @param choiceBoard Board which contains the 4 chosen tokens and tokens
+	 * 
+	 */
+	public void displayToken(Choice choiceBoard){
     Objects.requireNonNull(choiceBoard, "Erreur : choix de tuiles et jetons inexistant !");
     var tilesToken = choiceBoard.getChoiceBoard();
     StringBuilder topBorder = new StringBuilder();
@@ -66,13 +79,15 @@ public class Display {
       colorLine.append(animalColor.get()).append(" |  ").append("  ").append("  |").append(AnimalColor.RESET.get()).append(separator);
       bottomBorder.append(animalColor.get()).append(" --------").append(AnimalColor.RESET.get()).append(separator);
     }
-    // Affichage des bordures et des lignes
     System.out.println(topBorder.toString());
     System.out.println(animalLine.toString());
     System.out.println(colorLine.toString());
     System.out.println(bottomBorder.toString());
   }
-
+  
+	/**
+	 * Method which displays the rules of Cascadia
+	 */
 	public void displayRules() {
 		// Affichage des règles
 		System.out.println("===== CASCADIA ======\n");
@@ -84,19 +99,21 @@ public class Display {
 		System.out.println("BE CAREFUL, YOU MUST CHOOSE ACCORDING TO THE TILES ALREADY IN YOUR POSSESSION");
 		System.out.println("THE GAME STOPS AFTER 20 ROUNDS HAVE BEEN PLAYED");
 		System.out.println("THEN THE PLAYER WITH THE BEST COMBINATION OF TILES AND TOKENS WILL WIN\n\n");
- }
+  }
+  
+	/**
+	 * Method which displays the environment of a player contains tiles and tokens
+	 * @param gridEnv Player's grid with token and tiles placed.
+	 */
 	public void displayGridEnvPlayer(DisplayTools gridEnv){
-		// Affichage de la grille contenant l'environnement du joueur
 		var maxPos = gridEnv.getMaxDim();
 		var grid = gridEnv.getGrid();
 		int presentTile = gridEnv.lengthGrid() * 5;
 		int dataTiles = 0;
 		for (int i = 0; i <= maxPos.getY(); i++) {
-			// Afficher chaque ligne de la grille
 			for (int line = 0; line < 5; line++) { // Chaque tuile a 5 lignes
 				for (int j = 0; j <= maxPos.getX(); j++) {
 					if(!grid[i][j].equals("")){
-							//System.out.println(grid[i][j]);
 							dataTiles++;
 							String[] tileLines = grid[i][j].split("\n");
 							System.out.print(tileLines[line] + " ");
@@ -109,13 +126,27 @@ public class Display {
 		System.out.println("\n");
 	}
 
+	/**
+	 * This method checks if a token is in environment
+	 * @param token
+	 * @return
+	*/
 	public boolean checkTokenEnv(Token token){
 		return token != null;
 	}
 
+	/**
+	 * This method displays a tile with no color if no token is placed and a colored tile
+	 * in the other case
+	 * @param tile  Tile of an environment
+	 * @param entry Environment converted in a entry
+	 * @param color Color : blank (no token) ; token
+	 * @param token Token of an environement, 
+	 * @return Stringbuilder which contains the ASCII of a tile
+	 */
  	public StringBuilder displayTileEnv(Tile tile, Map.Entry<HashMap<Tile, Token>, Position> entry, AnimalColor color,Token token) {
     StringBuilder tileRepresentation = new StringBuilder();
-		if (token == null){
+		if (token == null){ // No token was placed by the player
 			tileRepresentation.append(color.get()).append("----------\n").append(AnimalColor.RESET.get()); // Coin supérieur gauche, bord supérieur, coin supérieur droit
 			tileRepresentation.append(color.get()).append("|   ").append(tile.getPlace()).append("   |\n").append(AnimalColor.RESET.get()); // Bord gauche, espace vide, bord droit
 			tileRepresentation.append(color.get()).append("|").append(tile.getListAnimals()).append("|\n").append(AnimalColor.RESET.get());
@@ -131,13 +162,17 @@ public class Display {
     return tileRepresentation;
   }
 
- public void displayEnvPlayer(Environment env,DisplayTools grid, Player player){
-	  //System.out.println("environemment " + env);
+  /**
+	 * This method displays the environment (tiles and tokens) of a player
+	 * @param env Player's environment
+	 * @param grid Player's grid (tiles and tokens)
+	 * @param player Player data
+	 */
+  public void displayEnvPlayer(Environment env,DisplayTools grid, Player player){
 		System.out.println("player" + player.name());
 		Objects.requireNonNull(env, "Erreur : environnement inexistant");
 		var envPlayer = env.getEnvironment();
 		AnimalColor animalColor;
-		// Placer les tuiles dans la grille
 		for (var entry : envPlayer.entrySet()) {
 			for (var entryTile : entry.getKey().entrySet()) {
 				Tile tile = entryTile.getKey();
@@ -156,6 +191,11 @@ public class Display {
 		displayGridEnvPlayer(grid);
   }
 
+  /**
+	 * 
+	 * @param scanner
+	 * @return
+	 */
 	public int displayChoiceMod(Scanner scanner){
 		System.out.println("SELECTIONNER LE MODE :\n\t(1) -> MODE FAMILIALE\n\t(2) -> MODE INTERMEDIAIRE\n");
 		int mode = scanner.nextInt();

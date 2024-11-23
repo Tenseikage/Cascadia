@@ -3,7 +3,7 @@ import game.display.Display;
 import game.display.DisplayTools;
 import game.logic.Choice;
 import game.logic.GameLogic;
-import game.logic.Score;
+import game.logic.Scores;
 import game.material.Environment;
 import game.material.Tile;
 import game.material.Token;
@@ -19,7 +19,8 @@ public class Main {
 		DisplayTools grid2, ArrayList<Token> tokens,ArrayList<Tile> tiles){
 			var logic = new GameLogic();
 			int nbturns = 0;
-			while(nbturns < 2){
+			for(int i = 0; i < 1; i++){
+				System.out.println(nbturns);
 				boolean validInput = false;
 				while(!validInput){
 					try {
@@ -35,12 +36,12 @@ public class Main {
 						scanner.nextLine();
 					}
 				}
-				nbturns++;
+			
 			}
 		}
 		public static void main(String[] args) throws IOException,IllegalAccessError {
 			Scanner scanner = new Scanner(System.in);
-			Score score = new Score();
+			Scores score = new Scores();
 			var display = new Display();
 			var env1 = new Environment();
 			var env2 = new Environment();
@@ -63,12 +64,13 @@ public class Main {
 			var finalTiles2 = board.choseStartTile(choice2);
 			env1.setEnvironment(finalTiles1); // Ajout tuiles de départ à l'environnement
 			env2.setEnvironment(finalTiles2);
-			board.createChoiceBoard(tiles, tokens,scanner);
+			board.createChoiceBoard(tiles, tokens,display,scanner);
 			loopWithExecptions(scanner,display,player1,player2,board,env1,env2,grid1,grid2,tokens,tiles);
 		if (mode == 1) {
-			System.out.println("Le score du J1 est : "+score.calculModeFamille(env1));
-	  } else {
-		  	System.out.println("Le score du J1 est : "+score.calculModeInter(env1));
-	  }
+			var posAnimals = score.checkTokens(env1);
+			System.out.println(score.scoreMode(posAnimals, mode));
+		}
 	}
 }
+
+// {{Tile{place='Ri', animals=[Sa, Bu]}=null}=(0,0), {Tile{place='Pr', animals=[Ou, Sa]}=null}=(0,1), {Tile{place='Ma', animals=[Bu, Re]}=[Re,Or]}=(0,2), {Tile{place='Fo', animals=[Ou, Sa]}=null}=(1,0), {Tile{place='Ma', animals=[Bu, Re]}=[Re,Or]}=(0,2)}

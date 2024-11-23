@@ -18,11 +18,11 @@ public record Player(String name, int age,int points,Environment boardPlayer) {
 		var answer = scanner.next();
 		boolean output;
 		switch (answer) {
-			case "Oui" -> output = true;
-			case "Non" -> output = false;
+			case "Oui" -> output = false;
+			case "Non" -> output = true;
 			default -> output = true;
 		}
-		if (output){
+		if (!output){
 			System.out.println("Jetons inchangés");
 		} else {
 			System.out.println("Jetons remis dans le sac");

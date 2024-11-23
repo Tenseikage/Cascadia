@@ -1,14 +1,11 @@
 package game.logic;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import game.material.Environment;
 import game.material.Tile;
 import game.material.Token;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Score {
 	public int calculModeFamille(Environment environement) {
@@ -35,11 +32,11 @@ public class Score {
 	public int calculModeInter(Environment environement) {
 		int nbGroupPointsOurs = nbGroupOursPoints(environement, "Ou");
 		int nbGroupPointsAigle = tailleGroupAigle(nbAigle(environement, "Bu"));
-		int nbGroupPointsWap = tailleGroupWap(maxLine(environement, "Wa"));
+		//int nbGroupPointsWap = tailleGroupWap(maxLine(environement, "Wa"));
 		int nbGroupPointsSau = 0;
 		int nbGroupPointsRen = 0;
 		
-		return nbGroupPointsOurs + nbGroupPointsAigle + nbGroupPointsWap + nbGroupPointsSau + nbGroupPointsRen;
+		return nbGroupPointsOurs + nbGroupPointsAigle + nbGroupPointsSau + nbGroupPointsRen;
 	}
 	
 	public static int tailleGroup(Environment environement, Position p, String espece, Set<Position> connu) {
@@ -49,7 +46,7 @@ public class Score {
 		int count = 0;
 		
 		connu.add(p);
-		for (Position pos: p.voisin()) {
+		for (Position pos: p.voisinAdjacent()) {
 			if (pos.isValid(25, 25) & sameEspece(environement,pos,espece)) {
 				count+= tailleGroup(environement,pos,espece,connu); 
 			}
@@ -61,6 +58,7 @@ public class Score {
 		for (var entry: environement.getEnvironment().entrySet()) {
 			HashMap<Tile,Token> m = entry.getKey();
 			for (Token token: m.values()) {
+				System.out.println(token);
 				if (token != null & token.espece().equals(espece)) {
 					return true;
 				}
@@ -137,7 +135,11 @@ public class Score {
 		}
 		return count;
 	}
+
 	
+	
+
+
 //	public static int tailleGroupWap(int taille) {
 //		return switch (taille) {
 //		case 0 -> 0;

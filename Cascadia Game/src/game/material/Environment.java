@@ -47,7 +47,6 @@ public class Environment{
 		if(checkPutToken(tile, token)){
 			var key = Environment.getKeyByValue(tokenTilesList, position);
 			key.put(tile, token);
-			tokenTilesList.put(key,position);
 			return true;
 		} else {
 			System.out.println("Erreur : Placement du jeton impossible");
@@ -86,7 +85,7 @@ public class Environment{
 	
 	public ArrayList<Position> getValidVoisin(Position p) {
 		ArrayList<Position> list = new ArrayList<>();
-		for (Position voisin: p.voisin()) {
+		for (Position voisin: p.voisinAdjacent()) {
 			if (tokenTilesList.containsValue(voisin)) {
 				list.add(voisin);
 			}

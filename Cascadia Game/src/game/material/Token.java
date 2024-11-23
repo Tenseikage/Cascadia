@@ -2,7 +2,9 @@ package game.material;
 import game.player.Player;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
@@ -97,7 +99,7 @@ public record Token(String espece, String color) {
 		discardedTokens.add(discardedTokens.get(0));
 	  chosenTokens.removeAll(discardedTokens); // écartement des jetons
 	  //System.out.println(discardedTokens);
-		System.out.println("Surpopulation");
+		//System.out.println("Surpopulation");
 		return discardedTokens;
 
 	}
@@ -106,18 +108,22 @@ public record Token(String espece, String color) {
 		Collections.shuffle(tokens);
 	}
 
+	public static Map<Token,Integer> countOccurrences(ArrayList<Token> tokens){
+		Map<Token,Integer> mapOccur = new HashMap<>();
+		for(var item : tokens){
+			mapOccur.put(item,mapOccur.getOrDefault(item, 0) + 1);
+		}
+		return mapOccur;
+				
+	}
+
 	public static boolean checkOvercrowding(ArrayList<Token> chosenTokens, Scanner scanner){
 		//Vérifie s'il y a surpopulation
 		if (chosenTokens.isEmpty()){
 			return false;
 		}
-		var firstElem = chosenTokens.get(0);
-		int sameToken = 0;
-		for(var token: chosenTokens){
-			if(firstElem.equals(token)){
-				sameToken++;
-			}
-		}
+		var mapTokens = countOccurrences(chosenTokens);
+	  int sameToken = Collections.max(mapTokens.values());
     return switch (sameToken) {
 				// Cas ou le joueur decide d'écarter les jetons
         case 3 -> Player.choiceKeepOrPass(scanner);
@@ -136,6 +142,8 @@ public record Token(String espece, String color) {
 		tokens.add(token);
 		return tokens;
 	}
+
+	
 
 
 }

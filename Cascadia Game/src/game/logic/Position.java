@@ -57,14 +57,38 @@ public record Position(int posX,int posY) {
 		return new Position(x, y);
   }  
 	
-	public List<Position> voisin() {
+	public List<Position> voisinAdjacent() {
 		List<Position> list = new ArrayList<>();
-		list.add(new Position(posX-1,posY));
-		list.add(new Position(posX+1,posY));
-		list.add(new Position(posX,posY-1));
-		list.add(new Position(posX,posY+1));
-		return list;
+		List<Position> validPositions = new ArrayList<>();
+    Position north = new Position(posX,posY - 1);
+		Position south = new Position(posX, posY + 1);
+		Position east = new Position(posX + 1, posY);
+		Position west = new Position(posX - 1, posY);
+		list.add(north);
+		list.add(south);
+		list.add(east);
+		list.add(west);
+		for(var elem : list){
+			if (elem.isValid(25, 25)){
+				validPositions.add(elem);
+			}
+		}
+		return validPositions;
 	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (this == object) return true;
+		if (object == null || getClass() != object.getClass()) return false;
+		Position position = (Position) object;
+		return posX == position.getX() && posY == position.getY();
+  }
+
+	@Override
+	public int hashCode(){
+		return Objects.hash(posX,posY);
+	}
+	
 
 	@Override
 	public String toString(){
