@@ -92,9 +92,10 @@ public class Choice {
 		ArrayList<Token> chosenTokens = new ArrayList<>();
 		chosenTokens = Token.chooseTokens(tokens,chosenTokens);
 		addTokensTiles(tiles, chosenTokens);
-		System.out.println("Choix des jetons et tuiles :");
 		System.out.println("\n");
+		System.out.println("Choix des jetons et tuiles :");
 		display.displayAll(this);
+		System.out.println("\n");
 		if(Token.checkOvercrowding(chosenTokens, scanner)){
 			System.out.println("Surpopulation : choix de nouveaux jetons");
 			choiceBoard.clear();
