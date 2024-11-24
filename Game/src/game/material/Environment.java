@@ -3,7 +3,6 @@ import game.logic.Position;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -14,15 +13,13 @@ public class Environment{
 
 	/**
 	 * This method returns the key of a map by its value
-	 * @param <Key> type of the key
-	 * @param <Value> type of the value
 	 * @param map map to search in
-	 * @param index index of the key
+	 * @param position position to search
 	 * @return key
 	 */
-	public static <Key,Value> Key getKeyByValue(LinkedHashMap<Key, Value> map, Value value){
-		for (Map.Entry<Key, Value> entry : map.entrySet()) {
-			if (entry.getValue().equals(value)){
+	public static HashMap<Tile,Token> getKeyByPos(LinkedHashMap<HashMap<Tile,Token>, Position> map, Position position){
+		for (var entry : map.entrySet()) {
+			if (entry.getValue().equals(position)){
 				return entry.getKey();
 			}
 		}
@@ -31,18 +28,16 @@ public class Environment{
 
 	/**
 	 * This method returns the key of a map by its value
-	 * @param <Key> type of the key
-	 * @param <Value> type of the value
 	 * @param map map to search in
-	 * @param value value to search
+	 * @param token token to search
 	 * @return key
 	 */
-	public static <Key,Value> Key getKeyByValue(HashMap<Key, Value> map, Value value){
-		for (Map.Entry<Key, Value> entry : map.entrySet()) {
+	public static Tile getKeyByToken(HashMap<Tile, Token> map, Token token){
+		for (var entry : map.entrySet()) {
 			if (entry.getValue() == null){
 				return entry.getKey();
 			}
-			else if (entry.getValue().equals(value)){
+			else if (entry.getValue().equals(token)){
 				return entry.getKey();
 			}
 		}
@@ -83,7 +78,7 @@ public class Environment{
 		Objects.requireNonNull(token, "Error : Null token");
 		Objects.requireNonNull(position, "Error : Null position");
 		if(checkPutToken(tile, token)){
-			var key = Environment.getKeyByValue(tokenTilesList, position);
+			var key = Environment.getKeyByPos(tokenTilesList, position);
 			key.put(tile, token);
 			return true;
 		} else {
@@ -138,7 +133,7 @@ public class Environment{
 	 * @return true if there is no tile in the position, false otherwise
 	 */
 	public boolean noTileInPos(Position position){
-		return getKeyByValue(tokenTilesList,position) != null;
+		return getKeyByPos(tokenTilesList,position) != null;
 	}
 	
 	@Override

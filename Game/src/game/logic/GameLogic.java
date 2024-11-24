@@ -7,7 +7,7 @@ import game.material.Token;
 import game.player.Player;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -17,15 +17,12 @@ import java.util.Scanner;
 public class GameLogic {
 
 	/**
-	 * This method returns the key of a map by its index
-	 * @param <Key> type of the key
-	 * @param <Value> type of the value
-	 * @param map map to search in
-	 * @param index index of the key
-	 * @return key
-	 * @throws IndexOutOfBoundsException if index is out of bounds
+	 * This method returns the tile by its index
+	 * @param map map
+	 * @param index index
+	 * @return tile
 	 */
-	public <Key, Value> Key getKeyByIndex(LinkedHashMap<Key, Value> map, int index) {
+	public Tile getTileByIndex(Map<Tile,Token> map, int index) {
 		Objects.requireNonNull(map, "Error : Null map");
 		if (index < 0 || index >= map.size()) {
 			throw new IndexOutOfBoundsException("Index out of bounds: " + index);
@@ -40,31 +37,7 @@ public class GameLogic {
 		throw new IllegalAccessError("Index not found");
 	}
 
-	/**
-	 * This method returns the key of a map by its index
-	 * @param <Key> type of the key
-	 * @param <Value> type of the value
-	 * @param map map to search in
-	 * @param index index of the key
-	 * @return key
-	 * @throws IndexOutOfBoundsException if index is out of bounds
-	 * Overloaded method
-	 */
-	public <Key, Value> Key getKeyByIndex(HashMap<Key, Value> map, int index) {
-		Objects.requireNonNull(map, "Error : Null map");
-		if (index < 0 || index >= map.size()) {
-			throw new IndexOutOfBoundsException("Index out of bounds: " + index);
-		}
-		int position = 0;
-		for (var entry : map.entrySet()) {
-			if (position == index) {
-				return entry.getKey();
-			}
-			position++;
-		}
-		throw new IllegalAccessError("Index introuvable");
-	}
-
+	
 	/**
 	 * This method return the player's choice
 	 * @param scanner scanner
@@ -163,8 +136,8 @@ public class GameLogic {
 		Objects.requireNonNull(env, "Environment cannot be null");
 		Objects.requireNonNull(chosenToken, "Chosen token cannot be null");
 		Objects.requireNonNull(chosenPos, "Chosen position cannot be null");
-		var mapTilePos = Environment.getKeyByValue(env.getEnvironment(), chosenPos);
-		var tilePos = Environment.getKeyByValue(mapTilePos, null);
+		var mapTilePos = Environment.getKeyByPos(env.getEnvironment(), chosenPos);
+		var tilePos = Environment.getKeyByToken(mapTilePos, null);
 		env.addTokenPlayer(tilePos, chosenToken, chosenPos);
 	}
 
@@ -177,7 +150,7 @@ public class GameLogic {
 	public HashMap<Tile, Token> finalChoiceTile(int choice, HashMap<Tile, Token> choiceBoard) {
 		Objects.requireNonNull(choiceBoard, "Choice board cannot be null");
 		HashMap<Tile, Token> choicePlayer = new HashMap<>();
-		var chosenTile = getKeyByIndex(choiceBoard, 0); // Tuile choisie
+		var chosenTile = getTileByIndex(choiceBoard, 0); // Tuile choisie
 		choicePlayer.put(chosenTile, null);
 		return choicePlayer;
 	}
@@ -222,8 +195,8 @@ public class GameLogic {
 			Token.returnToken(chosenToken, tokens);
 			return false;
 		}
-		var maptilePos = Environment.getKeyByValue(env.getEnvironment(), chosenPos);
-		var tilePos = Environment.getKeyByValue(maptilePos, null);
+		var maptilePos = Environment.getKeyByPos(env.getEnvironment(), chosenPos);
+		var tilePos = Environment.getKeyByToken(maptilePos, null);
 		var bool = env.addTokenPlayer(tilePos, chosenToken, chosenPos);
 		return bool;
 	}
@@ -252,15 +225,15 @@ public class GameLogic {
 		int choice = getPlayerChoice(scanner, board);
 		var choiceBoard = board.getChoiceBoard();
 		var maPlayer = finalChoiceTile(choice - 1, choiceBoard);
-		var chosenToken = geTokenPlayer(board, getKeyByIndex(choiceBoard, choice - 1));
+		var chosenToken = geTokenPlayer(board, getTileByIndex(choiceBoard, choice - 1));
 		var posPlayer = getPosition(env, scanner);
-		env = getDirection(scanner, posPlayer, getKeyByIndex(choiceBoard, choice - 1), maPlayer, env);
+		env = getDirection(scanner, posPlayer, getTileByIndex(choiceBoard, choice - 1), maPlayer, env);
 		display.displayEnvPlayer(env, grid, player);
-		var bool = puTokenToEnv(board, scanner, display, grid, env, getKeyByIndex(choiceBoard, choice - 1), chosenToken, player, tokens);
+		var bool = puTokenToEnv(board, scanner, display, grid, env, getTileByIndex(choiceBoard, choice - 1), chosenToken, player, tokens);
 		if (bool) {
 			display.displayEnvPlayer(env, grid, player);
 		}
 		display.displayEnvPlayer(env, grid, player);
-		choiceBoard.remove(getKeyByIndex(choiceBoard, choice - 1));
+		choiceBoard.remove(getTileByIndex(choiceBoard, choice - 1));
 	}
 }

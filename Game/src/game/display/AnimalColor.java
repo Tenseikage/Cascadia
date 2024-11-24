@@ -28,7 +28,7 @@ public enum AnimalColor {
 	 * @param ansiCode
 	 */
 	AnimalColor(String ansiCode) {
-		Objects.requireNonNull(ansiCode, "ansiCode cannot be null");
+		Objects.requireNonNull(ansiCode, "Error: null ansi code");
 		this.ansiCode = ansiCode;
 	}
 
