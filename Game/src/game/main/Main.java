@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
+
 public class Main {
 
 	/**
@@ -33,14 +34,14 @@ public class Main {
 		Environment env1,Environment env2, DisplayTools grid1, 
 		DisplayTools grid2, ArrayList<Token> tokens,ArrayList<Tile> tiles){
 			var logic = new GameLogic();
-			int nbturns = 6;
+			int nbturns = 2;
 			for(int i = 0; i < nbturns; i++){
 				boolean validInput = false;
 				while(!validInput){
 					try {
 						logic.gameTurn(scanner, display, player1, board, env1, grid1, tokens);
-						logic.gameTurn(scanner, display, player2, board, env2, grid2, tokens);
-						board.updateChoiceBoard(tiles, tokens, board.completeTokenList(),scanner);
+						//logic.gameTurn(scanner, display, player2, board, env2, grid2, tokens);
+						board.updateChoiceBoard(tiles, tokens,scanner);
 						validInput = true;
 					} catch (Exception e) {
 							System.err.println("Invalid entry");

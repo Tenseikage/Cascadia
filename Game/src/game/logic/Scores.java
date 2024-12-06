@@ -25,7 +25,7 @@ public class Scores {
 		for (var entry: envPlayer.entrySet()){
 			var entryTileToken = entry.getKey();
 			var position = entry.getValue();
-			var token = new ArrayList<>(entryTileToken.values()).get(0);
+			var token = entryTileToken.getToken();
 			if(token != null){
 				posAnimals.put(token.espece(), position);
 			}

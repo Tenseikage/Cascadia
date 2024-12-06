@@ -2,10 +2,10 @@ package game.display;
 import game.logic.Choice;
 import game.logic.Position;
 import game.material.Environment;
+import game.material.PeerTileToken;
 import game.material.Tile;
 import game.material.Token;
 import game.player.Player;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
@@ -26,8 +26,8 @@ public class Display {
 		StringBuilder bottomBorder = new StringBuilder();
 		StringBuilder blankLine = new StringBuilder();
 		var separator = "  ";
-		for (var entry : tilesToken.entrySet()){
-			Tile tile = entry.getKey();
+		for (var elem : tilesToken){
+			Tile tile = elem.getTile();
 			topBorder.append("----------").append(separator); // Coin supérieur gauche, bord supérieur, coin supérieur droit
 			placeLine.append("|   ").append(tile.getPlace()).append("   |").append(separator);// Bord gauche, espace vide, bord droit
 			animalLine.append("|").append(tile.getListAnimals()).append("|").append(separator); 
@@ -71,8 +71,8 @@ public class Display {
 		StringBuilder animalLine = new StringBuilder();
 		StringBuilder bottomBorder = new StringBuilder();
 		var separator = "   ";
-		for (var entry : tilesToken.entrySet()) {
-			Token token = entry.getValue();
+		for (var entry : tilesToken) {
+			Token token = entry.getToken();
 			String color = token.color();
 			AnimalColor animalColor = setColor(color);
 			topBorder.append(animalColor.get()).append(" --------").append(AnimalColor.RESET.get()).append(separator);
@@ -146,7 +146,7 @@ public class Display {
 	 * @param token Token of an environement, 
 	 * @return Stringbuilder which contains the ASCII of a tile
 	 */
-	public StringBuilder displayTileEnv(Tile tile, Map.Entry<HashMap<Tile, Token>, Position> entry, AnimalColor color, Token token) {
+	public StringBuilder displayTileEnv(Tile tile, Map.Entry<PeerTileToken, Position> entry, AnimalColor color, Token token) {
 		Objects.requireNonNull(tile, "Error : Null tile");
 		Objects.requireNonNull(entry, "Error : Null entry");
 		Objects.requireNonNull(color, "Error : Null entry");
@@ -181,22 +181,23 @@ public class Display {
 		var envPlayer = env.getEnvironment();
 		AnimalColor animalColor;
 		for (var entry : envPlayer.entrySet()) {
-			for (var entryTile : entry.getKey().entrySet()) {
-				Tile tile = entryTile.getKey();
-				Token token = entryTile.getValue();
-				if (checkTokenEnv(token)){
-					String color = token.color();
-					animalColor = setColor(color);
-				} else {
-					animalColor = setColor("");
-				}
-				Position pos = entry.getValue();
-				StringBuilder tileRepresentation = displayTileEnv(tile, entry, animalColor, token);
-				grid.addTileRepresent(pos.getY(), pos.getX(), tileRepresentation.toString());
+			Tile tile = entry.getKey().getTile();
+			Token token = entry.getKey().getToken();
+			if (checkTokenEnv(token)){
+				String color = token.color();
+				animalColor = setColor(color);
+			} else {
+				animalColor = setColor("");
 			}
+			Position pos = entry.getValue();
+			StringBuilder tileRepresentation = displayTileEnv(tile, entry, animalColor, token);
+			grid.addTileRepresent(pos.getY(), pos.getX(), tileRepresentation.toString());
 		}
 		displayGridEnvPlayer(grid);
 	}
+
+			
+				
 
 	/**
 	 * This method displays the mode for the final score count in 
@@ -233,4 +234,5 @@ public class Display {
 		displayTile(board); 
 		displayToken(board);
 	}
-} 
+
+}

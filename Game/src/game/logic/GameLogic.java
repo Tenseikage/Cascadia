@@ -2,11 +2,11 @@ package game.logic;
 import game.display.Display;
 import game.display.DisplayTools;
 import game.material.Environment;
+import game.material.PeerTileToken;
 import game.material.Tile;
 import game.material.Token;
 import game.player.Player;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
@@ -106,7 +106,7 @@ public class GameLogic {
 	 * @param env environment
 	 * @return environment
 	 */
-	public Environment getDirection(Scanner scanner, Position chosenPos, Tile chosenTile, HashMap<Tile, Token> tilesTokens, Environment env) {
+	public Environment getDirection(Scanner scanner, Position chosenPos, Tile chosenTile, PeerTileToken tilesTokens, Environment env) {
 		Objects.requireNonNull(scanner, "Error : Null scanner");
 		Objects.requireNonNull(chosenPos, "Error : Null position");
 		Objects.requireNonNull(chosenTile, "Error : Null tile");
@@ -119,8 +119,9 @@ public class GameLogic {
 		if (!chosenPos.isValid(Position.setMaxPos().getX(), Position.setMaxPos().getY()) || bool) {
 			throw new IllegalArgumentException("Erreur tuile déja présente !!!");
 		} else {
-			tilesTokens.put(chosenTile, null);
-			env.addTilePlayer(tilesTokens, chosenPos);
+			tilesTokens.setTile(chosenTile);
+			// set to null
+			env.addTilePlayer(tilesTokens.getTile(), chosenPos);
 		}
 		return env;
 	}
@@ -136,9 +137,8 @@ public class GameLogic {
 		Objects.requireNonNull(env, "Environment cannot be null");
 		Objects.requireNonNull(chosenToken, "Chosen token cannot be null");
 		Objects.requireNonNull(chosenPos, "Chosen position cannot be null");
-		var mapTilePos = Environment.getKeyByPos(env.getEnvironment(), chosenPos);
-		var tilePos = Environment.getKeyByToken(mapTilePos, null);
-		env.addTokenPlayer(tilePos, chosenToken, chosenPos);
+		var peerTilePos = Environment.getKeyByPos(env.getEnvironment(), chosenPos);
+		env.addTokenPlayer(peerTilePos.getTile(), chosenToken, chosenPos);
 	}
 
 	/**
@@ -147,24 +147,10 @@ public class GameLogic {
 	 * @param choiceBoard choice board
 	 * @return final choice
 	 */
-	public HashMap<Tile, Token> finalChoiceTile(int choice, HashMap<Tile, Token> choiceBoard) {
+	public PeerTileToken finalChoiceTileToken(int choice, ArrayList<PeerTileToken> choiceBoard) {
 		Objects.requireNonNull(choiceBoard, "Choice board cannot be null");
-		HashMap<Tile, Token> choicePlayer = new HashMap<>();
-		var chosenTile = getTileByIndex(choiceBoard, 0); // Tuile choisie
-		choicePlayer.put(chosenTile, null);
-		return choicePlayer;
-	}
-
-	/**
-	 * This method returns the token of the player
-	 * @param board choice board
-	 * @param chosenTile chosen tile
-	 * @return token
-	 */
-	public Token geTokenPlayer(Choice board, Tile chosenTile) {
-		Objects.requireNonNull(board, "Error : Null board");
-		Objects.requireNonNull(chosenTile, "Error : Null chosen tile");
-		return board.getChoiceBoard().get(chosenTile);
+		var chosenTileToken = choiceBoard.get(0); // Tuile  et jeton choisie
+		return chosenTileToken;
 	}
 
 	/**
@@ -195,8 +181,8 @@ public class GameLogic {
 			Token.returnToken(chosenToken, tokens);
 			return false;
 		}
-		var maptilePos = Environment.getKeyByPos(env.getEnvironment(), chosenPos);
-		var tilePos = Environment.getKeyByToken(maptilePos, null);
+		var peerPos = Environment.getKeyByPos(env.getEnvironment(), chosenPos);
+		var tilePos = peerPos.getTile();
 		var bool = env.addTokenPlayer(tilePos, chosenToken, chosenPos);
 		return bool;
 	}
@@ -224,16 +210,15 @@ public class GameLogic {
 		display.displayAll(board);
 		int choice = getPlayerChoice(scanner, board);
 		var choiceBoard = board.getChoiceBoard();
-		var maPlayer = finalChoiceTile(choice - 1, choiceBoard);
-		var chosenToken = geTokenPlayer(board, getTileByIndex(choiceBoard, choice - 1));
+		var peerPlayer = finalChoiceTileToken(choice - 1, choiceBoard);
 		var posPlayer = getPosition(env, scanner);
-		env = getDirection(scanner, posPlayer, getTileByIndex(choiceBoard, choice - 1), maPlayer, env);
+		env = getDirection(scanner, posPlayer, choiceBoard.get(choice - 1).getTile(), peerPlayer , env);
 		display.displayEnvPlayer(env, grid, player);
-		var bool = puTokenToEnv(board, scanner, display, grid, env, getTileByIndex(choiceBoard, choice - 1), chosenToken, player, tokens);
+		var bool = puTokenToEnv(board, scanner, display, grid, env, choiceBoard.get(choice - 1).getTile(), choiceBoard.get(choice - 1).getToken(), player, tokens);
 		if (bool) {
 			display.displayEnvPlayer(env, grid, player);
 		}
 		display.displayEnvPlayer(env, grid, player);
-		choiceBoard.remove(getTileByIndex(choiceBoard, choice - 1));
+		choiceBoard.remove(choiceBoard.get(choice - 1));
 	}
 }

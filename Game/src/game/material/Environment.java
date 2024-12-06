@@ -2,14 +2,13 @@ package game.material;
 import game.logic.Position;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Objects;
 
 /**
  * Class which represents the environment of the player
  */
 public class Environment{
-	private final LinkedHashMap<HashMap<Tile,Token>,Position> tokenTilesList = new LinkedHashMap<>();
+	private final HashMap<PeerTileToken,Position> tokenTilesList2 = new HashMap<>();
 
 	/**
 	 * This method returns the key of a map by its value
@@ -17,7 +16,8 @@ public class Environment{
 	 * @param position position to search
 	 * @return key
 	 */
-	public static HashMap<Tile,Token> getKeyByPos(LinkedHashMap<HashMap<Tile,Token>, Position> map, Position position){
+
+	public static PeerTileToken getKeyByPos(HashMap<PeerTileToken,Position> map, Position position){
 		for (var entry : map.entrySet()) {
 			if (entry.getValue().equals(position)){
 				return entry.getKey();
@@ -50,9 +50,9 @@ public class Environment{
 	 * @param key key of the map
 	 * @param position position of the tile
 	 */
-	public void addTilePlayer(HashMap<Tile,Token> key,Position position){	
-		Objects.requireNonNull(key, "Error : Null key");
-		tokenTilesList.put(key, position);
+	public void addTilePlayer(Tile tile,Position position){	
+		Objects.requireNonNull(tile, "Error : Null tile");
+		tokenTilesList2.put(new PeerTileToken(tile,null), position);
 	}
 
 	/**
@@ -78,8 +78,8 @@ public class Environment{
 		Objects.requireNonNull(token, "Error : Null token");
 		Objects.requireNonNull(position, "Error : Null position");
 		if(checkPutToken(tile, token)){
-			var key = Environment.getKeyByPos(tokenTilesList, position);
-			key.put(tile, token);
+			var peer = Environment.getKeyByPos(tokenTilesList2, position);
+			peer.setToken(token);
 			return true;
 		} else {
 			System.out.println("Erreur : Placement du jeton impossible");
@@ -92,16 +92,16 @@ public class Environment{
 	 * This method returns the environment of the player
 	 * @return the environment of the player
 	 */
-	public LinkedHashMap<HashMap<Tile,Token>,Position> getEnvironment(){
-		return tokenTilesList;
+	public HashMap<PeerTileToken,Position> getEnvironment(){
+		return tokenTilesList2;
 	}
 	/**
 	 * This method sets the environment of the player with starting tiles
 	 * @param data data to set
 	 */
-	public void setEnvironment(LinkedHashMap<HashMap<Tile,Token>,Position> data){
+	public void setEnvironment(HashMap<PeerTileToken,Position> data){
 		Objects.requireNonNull(data, "Erreur : données requises pour la mise à jour !");
-		tokenTilesList.putAll(data);
+		tokenTilesList2.putAll(data);
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class Environment{
 	 */
 	public ArrayList<Position> getPositions(){
 		ArrayList<Position> listPositions = new ArrayList<>();
-		for (var entry : tokenTilesList.entrySet()){
+		for (var entry : tokenTilesList2.entrySet()){
 			listPositions.add(entry.getValue());
 		}
 		return listPositions;
@@ -133,12 +133,12 @@ public class Environment{
 	 * @return true if there is no tile in the position, false otherwise
 	 */
 	public boolean noTileInPos(Position position){
-		return getKeyByPos(tokenTilesList,position) != null;
+		return getKeyByPos(tokenTilesList2,position) != null;
 	}
 	
 	@Override
 	public String toString(){
-		return tokenTilesList.toString();
+		return tokenTilesList2.toString();
 	}
 
 }

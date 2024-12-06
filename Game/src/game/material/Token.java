@@ -1,4 +1,5 @@
 package game.material;
+import game.logic.Choice;
 import game.player.Player;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,6 +10,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
+import javax.swing.border.Border;
 
 /**
  * Class which represents a token of the game
@@ -47,7 +49,7 @@ public record Token(String espece, String color) {
 
 	/**
 	 * Method to fill the list of tokens
-	 * @param tokens list of tokens
+	 * @param tokens list of tokenspeers
 	 * @param chosenTokens list of chosen tokens
 	 * @return the list of chosen tokens
 	 */
@@ -59,6 +61,29 @@ public record Token(String espece, String color) {
 			int indexToken = random.nextInt(tokens.size());
 			chosenTokens.add(tokens.remove(indexToken));
 		}
+		return chosenTokens;
+	}
+
+
+	/**
+	 * Method to change the list of tokens when there is overcrowding
+	 * @param tokens list of tokens
+	 * @param chosenTokens list of chosen tokens
+	 * @return the list of chosen tokens
+	 */
+	public static ArrayList<Token> changeTokenList(Choice board ,ArrayList<Token> tokens){
+		System.out.println("aaezz");
+		var chosenTokens = board.listChosenToken();// retrieve of chosentokens
+		tokens.addAll(chosenTokens); //remise sac
+		chosenTokens.clear();
+		Objects.requireNonNull(tokens, "Error : Null token list");
+		Objects.requireNonNull(chosenTokens, "Error : Null chosen token list");
+		for (int i = 0; i < 4; i++){
+			Random random = new Random();
+			int indexToken = random.nextInt(tokens.size());
+			chosenTokens.add(tokens.remove(indexToken));
+		}
+		System.out.println(chosenTokens + " new tokens");
 		return chosenTokens;
 	}
 
@@ -80,36 +105,19 @@ public record Token(String espece, String color) {
 		return chosenTokens;
 	}
 
-
-	/**
-	 * Method to change the list of tokens when there is overcrowding
-	 * @param tokens list of tokens
-	 * @param chosenTokens list of chosen tokens
-	 * @return the list of chosen tokens
-	 */
-	public static ArrayList<Token> changeTokenList(ArrayList<Token> tokens,ArrayList<Token> chosenTokens){
-		Objects.requireNonNull(tokens, "Error : Null token list");
-		Objects.requireNonNull(chosenTokens, "Error : Null chosen token list");
-		for (int i = 1; i < 4; i++){
-			Random random = new Random();
-			int indexToken = random.nextInt(tokens.size());
-			chosenTokens.add(tokens.remove(indexToken));
-		}
-		return chosenTokens;
-	}
-
 	/**
 	 * Method to choose the tokens
 	 * @param tokens list of tokens
 	 * @param chosenTokens list of chosen tokens
 	 * @return the list of chosen tokens
 	 */
-	public static ArrayList<Token> chooseTokens(ArrayList<Token> tokens,ArrayList<Token> chosenTokens){
+	public static ArrayList<Token> chooseTokens(ArrayList<Token> tokens, Choice board){
 		Objects.requireNonNull(tokens, "Error : Null token list");
-		Objects.requireNonNull(chosenTokens, "Error : Null chosen token list");
+		Objects.requireNonNull(board, "Error : Null board");
 		if(tokens.isEmpty()){
 			throw new IllegalArgumentException("Erreur : Liste vide");
 		}
+		var chosenTokens = board.listChosenToken();
 		if(chosenTokens.isEmpty()){
 			chosenTokens =  Token.fillTokenList(tokens, chosenTokens);
 		}else if (chosenTokens.size() <= 2){
@@ -117,30 +125,31 @@ public record Token(String espece, String color) {
 			chosenTokens = Token.completeTokenList(tokens, chosenTokens, size);
 		}
 		else{
-			chosenTokens = Token.changeTokenList(tokens, chosenTokens);
+			chosenTokens = Token.changeTokenList(board,tokens);
 		}
 		return chosenTokens;
 	}
 
 	/**
 	 * Method to discard the tokens
-	 * @param chosenTokens list of chosen tokens
+	 * @param chosenTokens= list of chosen tokens
 	 * @return the list of discarded tokens
 	 */
-	public static ArrayList<Token> discardTokens(ArrayList<Token> chosenTokens){
-		Objects.requireNonNull(chosenTokens, "Error : Null chosen token list");
+	public static ArrayList<Token> discardTokens(ArrayList<PeerTileToken> peer){
+		Objects.requireNonNull(peer ,"Error : Null peer list");
 		ArrayList<Token> discardedTokens = new ArrayList<>();
-		if(chosenTokens.isEmpty()){
+		if(peer.isEmpty()){
 			throw new IllegalArgumentException("Error : Empty list of tokens");
 		}
 		Set<Token> uniqueTokens = new HashSet<>();
-		for(var element  : chosenTokens){
-			if(!uniqueTokens.add(element)){
-				discardedTokens.add(element);
+		for(var element : peer){
+			var token  = element.getToken();
+			if(!uniqueTokens.add(token)){
+				discardedTokens.add(token);
 			}
 		}
 		discardedTokens.add(discardedTokens.get(0));
-	  chosenTokens.removeAll(discardedTokens); 
+	  //set to null;
 		return discardedTokens;
 
 	}
@@ -174,14 +183,16 @@ public record Token(String espece, String color) {
 	 * @param scanner scanner to read the player's choice
 	 * @return true if there is overcrowding, false otherwise
 	 */
-	public static boolean checkOvercrowding(ArrayList<Token> chosenTokens, Scanner scanner){
-		Objects.requireNonNull(chosenTokens, "Error : Null chosen token list");
+	public static boolean checkOvercrowding(Choice board, Scanner scanner){
+		Objects.requireNonNull(board, "Error : Null Board");
 		Objects.requireNonNull(scanner, "Error : Null scanner");
-		if (chosenTokens.isEmpty()){
+		var peer = board.getChoiceBoard();
+		if (peer.isEmpty()){
 			return false;
 		}
-		var mapTokens = countOccurrences(chosenTokens);
+		var mapTokens = countOccurrences(board.listChosenToken());
 	  int sameToken = Collections.max(mapTokens.values());
+		//System.out.println("même tokens : " + sameToken);
     return switch (sameToken) {
         case 3 -> Player.choiceKeepOrPass(scanner);
         case 4 -> true;
