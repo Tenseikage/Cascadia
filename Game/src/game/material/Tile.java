@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 
 
 /**
@@ -14,7 +13,6 @@ import java.util.HashMap;
 public class Tile {
   private String places = new String();
   private final ArrayList<String> listAnimals = new ArrayList<>();
-	private final ArrayList<HashMap<Tile,Token>> starTiles = new ArrayList<>();
 	private final ArrayList<ArrayList<PeerTileToken>> startTiles = new ArrayList<>();
 
 	/**
@@ -123,7 +121,7 @@ public class Tile {
 		startTiles.add(addStart3());
 		startTiles.add(addStart4());
 		startTiles.add(addStart5());
-		Collections.shuffle(starTiles);
+	  Collections.shuffle(startTiles);
 		return startTiles;
 	}	
 
@@ -153,11 +151,22 @@ public class Tile {
 				String[] parts = line.split(";");
 				if (parts.length >= 2) {
           Tile tile = new Tile();
-          tile.setPlace(parts[0].substring(0, 2));
+					var place = parts[0].substring(0, 2);
+					if (Biome.contains(Places.class, place)){
+						tile.setPlace(parts[0].substring(0, 2));
+					} else {
+						throw new IllegalArgumentException("Place inconnue");
+					}
 					var animals = parts[1].split(",");
-          tile.addAnimals(animals[0].substring(0, 2));
-					tile.addAnimals(animals[1].substring(0, 2));
-          tiles.add(tile);
+					var animal1 = animals[0].substring(0, 2);
+					var animal2 = animals[1].substring(0, 2);
+					if (Biome.contains(Animal.class,animal1) && Biome.contains(Animal.class,animal2)){
+						tile.addAnimals(animal1);
+						tile.addAnimals(animal2);
+          	tiles.add(tile);
+					} else {
+						  throw new IllegalArgumentException("Animaux inconnus");
+					} 
         }
 			}	
 		} catch(IOException e){
