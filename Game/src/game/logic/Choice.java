@@ -22,7 +22,7 @@ public class Choice {
 	/**
 	 * This method adds tokens and tiles to the choice board
 	 * @param tiles list of tiles of the game
-	 * @param chosenTokens 	list of tokens chosen randomly
+	 * @param tokens list of tokens created
 	 */
 	public void addTokensTiles(ArrayList<Tile> tiles,ArrayList<Token> tokens){
 		Objects.requireNonNull(tiles, "Error: Null tile list");
@@ -37,7 +37,7 @@ public class Choice {
 	/**
 	 * This method chooses the starting tiles,
 	 * @param tokenTiles ArrayList of tiles and null tokens
-	 * @return LinkedHashMap of tiles and null tokens with tile positions (start habitat)
+	 * @return HashMap of tiles and null tokens with tile positions (start habitat)
 	 */
 	public HashMap<PeerTileToken,Position> choseStartTile(ArrayList<PeerTileToken> tokenTiles){
 		Objects.requireNonNull(tokenTiles, "Data for start tiles is null");
@@ -45,18 +45,30 @@ public class Choice {
 		var data = tokenTiles.stream().collect(Collectors.toMap(Function.identity(), _ -> new Position(0,index[0]++)));
 		return new HashMap<>(data);
 	}
-
+  /**
+	 * This method return the list of chosen tokens
+	 * @return
+	 */
 	public ArrayList<Token> listChosenToken(){
     ArrayList<Token> chosenTokens = new ArrayList<>();
 		choicesBoard.stream().filter(peer -> peer.getToken() != null).forEach(peer -> chosenTokens.add(peer.getToken()));
 		return chosenTokens;
 	}
 
-	public void setTokens(ArrayList<Token> token){
+	/**
+	 * This method add each token to an associated tile
+	 * @param token
+	 */
+	private void setTokens(ArrayList<Token> chosenTokens){
 		AtomicInteger i = new AtomicInteger(0);
-		choicesBoard.stream().forEach(peer -> peer.setToken(token.get(i.getAndIncrement())));
+		choicesBoard.stream().forEach(peer -> peer.setToken(chosenTokens.get(i.getAndIncrement())));
 	}
 
+
+	/**
+	 * This method set each tile associated to tile to null
+	 * @param discardedToken
+	 */
 	private void removeDiscardedTokens(Token discardedToken){
 		choicesBoard.stream().filter(peer -> peer.getToken().equals(discardedToken)).forEach(peer -> peer.setToken(null));
 
@@ -78,10 +90,6 @@ public class Choice {
 		}
 	}
 
-	public void setTokenToNull(){
-		choicesBoard.stream().forEach(element -> element.setToken(null));
-	}
-	
 	/**
 	 * This method creates the choice board
 	 * @param tiles list of tiles of the game

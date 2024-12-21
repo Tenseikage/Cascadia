@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
-import javax.swing.border.Border;
+
 
 /**
  * Class which represents a token of the game
