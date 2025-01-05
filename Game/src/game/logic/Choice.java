@@ -1,16 +1,13 @@
 package game.logic;
-import game.display.Display;
+import game.graphic.WindowInfo;
 import game.material.PeerTileToken;
 import game.material.Tile;
 import game.material.Token;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 
 
@@ -34,17 +31,7 @@ public class Choice {
 			choicesBoard.add(new PeerTileToken(tiles.remove(indexTile),tokens.get(i)));
 		}
 	}
-	/**
-	 * This method chooses the starting tiles,
-	 * @param tokenTiles ArrayList of tiles and null tokens
-	 * @return HashMap of tiles and null tokens with tile positions (start habitat)
-	 */
-	public HashMap<PeerTileToken,Position> choseStartTile(ArrayList<PeerTileToken> tokenTiles){
-		Objects.requireNonNull(tokenTiles, "Data for start tiles is null");
-		int[] index = {0};
-		var data = tokenTiles.stream().collect(Collectors.toMap(Function.identity(), _ -> new Position(0,index[0]++)));
-		return new HashMap<>(data);
-	}
+	
   /**
 	 * This method return the list of chosen tokens
 	 * @return
@@ -97,25 +84,35 @@ public class Choice {
 	 * @param display display object
 	 * @param scanner scanner object
 	 */
-	public void createChoiceBoard(ArrayList<Tile> tiles, ArrayList<Token> tokens,Display display, Scanner scanner){
-		Objects.requireNonNull(display, "Error: display is null");
-		Objects.requireNonNull(scanner, "Error: scanner is null");
+	public void createChoiceBoard(ArrayList<Tile> tiles, ArrayList<Token> tokens, Scanner scanner, int displayMode){
+		//Objects.requireNonNull(scanner, "Error: scanner is null");
 		Objects.requireNonNull(tiles, "Error: tile list is null");
 		Objects.requireNonNull(tokens, "Error: token list is null");
 		var chosenTokens = Token.chooseTokens(tokens,this);
 		addTokensTiles(tiles, chosenTokens);
-		System.out.println("\n");
-		System.out.println("Choix des jetons et tuiles :");
-		display.displayAll(this);
-		System.out.println("\n");
-		if(Token.checkOvercrowding(this, scanner)){
-			System.out.println("Surpopulation : choix de nouveaux jetons");
-			var discardedTokens = Token.discardTokens(choicesBoard);
-			System.out.println(discardedTokens + "discarded tokens");
-			removeDiscardedTokens(discardedTokens.get(0));
-			var newTokens = Token.chooseTokens(tokens, this); 
-			setTokens(newTokens);
-			tokens.addAll(discardedTokens);
+		if (displayMode == 0){
+			System.out.println("\n");
+			//System.out.println("Choix des jetons et tuiles :");
+			System.out.println("\n");
+			if(Token.checkOvercrowding(this, scanner,displayMode)){
+				System.out.println("Surpopulation : choix de nouveaux jetons");
+				var discardedTokens = Token.discardTokens(choicesBoard);
+				System.out.println(discardedTokens + "discarded tokens");
+				removeDiscardedTokens(discardedTokens.get(0));
+				var newTokens = Token.chooseTokens(tokens, this); 
+				setTokens(newTokens);
+				tokens.addAll(discardedTokens);
+		  }
+			//Définir avec swing une fenêtre de dialogue
+		}else if (displayMode == 1){
+			if(Token.checkOvercrowding(this,null,displayMode)){
+				WindowInfo.messageInfo("Surpopulation : choix de nouveaux jetons","Surpopulation");
+				var discardedTokens = Token.discardTokens(choicesBoard);
+				removeDiscardedTokens(discardedTokens.get(0));
+				var newTokens = Token.chooseTokens(tokens, this); 
+				setTokens(newTokens);
+				tokens.addAll(discardedTokens);
+		  }
 		}
 	}
   /**
@@ -139,12 +136,12 @@ public class Choice {
 	 * @param chosenTokens list of tokens chosen by the player
 	 * @param scanner scanner object
 	 */
-	public void updateChoiceBoard(ArrayList<Tile> tiles, ArrayList<Token> tokens, Scanner scanner){
+	public void updateChoiceBoard(ArrayList<Tile> tiles, ArrayList<Token> tokens, Scanner scanner, int displayMode){
 		Objects.requireNonNull(tiles, "Error: tile list is null");
 		Objects.requireNonNull(tokens, "Error: token list is null");
 		Objects.requireNonNull(scanner, "Error: scanner is null");
 		completeTilesTokenList(tiles, tokens);
-		if(!Token.checkOvercrowding(this,scanner)){
+		if(!Token.checkOvercrowding(this,scanner,displayMode)){
 			updateTokenTiles(tiles, listChosenToken());
 		} else {
 			  System.out.println("Surpopulation");

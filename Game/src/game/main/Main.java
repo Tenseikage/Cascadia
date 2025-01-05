@@ -41,7 +41,7 @@ public class Main {
 					try {
 						logic.gameTurn(scanner, display, player1, board, env1, grid1, tokens);
 						//logic.gameTurn(scanner, display, player2, board, env2, grid2, tokens);
-						board.updateChoiceBoard(tiles, tokens,scanner);
+						board.updateChoiceBoard(tiles, tokens,scanner,0);
 						validInput = true;
 					} catch (Exception e) {
 							System.err.println("Invalid entry");
@@ -69,7 +69,6 @@ public class Main {
 			var env1 = new Environment();
 			var env2 = new Environment();
 			var board = new Choice();
-			var tile = new Tile();
 			var grid1 = new DisplayTools();
 			var grid2 = new DisplayTools();
 			display.displayRules();
@@ -78,17 +77,17 @@ public class Main {
 			var tokens = Token.tokenList();
 			var player1 = new Player("Toto",18,0,env1);
 			var player2 = new Player("Tota",18,0,env2);
-			tile.startTiles();
+			Tile.startTiles();
 			grid1.initGrid();
 			grid2.initGrid();
-			var choice1 = tile.getStartiles();
-			var choice2 = tile.getStartiles(); 
-			var finalTiles1 = board.choseStartTile(choice1);
-			var finalTiles2 = board.choseStartTile(choice2);
+			var choice1 = Tile.getStartiles();
+			var choice2 = Tile.getStartiles(); 
+			var finalTiles1 = env1.choseStartTile(choice1);
+			var finalTiles2 = env2.choseStartTile(choice2);
 			env1.setEnvironment(finalTiles1);
 			env2.setEnvironment(finalTiles2);
-			board.createChoiceBoard(tiles, tokens,display,scanner);
-			loopWithExecptions(scanner,display,player1,player2,board,env1,env2,grid1,grid2,tokens,tiles);
+			board.createChoiceBoard(tiles,tokens,scanner,0); // Ajout mode Affichage
+			loopWithExecptions(scanner,display,player1,player2,board,env1,env2,grid1,grid2,tokens,tiles); // Ajout mode affichage
 		  if (mode == 1) {
 				var posAnimals1 = score.checkTokens(env1);
 				var posAnimals2 = score.checkTokens(env2);

@@ -1,4 +1,5 @@
 package game.player;
+import game.graphic.WindowInfo;
 import game.material.Environment;
 import java.util.Objects;
 import java.util.Scanner;
@@ -9,8 +10,8 @@ import java.util.Scanner;
  */
 public record Player(String name, int age,int points,Environment boardPlayer) {
 	public Player {
-		Objects.requireNonNull(name,"Unknow player name");
-		Objects.requireNonNull(boardPlayer,"Unknow player board");
+		Objects.requireNonNull(name,"Unknown player name");
+		//Objects.requireNonNull(boardPlayer,"Unknow player board");
 		if (age < 0){
 			throw new IllegalArgumentException("Error : Negative age");
 		}
@@ -22,19 +23,37 @@ public record Player(String name, int age,int points,Environment boardPlayer) {
 	 * @param scanner the scanner to read the input
 	 * @return the name of the player
 	 */
-	public static boolean choiceKeepOrPass(Scanner scanner){
-		System.out.println("Souhaitez vous garder les jetons choisis ?");
-		var answer = scanner.next();
+	public static boolean choiceKeepOrPass(Scanner scanner, int displayMode){
 		boolean output;
-		switch (answer) {
-			case "Oui" -> output = false;
-			case "Non" -> output = true;
-			default -> output = true;
-		}
-		if (!output){
-			System.out.println("Jetons inchangés");
+		String message;
+		if(displayMode == 0){
+			System.out.println("Souhaitez vous garder les jetons choisis ?");
+			var answer = scanner.next();
+			switch (answer) {
+				case "Oui" -> output = false;
+				case "Non" -> output = true;
+				default -> output = true;
+			}
+			if (!output){
+				System.out.println("Jetons inchangés");
+			} else {
+				System.out.println("Jetons remis dans le sac");
+			}
+
 		} else {
-			System.out.println("Jetons remis dans le sac");
+				int result = WindowInfo.keepOrPass();
+				switch (result) {
+					case 0 -> output = false;
+					case 1 -> output = true;
+					default -> output = true;
+				} 
+				if(!output){
+					message = "Jetons inchangés";
+					WindowInfo.messageInfo(message, "Information");
+				}else {
+					message = "Jetons remis dans le sac";
+					WindowInfo.messageInfo(message, "Information");
+				}
 		}
 		return output;
 		

@@ -13,7 +13,7 @@ import java.util.Collections;
 public class Tile {
   private String places = new String();
   private final ArrayList<String> listAnimals = new ArrayList<>();
-	private final ArrayList<ArrayList<PeerTileToken>> startTiles = new ArrayList<>();
+	private final static ArrayList<ArrayList<PeerTileToken>> startTiles = new ArrayList<>();
 
 	/**
 	 * Method to add animals to the tile
@@ -47,7 +47,7 @@ public class Tile {
 	 * Method to add the first starting tile
 	 * @return the first starting tile
 	 */
-	public ArrayList<PeerTileToken> addStart1(){
+	public static ArrayList<PeerTileToken> addStart1(){
 		ArrayList<PeerTileToken> tilesTokens1 = new ArrayList<>();
 		tilesTokens1.add(new PeerTileToken(new Tile().setPlace("Ma").addAnimals("Bu","Re"), null));
 		tilesTokens1.add(new PeerTileToken(new Tile().setPlace("Ri").addAnimals("Sa", "Bu"), null));
@@ -59,7 +59,7 @@ public class Tile {
      * Method to add the second starting tile
      * @return the second starting tile
      */
-    public ArrayList<PeerTileToken> addStart2() {
+    public static ArrayList<PeerTileToken> addStart2() {
         ArrayList<PeerTileToken> tilesTokens2 = new ArrayList<>();
         tilesTokens2.add(new PeerTileToken(new Tile().setPlace("Mo").addAnimals("Ou", "Bu"), null));
         tilesTokens2.add(new PeerTileToken(new Tile().setPlace("Ma").addAnimals("Sa", "Ou"), null));
@@ -72,7 +72,7 @@ public class Tile {
 	 * Method to add the third starting tile
 	 * @return the third starting tile
 	 */
-	public ArrayList<PeerTileToken> addStart3(){
+	public static ArrayList<PeerTileToken> addStart3(){
 		//Troisième tuile de départ
 		ArrayList<PeerTileToken> tilesTokens3 = new ArrayList<>();
 		tilesTokens3.add(new PeerTileToken(new Tile().setPlace("Fo").addAnimals("Wa","Bu"),null));
@@ -86,7 +86,7 @@ public class Tile {
 	 * Method to add the fourth starting tile
 	 * @return the fourth starting tile
 	 */
-	public ArrayList<PeerTileToken> addStart4(){
+	public static ArrayList<PeerTileToken> addStart4(){
 		// Quatrième tuile de départ
 		ArrayList<PeerTileToken> tilesTokens4 = new ArrayList<>();
 		tilesTokens4.add(new PeerTileToken(new Tile().setPlace("Ri").addAnimals("Sa","Bu"),null));
@@ -100,7 +100,7 @@ public class Tile {
 	 * Method to add the fifth starting tile
 	 * @return the fifth starting tile
 	 */
-	public ArrayList<PeerTileToken> addStart5(){
+	public static ArrayList<PeerTileToken> addStart5(){
 		//Cinquième tuile de départ
 		ArrayList<PeerTileToken> tilesTokens5 = new ArrayList<>();
 		tilesTokens5.add(new PeerTileToken(new Tile().setPlace("Pr").addAnimals("Re","Bu"),null));
@@ -115,7 +115,7 @@ public class Tile {
 	 * Method to add the starting tiles
 	 * @return the list of starting tiles
 	 */
-	public ArrayList<ArrayList<PeerTileToken>> startTiles(){
+	public static ArrayList<ArrayList<PeerTileToken>> startTiles(){
     startTiles.add(addStart1());
 		startTiles.add(addStart2());
 		startTiles.add(addStart3());
@@ -129,7 +129,7 @@ public class Tile {
 	 * Method to get the starting tiles (3 tiles)
 	 * @return the starting tiles
 	 */
-	public ArrayList<PeerTileToken> getStartiles(){
+	public static  ArrayList<PeerTileToken> getStartiles(){
 		var chosenTokenTile = startTiles.remove(0);
 		return chosenTokenTile;
 	}

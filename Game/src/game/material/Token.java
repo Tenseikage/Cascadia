@@ -183,9 +183,9 @@ public record Token(String espece, String color) {
 	 * @param scanner scanner to read the player's choice
 	 * @return true if there is overcrowding, false otherwise
 	 */
-	public static boolean checkOvercrowding(Choice board, Scanner scanner){
+	public static boolean checkOvercrowding(Choice board, Scanner scanner, int displayMode){
 		Objects.requireNonNull(board, "Error : Null Board");
-		Objects.requireNonNull(scanner, "Error : Null scanner");
+		//Objects.requireNonNull(scanner, "Error : Null scanner");
 		var peer = board.getChoiceBoard();
 		if (peer.isEmpty()){
 			return false;
@@ -194,10 +194,10 @@ public record Token(String espece, String color) {
 	  int sameToken = Collections.max(mapTokens.values());
 		//System.out.println("même tokens : " + sameToken);
     return switch (sameToken) {
-        case 3 -> Player.choiceKeepOrPass(scanner);
-        case 4 -> true;
-        default -> false;
-    }; 
+			case 3 -> Player.choiceKeepOrPass(scanner,displayMode); // Fenêtre d'info sur le choix du joueur
+			case 4 -> true;
+			default -> false;
+	};
 	}
 
 	@Override

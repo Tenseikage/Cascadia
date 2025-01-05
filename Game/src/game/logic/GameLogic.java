@@ -137,7 +137,7 @@ public class GameLogic {
 		Objects.requireNonNull(env, "Environment cannot be null");
 		Objects.requireNonNull(chosenToken, "Chosen token cannot be null");
 		Objects.requireNonNull(chosenPos, "Chosen position cannot be null");
-		var peerTilePos = Environment.getKeyByPos(env.getEnvironment(), chosenPos);
+		var peerTilePos = env.getKeyByPos(chosenPos);
 		env.addTokenPlayer(peerTilePos.getTile(), chosenToken, chosenPos);
 	}
 
@@ -181,7 +181,7 @@ public class GameLogic {
 			Token.returnToken(chosenToken, tokens);
 			return false;
 		}
-		var peerPos = Environment.getKeyByPos(env.getEnvironment(), chosenPos);
+		var peerPos = env.getKeyByPos(chosenPos);
 		var tilePos = peerPos.getTile();
 		var bool = env.addTokenPlayer(tilePos, chosenToken, chosenPos);
 		return bool;

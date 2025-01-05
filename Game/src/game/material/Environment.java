@@ -2,14 +2,30 @@ package game.material;
 import game.logic.Position;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Class which represents the environment of the player
  */
 public class Environment{
-	private final HashMap<PeerTileToken,Position> tokenTilesList2 = new HashMap<>();
+	private final HashMap<PeerTileToken,Position> tokenTilesList = new HashMap<>();
 
+
+	/**
+	 * This method chooses the starting tiles,
+	 * @param tokenTiles ArrayList of tiles and null tokens
+	 * @return HashMap of tiles and null tokens with tile positions (start habitat)
+	 */
+	public HashMap<PeerTileToken,Position> choseStartTile(ArrayList<PeerTileToken> tokenTiles){
+		Objects.requireNonNull(tokenTiles, "Data for start tiles is null");
+		int[] index = {0};
+		var data = tokenTiles.stream().collect(Collectors.toMap(Function.identity(), _ -> new Position(0,index[0]++)));
+		return new HashMap<>(data);
+	}
+	
 	/**
 	 * This method returns the key of a map by its value
 	 * @param map map to search in
@@ -17,34 +33,14 @@ public class Environment{
 	 * @return key
 	 */
 
-	public static PeerTileToken getKeyByPos(HashMap<PeerTileToken,Position> map, Position position){
-		for (var entry : map.entrySet()) {
-			if (entry.getValue().equals(position)){
-				return entry.getKey();
-			}
-		}
-		return null;
+	public PeerTileToken getKeyByPos(Position position){
+		Objects.requireNonNull(position);
+		return tokenTilesList.entrySet().stream().filter(p -> p.getValue().equals(position)).map(Map.Entry::getKey).findAny().orElse(null);
+		
+		
 	}
 
-	/**
-	 * This method returns the key of a map by its value
-	 * @param map map to search in
-	 * @param token token to search
-	 * @return key
-	 */
-	public static Tile getKeyByToken(HashMap<Tile, Token> map, Token token){
-		for (var entry : map.entrySet()) {
-			if (entry.getValue() == null){
-				return entry.getKey();
-			}
-			else if (entry.getValue().equals(token)){
-				return entry.getKey();
-			}
-		}
-		return null;
-	}
-
-
+	
 	/**
 	 * This method adds a tile and a token to the player's environment
 	 * @param key key of the map
@@ -52,7 +48,7 @@ public class Environment{
 	 */
 	public void addTilePlayer(Tile tile,Position position){	
 		Objects.requireNonNull(tile, "Error : Null tile");
-		tokenTilesList2.put(new PeerTileToken(tile,null), position);
+		tokenTilesList.put(new PeerTileToken(tile,null), position);
 	}
 
 	/**
@@ -78,7 +74,7 @@ public class Environment{
 		Objects.requireNonNull(token, "Error : Null token");
 		Objects.requireNonNull(position, "Error : Null position");
 		if(checkPutToken(tile, token)){
-			var peer = Environment.getKeyByPos(tokenTilesList2, position);
+			var peer = getKeyByPos(position);
 			peer.setToken(token);
 			return true;
 		} else {
@@ -93,7 +89,7 @@ public class Environment{
 	 * @return the environment of the player
 	 */
 	public HashMap<PeerTileToken,Position> getEnvironment(){
-		return tokenTilesList2;
+		return tokenTilesList;
 	}
 	/**
 	 * This method sets the environment of the player with starting tiles
@@ -101,7 +97,7 @@ public class Environment{
 	 */
 	public void setEnvironment(HashMap<PeerTileToken,Position> data){
 		Objects.requireNonNull(data, "Erreur : données requises pour la mise à jour !");
-		tokenTilesList2.putAll(data);
+		tokenTilesList.putAll(data);
 	}
 
 	/**
@@ -110,7 +106,7 @@ public class Environment{
 	 */
 	public ArrayList<Position> getPositions(){
 		ArrayList<Position> listPositions = new ArrayList<>();
-		for (var entry : tokenTilesList2.entrySet()){
+		for (var entry : tokenTilesList.entrySet()){
 			listPositions.add(entry.getValue());
 		}
 		return listPositions;
@@ -133,12 +129,12 @@ public class Environment{
 	 * @return true if there is no tile in the position, false otherwise
 	 */
 	public boolean noTileInPos(Position position){
-		return getKeyByPos(tokenTilesList2,position) != null;
+		return getKeyByPos(position) != null;
 	}
 	
 	@Override
 	public String toString(){
-		return tokenTilesList2.toString();
+		return tokenTilesList.toString();
 	}
 
 }
