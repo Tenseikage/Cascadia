@@ -145,8 +145,6 @@ public class Menu {
         int y5 = (height - hauteurBoutton)* 6 / 7;
         String boutton5 = "SOLO";
 
-        
-
         for (;;) {
             Event event = context.pollOrWaitEvent(100);
 
