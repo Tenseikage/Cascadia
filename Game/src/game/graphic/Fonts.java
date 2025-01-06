@@ -1,5 +1,7 @@
 package game.graphic;
-import game.material.PeerTileToken;
+import game.material.Tile;
+import game.material.Token;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
@@ -23,10 +25,10 @@ public class Fonts {
 		graphics.drawString(word2, text2X, text2Y);
 	}
 
-	public static void fontManageTiles(Graphics2D graphics,int posSquareX, int posSquareY, int squareSize,PeerTileToken peer, int size){
+	public static void fontManageTiles(Graphics2D graphics,int posSquareX, int posSquareY, int squareSize,Tile tile, int size){
 		/*Gestion affichage données tuile */
 		//var board = new Choice();
-		var tile = peer.getTile();
+
 		String place = tile.getPlace();
 		String animals = tile.getListAnimals().toString();
     Font font = new Font("Arial", Font.BOLD, size); // Créer une nouvelle instance de Font avec la taille souhaitée
@@ -41,9 +43,9 @@ public class Fonts {
 
 	}
 
-	public static void fontManageToken(Graphics2D graphics,int posSquareX, int posSquareY, int squareSize,PeerTileToken peer, int size){
-		var token = peer.getToken();
+	public static void fontManageToken(Graphics2D graphics,int posSquareX, int posSquareY, int squareSize,Token token, int size){
 		var animal = token.espece();
+		graphics.setColor(Color.WHITE);
     Font font = new Font("Arial", Font.BOLD, size); // Créer une nouvelle instance de Font avec la taille souhaitée
     graphics.setFont(font);
 		FontMetrics metrics = graphics.getFontMetrics();

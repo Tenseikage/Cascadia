@@ -1,5 +1,7 @@
 package game.graphic;
 
+import game.logic.GameLogic;
+import game.material.PeerTileToken;
 import javax.swing.*;
 
 
@@ -13,6 +15,27 @@ public class WindowInfo {
       String message = "<html>Souhaitez-vous garder les jetons ?<br>Oui(Yes) / Non(No)</html>";
       int option = JOptionPane.showConfirmDialog(null, message, "Choix", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
       return option;
+    }
+
+    public static PeerTileToken choice(DataGame dataGame){
+      String message = "<html>Choisissez une paire tuile/jeton<br> (Veuillez entrer un numéro entre 1 et 4)</html>";
+      String input = JOptionPane.showInputDialog(null, message);
+      int choice = -1; // Valeur par défaut en cas d'erreur de conversion
+      try {
+          choice = Integer.parseInt(input);
+          if (choice > 4){
+            System.err.println("Nombre trop grand !");
+          }
+      } catch (NumberFormatException e) {
+          System.err.println("Entrée invalide : " + input);
+      }
+      //System.out.println("Choice : " + choice);
+      //var before = dataGame.choiceboard().getChoiceBoard().size();
+      //System.out.println("Before : " + before);
+      var peer = GameLogic.finalChoiceTileToken(choice, dataGame.choiceboard().getChoiceBoard());
+      //var after = dataGame.choiceboard().getChoiceBoard().size();
+      //System.out.println("After : " + after);
+      return peer;
     }
 
     

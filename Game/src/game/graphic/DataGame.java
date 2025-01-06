@@ -20,6 +20,10 @@ public record DataGame(ArrayList<Tile> tiles, ArrayList<Token> tokens,Choice cho
   public void createBoard(){
 		choiceboard.createChoiceBoard(tiles, tokens,null, 1);
 	}
+	public void updateChoiceBoard(){
+		choiceboard.updateChoiceBoard(tiles, tokens, null, 1);
+
+	}
   /*public static void main(String[] args) throws IOException {
 		var data = new dataGame();
 		

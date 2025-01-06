@@ -106,10 +106,10 @@ public class GameLogic {
 	 * @param env environment
 	 * @return environment
 	 */
-	public Environment getDirection(Scanner scanner, Position chosenPos, Tile chosenTile, PeerTileToken tilesTokens, Environment env) {
+	public Environment getDirection(Scanner scanner, Position chosenPos,PeerTileToken tilesTokens, Environment env) {
 		Objects.requireNonNull(scanner, "Error : Null scanner");
 		Objects.requireNonNull(chosenPos, "Error : Null position");
-		Objects.requireNonNull(chosenTile, "Error : Null tile");
+		//Objects.requireNonNull(chosenTile, "Error : Null tile");
 		Objects.requireNonNull(tilesTokens, "Error : Null tilesTokens");
 		System.out.println("Choisissez l'endroit où poser la tuile");
 		System.out.println("Haut/Bas/Gauche/Droite");
@@ -119,8 +119,6 @@ public class GameLogic {
 		if (!chosenPos.isValid(Position.setMaxPos().getX(), Position.setMaxPos().getY()) || bool) {
 			throw new IllegalArgumentException("Erreur tuile déja présente !!!");
 		} else {
-			tilesTokens.setTile(chosenTile);
-			// set to null
 			env.addTilePlayer(tilesTokens.getTile(), chosenPos);
 		}
 		return env;
@@ -147,9 +145,9 @@ public class GameLogic {
 	 * @param choiceBoard choice board
 	 * @return final choice
 	 */
-	public PeerTileToken finalChoiceTileToken(int choice, ArrayList<PeerTileToken> choiceBoard) {
+	public static PeerTileToken finalChoiceTileToken(int choice, ArrayList<PeerTileToken> choiceBoard) {
 		Objects.requireNonNull(choiceBoard, "Choice board cannot be null");
-		var chosenTileToken = choiceBoard.get(0); // Tuile  et jeton choisie
+		var chosenTileToken = choiceBoard.remove(choice - 1); // Tuile  et jeton choisie
 		return chosenTileToken;
 	}
 
@@ -182,8 +180,7 @@ public class GameLogic {
 			return false;
 		}
 		var peerPos = env.getKeyByPos(chosenPos);
-		var tilePos = peerPos.getTile();
-		var bool = env.addTokenPlayer(tilePos, chosenToken, chosenPos);
+		var bool = env.addTokenPlayer(peerPos, chosenToken, chosenPos,0);
 		return bool;
 	}
 
@@ -210,11 +207,11 @@ public class GameLogic {
 		display.displayAll(board);
 		int choice = getPlayerChoice(scanner, board);
 		var choiceBoard = board.getChoiceBoard();
-		var peerPlayer = finalChoiceTileToken(choice - 1, choiceBoard);
+		var peerPlayer = finalChoiceTileToken(choice, choiceBoard);
 		var posPlayer = getPosition(env, scanner);
-		env = getDirection(scanner, posPlayer, choiceBoard.get(choice - 1).getTile(), peerPlayer , env);
+		env = getDirection(scanner, posPlayer, peerPlayer , env);
 		display.displayEnvPlayer(env, grid, player);
-		var bool = puTokenToEnv(board, scanner, display, grid, env, choiceBoard.get(choice - 1).getTile(), choiceBoard.get(choice - 1).getToken(), player, tokens);
+		var bool = puTokenToEnv(board, scanner, display, grid, env, peerPlayer.getTile(), peerPlayer.getToken(), player, tokens);
 		if (bool) {
 			display.displayEnvPlayer(env, grid, player);
 		}

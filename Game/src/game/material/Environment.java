@@ -1,4 +1,5 @@
 package game.material;
+import game.graphic.WindowInfo;
 import game.logic.Position;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,16 +70,18 @@ public class Environment{
 	 * @param position position of the tile
 	 * @return true if the token has been added, false otherwise
 	 */
-	public boolean addTokenPlayer(Tile tile,Token token, Position position){
-		Objects.requireNonNull(tile, "Error : Null tile");
+	public boolean addTokenPlayer(PeerTileToken peer,Token token, Position position, int displayMode){
 		Objects.requireNonNull(token, "Error : Null token");
 		Objects.requireNonNull(position, "Error : Null position");
+		var tile = peer.getTile();
 		if(checkPutToken(tile, token)){
-			var peer = getKeyByPos(position);
 			peer.setToken(token);
 			return true;
-		} else {
+		} else if (displayMode == 0) {
 			System.out.println("Erreur : Placement du jeton impossible");
+			return false;
+		} else {
+			WindowInfo.messageInfo("Erreur : Placement du jeton impossible", "Erreur");
 			return false;
 		}
 
