@@ -183,6 +183,19 @@ public class Tile {
 		Collections.shuffle(tiles);
 	}
 
+	public static ArrayList<Tile> tileBag(ArrayList<Tile> tiles, int nbPlayers){
+		var tilePool  = new ArrayList<Tile>();
+		var nbTiles = 20 * nbPlayers + 3;
+		var iterator = tiles.iterator();
+		int count = 0;
+		while (iterator.hasNext() && count < nbTiles) {
+			tilePool.add(iterator.next());
+			iterator.remove();
+			count++;
+	  }  
+    return tilePool;
+	}
+
 
 	@Override
 	public String toString() {
