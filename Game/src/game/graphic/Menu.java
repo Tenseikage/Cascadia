@@ -159,22 +159,27 @@ public class Menu {
                             if (xclic < x + largeurBoutton && xclic > x) {
                             	if (yclic < y1 + hauteurBoutton && yclic > y1) {
                             		System.out.println("mode choisi -> "+ boutton1);
+                            		choixCartes(context);
                             		context.dispose();
                                     return;
                             	} else if (yclic < y2 + hauteurBoutton && yclic > y2) {
                             		System.out.println("mode choisi -> "+boutton2);
+                            		choixCartes(context);
                             		context.dispose();
                                     return;
                             	} else if (yclic < y3 + hauteurBoutton && yclic > y3) {
                             		System.out.println("mode choisi -> "+boutton3);
+                            		choixCartes(context);
                             		context.dispose();
                                     return;
                             	} else if (yclic < y4 + hauteurBoutton && yclic > y4) {
                             		System.out.println("mode choisi -> "+boutton4);
+                            		choixCartes(context);
                             		context.dispose();
                                     return;
                             	} else if (yclic < y5 + hauteurBoutton && yclic > y5) {
                             		System.out.println("mode choisi -> "+boutton5);
+                            		choixCartes(context);
                             		context.dispose();
                                     return;
                             	}
@@ -204,7 +209,7 @@ public class Menu {
                 
                 graphics2D.drawString(string, (width - stringLarge)/2, (height - stringHaut)/10);
                 
-                
+                graphics2D.setFont(new Font("Arial", Font.BOLD, 25));
                 
                 
                 
@@ -314,6 +319,57 @@ public class Menu {
             });
         }
 	}
+	
+	public void choixCartes(ApplicationContext context) {
+		var screenInfo = context.getScreenInfo();
+        var width = screenInfo.width();
+        var height = screenInfo.height();
+        
+        var string = "Choisissez vos cartes";
+        // COORDONNEES DU BOUTON
+        
+
+
+        for (;;) {
+            Event event = context.pollOrWaitEvent(100);
+
+            if (event != null) {
+                System.out.println(event);
+
+                switch (event) {
+                    case PointerEvent pointerEvent -> {
+                        if (pointerEvent.action() == PointerEvent.Action.POINTER_UP) {
+                            context.dispose();
+                            return;
+                        }
+                    }
+                    case KeyboardEvent keyboardEvent -> {
+                        if (keyboardEvent.key() == KeyboardEvent.Key.ESCAPE) {
+                            context.dispose();
+                            return;
+                        }
+                    }
+                    default -> {
+                        // Ignorer d'autres types d'événements
+                    }
+                }
+            }
+
+            context.renderFrame(graphics2D -> {
+                graphics2D.clearRect(0, 0, width, height);
+                graphics2D.setColor(Color.BLACK);
+                graphics2D.setFont(new Font("Arial", Font.BOLD, 50));   
+                FontMetrics metricsString = graphics2D.getFontMetrics();
+                int stringLarge = metricsString.stringWidth(string);
+                int stringHaut = 50;
+                
+                graphics2D.drawString(string, (width - stringLarge)/2, (height - stringHaut)/10);
+                
+            });
+        }
+	}
+	
+	
 
     public static void main(String[] args) {
         //RandomGenerator random = RandomGenerator.getDefault();
