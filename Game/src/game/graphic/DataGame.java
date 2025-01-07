@@ -1,4 +1,5 @@
 package game.graphic;
+import game.color.GraphicAnimalColor;
 import game.logic.Choice;
 import game.material.PeerTileToken;
 import game.material.Tile;

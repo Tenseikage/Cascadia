@@ -72,6 +72,7 @@ public class GameLogic {
 		var pos = Position.fromString(answerPos);
 		var positions = env.getPositions();
 		var bool = env.validPos(positions, pos);
+		System.out.println("Booléen : " + bool);
 		if (!bool) {
 			throw new IllegalAccessError("Position not in environnement");
 		} else {
@@ -136,7 +137,7 @@ public class GameLogic {
 		Objects.requireNonNull(chosenToken, "Chosen token cannot be null");
 		Objects.requireNonNull(chosenPos, "Chosen position cannot be null");
 		var peerTilePos = env.getKeyByPos(chosenPos);
-		env.addTokenPlayer(peerTilePos.getTile(), chosenToken, chosenPos);
+		env.addTokenPlayer(peerTilePos, chosenToken, chosenPos,0);
 	}
 
 	/**
@@ -147,7 +148,7 @@ public class GameLogic {
 	 */
 	public static PeerTileToken finalChoiceTileToken(int choice, ArrayList<PeerTileToken> choiceBoard) {
 		Objects.requireNonNull(choiceBoard, "Choice board cannot be null");
-		var chosenTileToken = choiceBoard.remove(choice - 1); // Tuile  et jeton choisie
+		var chosenTileToken = choiceBoard.get(choice - 1); // Tuile  et jeton choisie
 		return chosenTileToken;
 	}
 
@@ -194,28 +195,29 @@ public class GameLogic {
 	 * @param grid player's grid
 	 * @param tokens tokens list
 	 */
-	public void gameTurn(Scanner scanner, Display display, Player player, Choice board, Environment env, DisplayTools grid, ArrayList<Token> tokens) {
+	public void gameTurn(Scanner scanner, Display display, Player player, Choice board, DisplayTools grid, ArrayList<Token> tokens) {
 		Objects.requireNonNull(scanner, "Error : Null scanner");
 		Objects.requireNonNull(display, "Error : Null display");
 		Objects.requireNonNull(player, "Error : Null player");
 		Objects.requireNonNull(board, "Error : Null board");
-		Objects.requireNonNull(env, "Error : Null env");
+		//Objects.requireNonNull(env, "Error : Null env");
 		Objects.requireNonNull(grid, "Error : Null grid");
 		Objects.requireNonNull(tokens, "Error : Null tokens");
-		//System.out.println("Environnement " + player.name()); 
-		display.displayEnvPlayer(env, grid, player);
+		System.out.println("Environnement " + player.name()); 
+		var env = player.boardPlayer();
+		display.displayEnvPlayer(grid, player);
 		display.displayAll(board);
 		int choice = getPlayerChoice(scanner, board);
 		var choiceBoard = board.getChoiceBoard();
 		var peerPlayer = finalChoiceTileToken(choice, choiceBoard);
 		var posPlayer = getPosition(env, scanner);
 		env = getDirection(scanner, posPlayer, peerPlayer , env);
-		display.displayEnvPlayer(env, grid, player);
+		display.displayEnvPlayer(grid, player);
 		var bool = puTokenToEnv(board, scanner, display, grid, env, peerPlayer.getTile(), peerPlayer.getToken(), player, tokens);
 		if (bool) {
-			display.displayEnvPlayer(env, grid, player);
+			display.displayEnvPlayer(grid, player);
 		}
-		display.displayEnvPlayer(env, grid, player);
-		choiceBoard.remove(choiceBoard.get(choice - 1));
+		display.displayEnvPlayer(grid, player);
+		choiceBoard.remove(choiceBoard.get(choice - 1)); // real remove
 	}
 }

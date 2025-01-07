@@ -1,8 +1,8 @@
-package game.graphic;
+package game.color;
 import java.awt.Color;
 import java.util.Objects;
 
-public enum GraphicAnimalColor {
+public enum GraphicAnimalColor{
 	BLUE(Color.BLUE),
 	BROWN(new Color(165, 42, 42)), // Définir la couleur marron avec les valeurs RGB
 	PINK(Color.PINK),

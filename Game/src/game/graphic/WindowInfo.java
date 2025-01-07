@@ -29,14 +29,10 @@ public class WindowInfo {
       } catch (NumberFormatException e) {
           System.err.println("Entrée invalide : " + input);
       }
-      //System.out.println("Choice : " + choice);
-      //var before = dataGame.choiceboard().getChoiceBoard().size();
-      //System.out.println("Before : " + before);
       var peer = GameLogic.finalChoiceTileToken(choice, dataGame.choiceboard().getChoiceBoard());
-      //var after = dataGame.choiceboard().getChoiceBoard().size();
-      //System.out.println("After : " + after);
       return peer;
     }
+    
 
     
     public static void main(String[] args) {

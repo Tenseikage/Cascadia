@@ -139,27 +139,29 @@ public class Choice {
 	public void updateChoiceBoard(ArrayList<Tile> tiles, ArrayList<Token> tokens, Scanner scanner, int displayMode){
 		Objects.requireNonNull(tiles, "Error: tile list is null");
 		Objects.requireNonNull(tokens, "Error: token list is null");
-		completeTilesTokenList(tiles, tokens);
-		if(displayMode == 0){
-			if(!Token.checkOvercrowding(this,scanner,displayMode)){
-				updateTokenTiles(tiles, listChosenToken());
-			} else {
-					System.out.println("Surpopulation");
+		if(choicesBoard.size() <= 2){
+			if(displayMode == 0){
+				completeTilesTokenList(tiles, tokens);
+				if(!Token.checkOvercrowding(this,scanner,displayMode)){
+					updateTokenTiles(tiles, listChosenToken());
+				} else {
+						System.out.println("Surpopulation");
+						var discardedTokens = Token.discardTokens(choicesBoard);
+						var newTokens  = Token.chooseTokens(tokens, this);
+						setTokens(newTokens);
+						tokens.addAll(discardedTokens);
+				}	
+			} else{
+				if(!Token.checkOvercrowding(this,scanner,displayMode)){
+					updateTokenTiles(tiles, listChosenToken());
+				} else {
+					WindowInfo.messageInfo("Surpopulation : choix de nouveaux jetons","Surpopulation");
 					var discardedTokens = Token.discardTokens(choicesBoard);
 					var newTokens  = Token.chooseTokens(tokens, this);
 					setTokens(newTokens);
 					tokens.addAll(discardedTokens);
-			}	
-		} else{
-			if(!Token.checkOvercrowding(this,scanner,displayMode)){
-				updateTokenTiles(tiles, listChosenToken());
-			} else {
-				WindowInfo.messageInfo("Surpopulation : choix de nouveaux jetons","Surpopulation");
-				var discardedTokens = Token.discardTokens(choicesBoard);
-				var newTokens  = Token.chooseTokens(tokens, this);
-				setTokens(newTokens);
-				tokens.addAll(discardedTokens);
-			}	
+				}	
+			}
 		}
 	}
 

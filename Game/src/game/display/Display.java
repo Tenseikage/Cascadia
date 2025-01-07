@@ -1,7 +1,7 @@
 package game.display;
+import game.color.AnimalColor;
 import game.logic.Choice;
 import game.logic.Position;
-import game.material.Environment;
 import game.material.PeerTileToken;
 import game.material.Tile;
 import game.material.Token;
@@ -173,12 +173,12 @@ public class Display {
 	 * @param grid Player's grid (tiles and tokens)
 	 * @param player Player data
 	 */
-	public void displayEnvPlayer(Environment env, DisplayTools grid, Player player){
-		Objects.requireNonNull(env, "Error : Null environment");
+	public void displayEnvPlayer(DisplayTools grid, Player player){
+		//Objects.requireNonNull(env, "Error : Null environment");
 		Objects.requireNonNull(grid, "Error : Null grid");
 		Objects.requireNonNull(player, "Error : Null player");
 		System.out.println("Environnement " + player.name());
-		var envPlayer = env.getEnvironment();
+		var envPlayer = player.boardPlayer().getEnvironment();
 		AnimalColor animalColor;
 		for (var entry : envPlayer.entrySet()) {
 			Tile tile = entry.getKey().getTile();

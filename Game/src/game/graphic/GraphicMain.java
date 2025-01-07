@@ -1,12 +1,9 @@
 package game.graphic;
 import com.github.forax.zen.*;
-
 import game.material.Environment;
 import game.material.PeerTileToken;
 import game.player.Player;
-
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.io.IOException;
 public class GraphicMain {
 
@@ -71,9 +68,12 @@ public class GraphicMain {
 
 	}
 	
-	private static boolean gameTurn(ApplicationContext context, DataPlayer dataPlayer,GraphicGame graphicGame, PeerTileToken peer){
+	private static boolean gameTurn(ApplicationContext context,DataGame dataGame ,DataPlayer dataPlayer,GraphicGame graphicGame){
+		WindowInfo.messageInfo("Votre tour : Choisissez une tuile et un jeton", "Information");
+		var peer = WindowInfo.choice(dataGame);
 		manageEventTile(context,dataPlayer,graphicGame,peer);
 		manageEventToken(context, dataPlayer, graphicGame, peer);
+		graphicGame.updateScreen(context, dataPlayer);
 		return true;
 		//Manage token
 		//Update
@@ -87,11 +87,8 @@ public class GraphicMain {
 		}*/
 	}
 	private static void gameLoop(ApplicationContext context,DataGame dataGame, DataPlayer dataPlayer,GraphicGame graphicGame){
-		WindowInfo.messageInfo("Votre tour : Choisissez une tuile et un jeton", "Information");
-		var peer = WindowInfo.choice(dataGame);
 		//boolean turnFinished = false;
-		gameTurn(context,dataPlayer, graphicGame,peer);
-		graphicGame.updateScreen(context, dataPlayer);
+		gameTurn(context,dataGame,dataPlayer, graphicGame);
 	}
 
 	public static void beginGame(ApplicationContext context) throws IOException {

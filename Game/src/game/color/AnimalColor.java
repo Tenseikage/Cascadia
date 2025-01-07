@@ -1,10 +1,10 @@
-package game.display;
+package game.color;
 import java.util.Objects;
 
 /**
  * This class enums the colors which are used for the game
  */
-public enum AnimalColor {
+public enum AnimalColor{
 	RESET("\033[0m"),
   BLUE("\033[0;34m"),    // BLUE
 	BROWN("\033[38;5;94m"),   // BROWN
