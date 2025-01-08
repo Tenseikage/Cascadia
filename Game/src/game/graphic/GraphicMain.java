@@ -89,6 +89,7 @@ public class GraphicMain {
 	private static void gameLoop(ApplicationContext context,DataGame dataGame, DataPlayer dataPlayer,GraphicGame graphicGame){
 		//boolean turnFinished = false;
 		gameTurn(context,dataGame,dataPlayer, graphicGame);
+		graphicGame.updateScreen(context, dataPlayer);
 	}
 
 	public static void beginGame(ApplicationContext context) throws IOException {

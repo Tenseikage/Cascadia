@@ -30,6 +30,7 @@ public class WindowInfo {
           System.err.println("Entrée invalide : " + input);
       }
       var peer = GameLogic.finalChoiceTileToken(choice, dataGame.choiceboard().getChoiceBoard());
+      dataGame.choiceboard().getChoiceBoard().remove(choice - 1);
       return peer;
     }
     
