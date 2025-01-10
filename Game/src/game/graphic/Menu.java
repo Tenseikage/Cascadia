@@ -55,9 +55,7 @@ public class Menu {
                             return;
                         }
                     }
-                    default -> {
-                        // Ignorer d'autres types d'événements
-                    }
+                    default -> {}
                 }
             }
 
@@ -192,9 +190,7 @@ public class Menu {
                             return;
                         }
                     }
-                    default -> {
-                        // Ignorer d'autres types d'événements
-                    }
+                    default -> {}
                 }
             }
 
@@ -326,9 +322,6 @@ public class Menu {
         var height = screenInfo.height();
         
         var string = "Choisissez vos cartes";
-        // COORDONNEES DU BOUTON
-        
-
 
         for (;;) {
             Event event = context.pollOrWaitEvent(100);
@@ -349,9 +342,7 @@ public class Menu {
                             return;
                         }
                     }
-                    default -> {
-                        // Ignorer d'autres types d'événements
-                    }
+                    default -> {}
                 }
             }
 
