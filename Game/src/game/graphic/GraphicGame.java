@@ -2,17 +2,14 @@ package game.graphic;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
 import java.util.Objects;
-
 import com.github.forax.zen.ApplicationContext;
-
 import game.logic.Position;
 import game.material.PeerTileToken;
 import game.material.Tile;
 import game.material.Token;
-import java.awt.Color;
-import javax.lang.model.element.Element;
+import game.player.Player;
+
 
 
 public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame dataGame,int rows, int column) {
@@ -32,7 +29,7 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 	 */
 	private static void checkRange(double min, double value, double max) {
 		if (value < min || value > max) {
-			WindowInfo.messageInfo("Dépasssement de zone", "Erreur");
+			WindowInfo.messageInfoError("Dépasssement de zone", "Erreur");
 		}
 	}
 
@@ -42,7 +39,7 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 		//System.out.println("row : " + coordI + "rows : "+ rows);
 		//System.out.println("column : " + coordJ + "Columns : "+ column);
 		if(coordI >= rows || coordJ >= column){
-			WindowInfo.messageInfo("Dépasssement de zone : Affichage de la tuile impossible", "Erreur");
+			WindowInfo.messageInfoError("Dépasssement de zone : Affichage de la tuile impossible", "Erreur");
 			return false;
 
 		} else{
@@ -120,11 +117,11 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 		return realCoordFromIndex(j, poScreenY);
 	}
 
-	private boolean isAdjacent(Position position, DataPlayer dataPlayer){
+	private boolean isAdjacent(Position position, Player player){
 		var listAdjacentPos = position.voisinAdjacent();
-		var envPos = dataPlayer.envPlayer().getPositions();
-		var posi =  listAdjacentPos.stream().filter(pos -> dataPlayer.envPlayer().validPos(envPos, pos)).findFirst().isPresent();
-		System.out.println(posi);
+		var envPos = player.boardPlayer().getPositions();
+		var posi =  listAdjacentPos.stream().filter(pos -> player.boardPlayer().validPos(envPos, pos)).findFirst().isPresent();
+		//System.out.println(posi);
 		return posi;
 	}
   private void drawToken(Graphics2D graphics,int coordI, int coordJ,Token token){
@@ -149,8 +146,8 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 
 	}
 
-	public void drawEnvTile(Graphics2D graphics,DataPlayer dataPlayer){
-		var envPlayer = dataPlayer.envPlayer().getEnvironment();
+	public void drawEnvTile(Graphics2D graphics,Player player){
+		var envPlayer = player.boardPlayer().getEnvironment();
 		envPlayer.entrySet().stream().forEach(element -> {
 			var position = element.getValue();
 			//System.out.println(position);
@@ -159,8 +156,8 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 		});
 	}
 
-	public void drawEnvToken(Graphics2D graphics,DataPlayer dataPlayer){
-		var envPlayer = dataPlayer.envPlayer().getEnvironment();
+	public void drawEnvToken(Graphics2D graphics,Player player){
+		var envPlayer = player.boardPlayer().getEnvironment();
 		envPlayer.entrySet().stream().forEach(element -> {
 			var position = element.getValue();
 			//System.out.println(position);
@@ -172,45 +169,49 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 	}
 
 
-	public boolean setTileAndDraw(Graphics2D graphics,DataPlayer dataPlayer,int coordI, int coordJ,PeerTileToken peer){
+	public boolean setTileAndDraw(ApplicationContext context,Player player,int coordI, int coordJ,PeerTileToken peer){
 		if(!(coordI == 0 && (coordJ == 0 || coordJ == 1 || coordJ == 2))){
 			var position = new Position(coordI, coordJ);
-			var envPlayer = dataPlayer.envPlayer();
+			var envPlayer = player.boardPlayer();
 			var envListPos = envPlayer.getPositions();
 			var tile = peer.getTile();
 		  if (envPlayer.validPos(envListPos, position)){
-				WindowInfo.messageInfo("Tuile déja présente", "Erreur");
-				return true;
-			} else if (isAdjacent(position, dataPlayer) && checkRangeCoord(position)){
-				  dataPlayer.envPlayer().addTilePlayer(tile, position);
-					drawTile(graphics,coordI, coordJ,tile);
+				WindowInfo.messageInfoError("Tuile déja présente", "Erreur");
+				return false;
+			} else if (isAdjacent(position, player) && checkRangeCoord(position)){
+				  player.boardPlayer().addTilePlayer(tile, position);
+					context.renderFrame(graphics -> {
+						drawTile(graphics,coordI, coordJ,tile);
+					});
 					return true;
 			} else{
-					WindowInfo.messageInfo("La tuile à poser doit être adjacente aux autres tuiles", "Erreur");
-					return true;
+					WindowInfo.messageInfoError("La tuile à poser doit être adjacente aux autres tuiles", "Erreur");
+					return false;
 			}
 		} else{
-			WindowInfo.messageInfo("Tuile déja présente", "Erreur");
-			return true;
+			WindowInfo.messageInfoError("Tuile déja présente", "Erreur");
+			return false;
 		}
 		
 	}
-	public boolean setTokenAndDraw(Graphics2D graphics,DataPlayer dataPlayer,int coordI, int coordJ,PeerTileToken peer){
+	public boolean setTokenAndDraw(ApplicationContext context,Player player,int coordI, int coordJ,PeerTileToken peer){
 		var position = new Position(coordI, coordJ);
-		var envPlayer = dataPlayer.envPlayer();
+		var envPlayer = player.boardPlayer();
 		var foundPeer = envPlayer.getKeyByPos(position);
 		var token = peer.getToken();
 		if(foundPeer != null){
 			if(envPlayer.addTokenPlayer(foundPeer, token, position, 1)){
-				drawToken(graphics, coordI, coordJ, token);
+				context.renderFrame(graphics -> {
+					drawToken(graphics, coordI, coordJ, token);
+				});
 				return true;
 			} else {
-				WindowInfo.messageInfo("Positionnement impossible", "Erreur");
+				WindowInfo.messageInfoError("Positionnement impossible", "Erreur");
 				return false;
 			}
       
 		} else {
-			WindowInfo.messageInfo("Aucune tuile trouvée", "Erreur");
+			WindowInfo.messageInfoError("Aucune tuile trouvée", "Erreur");
 			return false;
 		}
 
@@ -230,36 +231,47 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 	}
 
 	//Draw startTiles env of player at the begining
-	private void drawStartTiles(Graphics2D graphics,int startX, int startY,DataPlayer dataPlayer){
+	private void drawStartTiles(Graphics2D graphics,int startX, int startY,Player player){
 		//Tile.startTiles();
 		//var startChoice = Tile.getStartiles();
 		var starTiles = dataGame.getBeginTiles();
+		var envPlayer = player.boardPlayer();
 		Objects.requireNonNull(graphics);
 		graphics.setColor(Color.BLACK);
 		for(int i = 0; i < 3; i ++){
 			graphics.drawRect(startX, startY + squareSize * i, squareSize, squareSize);
 			Fonts.fontManageTiles(graphics, startX,startY + squareSize * i , squareSize, starTiles.get(i).getTile(),20);
 		}
-		dataPlayer.start(starTiles);
+		envPlayer.setEnvironment(envPlayer.choseStartTile(starTiles));
 
 		
 	}
 
-	public void updateScreen(ApplicationContext context,DataPlayer dataPlayer){
+	public void updateScreen(ApplicationContext context,Player player){
 		var screenInfo = context.getScreenInfo();
     var width = screenInfo.width();
     var height = screenInfo.height();
 		context.renderFrame(graphics -> {
 			graphics.clearRect(0, 0, width, height);
-			drawEnvTile(graphics, dataPlayer);
-			drawEnvToken(graphics, dataPlayer);
+			drawEnvTile(graphics, player);
+			drawEnvToken(graphics, player);
 			drawChoices(graphics, 1100, 35);
 		});
 	}
-	public static void drawBegin(ApplicationContext context, DataPlayer dataPlayer, GraphicGame graphicGame){
+
+	public void cleanScreen(ApplicationContext context){
+		var screenInfo = context.getScreenInfo();
+    var width = screenInfo.width();
+    var height = screenInfo.height();
+		context.renderFrame(graphics -> {
+			graphics.clearRect(0, 0, width, height);
+		});
+
+	}
+	public static void drawBegin(ApplicationContext context, Player player, GraphicGame graphicGame){
 		context.renderFrame(graphics -> {
 			//graphics.clearRect(0, 0, width, height);
-			graphicGame.drawStartTiles(graphics, 50, 50, dataPlayer);
+			graphicGame.drawStartTiles(graphics, 50, 50, player);
 		  graphicGame.drawChoices(graphics, 1100, 35);} );
 	}
 

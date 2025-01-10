@@ -81,7 +81,7 @@ public class Environment{
 			System.out.println("Erreur : Placement du jeton impossible");
 			return false;
 		} else {
-			WindowInfo.messageInfo("Erreur : Placement du jeton impossible", "Erreur");
+			WindowInfo.messageInfoError("Erreur : Placement du jeton impossible", "Erreur");
 			return false;
 		}
 

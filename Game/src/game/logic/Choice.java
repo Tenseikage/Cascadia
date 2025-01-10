@@ -106,7 +106,7 @@ public class Choice {
 			//Définir avec swing une fenêtre de dialogue
 		}else if (displayMode == 1){
 			if(Token.checkOvercrowding(this,null,displayMode)){
-				WindowInfo.messageInfo("Surpopulation : choix de nouveaux jetons","Surpopulation");
+				WindowInfo.messageInfoError("Surpopulation : choix de nouveaux jetons","Surpopulation");
 				var discardedTokens = Token.discardTokens(choicesBoard);
 				removeDiscardedTokens(discardedTokens.get(0));
 				var newTokens = Token.chooseTokens(tokens, this); 
@@ -155,7 +155,7 @@ public class Choice {
 				if(!Token.checkOvercrowding(this,scanner,displayMode)){
 					updateTokenTiles(tiles, listChosenToken());
 				} else {
-					WindowInfo.messageInfo("Surpopulation : choix de nouveaux jetons","Surpopulation");
+					WindowInfo.messageInfoError("Surpopulation : choix de nouveaux jetons","Surpopulation");
 					var discardedTokens = Token.discardTokens(choicesBoard);
 					var newTokens  = Token.chooseTokens(tokens, this);
 					setTokens(newTokens);

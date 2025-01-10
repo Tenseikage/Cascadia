@@ -49,10 +49,10 @@ public record Player(String name, int age,int points,Environment boardPlayer) {
 				} 
 				if(!output){
 					message = "Jetons inchangés";
-					WindowInfo.messageInfo(message, "Information");
+					WindowInfo.messageInfoError(message, "Information");
 				}else {
 					message = "Jetons remis dans le sac";
-					WindowInfo.messageInfo(message, "Information");
+					WindowInfo.messageInfoError(message, "Information");
 				}
 		}
 		return output;

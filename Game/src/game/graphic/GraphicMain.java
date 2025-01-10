@@ -2,26 +2,38 @@ package game.graphic;
 import com.github.forax.zen.*;
 import game.material.Environment;
 import game.material.PeerTileToken;
+import game.material.Places;
 import game.player.Player;
 import java.awt.Color;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class GraphicMain {
-
-
-	private static void manageEventTile(ApplicationContext context,DataPlayer dataPlayer,GraphicGame graphicGame, PeerTileToken peer){
+	private static List<Player> listPlayers(int nbPlayers){
+		if(nbPlayers <= 0 || nbPlayers > 4){
+			System.err.println("Nombre incorrect");
+			return null;
+		} 
+		List<Player> players = new ArrayList<>();
+		for(int i = 0; i < nbPlayers; i++){
+			var player = WindowInfo.createPlayer();
+			players.add(player);
+		}
+		return players;
+	} 
+	private static boolean manageEventTile(ApplicationContext context,Player player,GraphicGame graphicGame, PeerTileToken peer){
 		for(;;){
 			Event event = context.pollOrWaitEvent(100);
+			boolean setTile;
 			if(event != null){
 				switch(event){
 					case PointerEvent ev -> {
 						if(ev.action() ==  PointerEvent.Action.POINTER_UP ){
 							var location = ev.location();
 							//System.out.println("Position X: " + location.x() + " Position Y: " + location.y()); // Coord pointeur souris
-							context.renderFrame(graphics-> {
-							graphicGame.setTileAndDraw(graphics, dataPlayer, graphicGame.columnFromX(location.x()), graphicGame.lineFromY(location.y()),peer);
-							
-						});
-						return;
+							setTile = graphicGame.setTileAndDraw(context, player, graphicGame.columnFromX(location.x()), graphicGame.lineFromY(location.y()),peer);
+						return setTile;
 						}
 					} case KeyboardEvent ev -> {
 						// Gestion touches clavier 
@@ -39,18 +51,18 @@ public class GraphicMain {
 		
 	}
 
-	private static void manageEventToken(ApplicationContext context,DataPlayer dataPlayer,GraphicGame graphicGame, PeerTileToken peer){
+	private static boolean manageEventToken(ApplicationContext context,Player player,GraphicGame graphicGame, PeerTileToken peer){
 		for(;;){
 			Event event = context.pollOrWaitEvent(1000);
+			boolean setToken;
 			if (event != null){
 				switch(event){
 					case PointerEvent ev -> {
 						if(ev.action() ==  PointerEvent.Action.POINTER_UP ){
 							var location = ev.location();
-							context.renderFrame(graphics-> {
-							graphicGame.setTokenAndDraw(graphics,dataPlayer, graphicGame.columnFromX(location.x()), graphicGame.lineFromY(location.y()),peer);
-						});
-						return;
+							setToken = graphicGame.setTokenAndDraw(context,player, graphicGame.columnFromX(location.x()), graphicGame.lineFromY(location.y()),peer);
+							//System.out.println(setTile);
+						  return setToken;
 						}
 						
 					} case KeyboardEvent ev -> {
@@ -68,39 +80,47 @@ public class GraphicMain {
 
 	}
 	
-	private static boolean gameTurn(ApplicationContext context,DataGame dataGame ,DataPlayer dataPlayer,GraphicGame graphicGame){
-		WindowInfo.messageInfo("Votre tour : Choisissez une tuile et un jeton", "Information");
+	private static boolean gameTurn(ApplicationContext context,DataGame dataGame ,Player player,GraphicGame graphicGame){
+		WindowInfo.messageInfoError("Votre tour : Choisissez une tuile et un jeton", "Information");
 		var peer = WindowInfo.choice(dataGame);
-		manageEventTile(context,dataPlayer,graphicGame,peer);
-		manageEventToken(context, dataPlayer, graphicGame, peer);
-		graphicGame.updateScreen(context, dataPlayer);
+		boolean setTile = false;
+		boolean setToken = false;
+    while(!setTile){
+			setTile = manageEventTile(context,player,graphicGame,peer);
+		}
+		while(!setToken){
+			setToken = manageEventToken(context, player, graphicGame, peer);
+		}
+		graphicGame.updateScreen(context,player);
 		return true;
-		//Manage token
-		//Update
-		/*while (true) { 
-		  var event = context.pollOrWaitEvent(1000);
-			if(event == null){
-				continue;
-			}
-			var peer = WindowInfo.choice(dataGame);
-			/
-		}*/
 	}
-	private static void gameLoop(ApplicationContext context,DataGame dataGame, DataPlayer dataPlayer,GraphicGame graphicGame){
+	private static void gameLoop(ApplicationContext context,DataGame dataGame, List<Player> players,GraphicGame graphicGame){
 		//boolean turnFinished = false;
-		gameTurn(context,dataGame,dataPlayer, graphicGame);
-		graphicGame.updateScreen(context, dataPlayer);
+		for(int i = 0; i < 4; i++){
+			if(i < 2){
+				GraphicGame.drawBegin(context, players.get(i % 2), graphicGame);
+				gameTurn(context,dataGame,players.get(i % 2), graphicGame);
+				graphicGame.updateScreen(context, players.get(i % 2));
+				graphicGame.cleanScreen(context);
+			} else {
+				  graphicGame.updateScreen(context, players.get(i % 2));
+					gameTurn(context,dataGame,players.get(i % 2), graphicGame);
+			  	graphicGame.cleanScreen(context);
+			}
+			//gameTurn(context,dataGame,players.get(i % 2), graphicGame);
+			//graphicGame.updateScreen(context, players.get(i % 2));
+			//graphicGame.cleanScreen(context);
+		}
 	}
 
 	public static void beginGame(ApplicationContext context) throws IOException {
 		try {
 			var dataGame = new DataGame();
-			var player = new Player("Toto",18,0,null);
+			//var player = new Player("Toto",18,0,new Environment());
 			dataGame.createBoard();
-			var dataPlayer = new DataPlayer(player,new Environment());
+			var listPlayers = listPlayers(2);
 			var graphicGame = new GraphicGame(50 , 50, 150,dataGame,6,4);
-			GraphicGame.drawBegin(context, dataPlayer, graphicGame);
-			gameLoop(context,dataGame, dataPlayer, graphicGame);
+			gameLoop(context,dataGame, listPlayers, graphicGame);
 				
 		} catch (IOException e) {
 			throw new IOException("Erreur lors de l'exploitation du fichier CSV", e);
