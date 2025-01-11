@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 
 
-public class Main {
+public class Terminal {
 
 	public static List<Player> listPlayers(Scanner scanner, int nbPlayers){
 		if(nbPlayers <= 0 || nbPlayers > 2){
@@ -99,7 +99,7 @@ public class Main {
 		 * @throws IOException Exceptions of the input/output of the game
 		 * @throws IllegalAccessError Exceptions of the access of the game
 		 */
-		public static void main(String[] args) throws IOException,IllegalAccessError {
+		public static void TerminalMain() throws IOException,IllegalAccessError {
 			Scanner scanner = new Scanner(System.in);
 			Scores score = new Scores();
 			var display = new Display();

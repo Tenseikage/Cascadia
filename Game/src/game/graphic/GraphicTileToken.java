@@ -3,7 +3,6 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.github.forax.zen.Application;
 import com.github.forax.zen.ApplicationContext;
 import com.github.forax.zen.Event;
@@ -14,7 +13,7 @@ import game.logic.Scores;
 import game.material.PeerTileToken;
 import game.player.Player;
 
-public class GraphicMain {
+public class GraphicTileToken {
 	/**
 	 * This method lets the players set their name and age
 	 * @param nbPlayers
@@ -196,7 +195,7 @@ public class GraphicMain {
 	}
 
 	
-	public static void main(String[] args) throws IOException {
+	public static void GraphicMain() throws IOException {
 		Application.run(Color.WHITE, context -> {
 			try {
 				beginGame(context);

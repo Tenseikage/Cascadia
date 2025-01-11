@@ -71,11 +71,21 @@ public class Fonts {
 		});
   }
 
-	public void drawCenterPlayerText(ApplicationContext context, int size){
+	public static void drawCenterPlayerText(ApplicationContext context, int size){
 		context.renderFrame(graphics -> {
+			String text = "Création des joueurs ";
+			var screenInfo = context.getScreenInfo();
+      var width = screenInfo.width();
+      var height = screenInfo.height();
 			graphics.setColor(Color.BLACK); // Définir la couleur du texte
       Font font = new Font("Arial", Font.BOLD, size); // Créer une nouvelle instance de Font avec la taille souhaitée
       graphics.setFont(font);
+      FontMetrics metrics = graphics.getFontMetrics();
+      int textWidth = metrics.stringWidth(text);
+      int textHeight = metrics.getHeight();
+      int textX = (width - textWidth) / 2;
+      int textY = (height - textHeight) / 2 + metrics.getAscent();
+      graphics.drawString(text, textX, textY - 200);
 		});
 	}
 

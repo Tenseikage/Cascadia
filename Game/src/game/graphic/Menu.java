@@ -1,18 +1,19 @@
 package game.graphic;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.io.IOException;
 
 import com.github.forax.zen.Application;
 import com.github.forax.zen.ApplicationContext;
 import com.github.forax.zen.Event;
 import com.github.forax.zen.KeyboardEvent;
 import com.github.forax.zen.PointerEvent;
+import game.main.Terminal;
 
 public class Menu {
 	
-	public void start(ApplicationContext context) {
+	public void start(ApplicationContext context) throws IOException,IllegalAccessError {
 		var screenInfo = context.getScreenInfo();
         var width = screenInfo.width();
         var height = screenInfo.height();
@@ -35,7 +36,7 @@ public class Menu {
             Event event = context.pollOrWaitEvent(100);
 
             if (event != null) {
-                System.out.println(event);
+                //System.out.println(event);
 
                 switch (event) {
                     case PointerEvent pointerEvent -> {
@@ -117,37 +118,22 @@ public class Menu {
         }
 	}
 	
-	public void modes(ApplicationContext context) {
+	public void modes(ApplicationContext context) throws IOException,IllegalAccessError {
 		var screenInfo = context.getScreenInfo();
         var width = screenInfo.width();
         var height = screenInfo.height();
         var string = "Choisissez votre mode de jeu";
-        
         int largeurBoutton = width/4;
         int hauteurBoutton = height/14;
-        
         int x = (width)/2 - (largeurBoutton/2) ;
-        
         int y1 = (height - hauteurBoutton)* 2 / 7;
         String boutton1 = "TERMINAL";
-        
         int y2 = (height - hauteurBoutton)* 3 / 7;
-        String boutton2 = "TUILES HÉXAGONALES";
-        
-        int y3 = (height - hauteurBoutton)* 4 / 7;
-        String boutton3 = "TUILES CARRÉES";
-        
-        int y4 = (height - hauteurBoutton)* 5 / 7;
-        String boutton4 = "2 JOUEURS";
-
-        int y5 = (height - hauteurBoutton)* 6 / 7;
-        String boutton5 = "SOLO";
-
+        String boutton2 = "TUILES CARRÉES";
         for (;;) {
             Event event = context.pollOrWaitEvent(100);
-
             if (event != null) {
-                System.out.println(event);
+                //System.out.println(event);
 
                 switch (event) {
                     case PointerEvent pointerEvent -> {
@@ -156,29 +142,16 @@ public class Menu {
                             var yclic = pointerEvent.location().y();
                             if (xclic < x + largeurBoutton && xclic > x) {
                             	if (yclic < y1 + hauteurBoutton && yclic > y1) {
-                            		System.out.println("mode choisi -> "+ boutton1);
-                            		choixCartes(context);
+                            		//System.out.println("mode choisi -> "+ boutton1);
+                            		//choixCartes(context);
                             		context.dispose();
+                                    Terminal.TerminalMain();
                                     return;
                             	} else if (yclic < y2 + hauteurBoutton && yclic > y2) {
-                            		System.out.println("mode choisi -> "+boutton2);
-                            		choixCartes(context);
+                            		//System.out.println("mode choisi -> "+boutton2);
+                            		//choixCartes(context);
                             		context.dispose();
-                                    return;
-                            	} else if (yclic < y3 + hauteurBoutton && yclic > y3) {
-                            		System.out.println("mode choisi -> "+boutton3);
-                            		choixCartes(context);
-                            		context.dispose();
-                                    return;
-                            	} else if (yclic < y4 + hauteurBoutton && yclic > y4) {
-                            		System.out.println("mode choisi -> "+boutton4);
-                            		choixCartes(context);
-                            		context.dispose();
-                                    return;
-                            	} else if (yclic < y5 + hauteurBoutton && yclic > y5) {
-                            		System.out.println("mode choisi -> "+boutton5);
-                            		choixCartes(context);
-                            		context.dispose();
+                                    GraphicTileToken.GraphicMain();
                                     return;
                             	}
                             }
@@ -193,7 +166,6 @@ public class Menu {
                     default -> {}
                 }
             }
-
             context.renderFrame(graphics2D -> {
             	graphics2D.clearRect(0, 0, width, height);
                 graphics2D.setColor(Color.BLACK);
@@ -201,25 +173,12 @@ public class Menu {
                 FontMetrics metricsString = graphics2D.getFontMetrics();
                 int stringLarge = metricsString.stringWidth(string);
                 int stringHaut = 50;
-
-                
                 graphics2D.drawString(string, (width - stringLarge)/2, (height - stringHaut)/10);
-                
                 graphics2D.setFont(new Font("Arial", Font.BOLD, 25));
-                
-                
-                
                 // BOUTON 1
-                
-
-
-                
-
                 FontMetrics metricsButton = graphics2D.getFontMetrics();
                 int boutton1TailleTxtX = metricsButton.stringWidth(boutton1);
                 int boutton1TailleTxtY = metricsButton.getAscent();
- 
-                
                 graphics2D.setColor(Color.LIGHT_GRAY);
                 graphics2D.fillRect(x, y1, largeurBoutton, hauteurBoutton); 
                 graphics2D.setColor(Color.BLACK);
@@ -227,18 +186,11 @@ public class Menu {
                 graphics2D.drawLine(x, y1, x, y1+hauteurBoutton);
                 graphics2D.drawLine(x+largeurBoutton, y1, x+largeurBoutton, y1+hauteurBoutton);
                 graphics2D.drawLine(x, y1+hauteurBoutton, x+largeurBoutton, y1+hauteurBoutton);
-                
                 graphics2D.drawString(boutton1, x+(largeurBoutton / 2) - (boutton1TailleTxtX / 2), y1+(hauteurBoutton +boutton1TailleTxtY)/2); // changer le Y pour centrer 
-                
-                
-                
-                
-                
                 // BOUTON 2
 
                 int boutton2TailleTxtX = metricsButton.stringWidth(boutton2);
                 int boutton2TailleTxtY = metricsButton.getAscent();
-                
                 graphics2D.setColor(Color.LIGHT_GRAY);
                 graphics2D.fillRect(x, y2, largeurBoutton, hauteurBoutton); 
                 graphics2D.setColor(Color.BLACK);
@@ -246,128 +198,20 @@ public class Menu {
                 graphics2D.drawLine(x, y2, x, y2+hauteurBoutton);
                 graphics2D.drawLine(x+largeurBoutton, y2, x+largeurBoutton, y2+hauteurBoutton);
                 graphics2D.drawLine(x, y2+hauteurBoutton, x+largeurBoutton, y2+hauteurBoutton);
-                
                 graphics2D.drawString(boutton2, x+(largeurBoutton / 2) - (boutton2TailleTxtX / 2), y2+(hauteurBoutton +boutton2TailleTxtY)/2); // changer le Y pour centrer 
-                
-                
-                
-                
-                
-                
-                // BOUTON 3
-                
-
-                
-
-                int boutton3TailleTxtX = metricsButton.stringWidth(boutton3);
-                int boutton3TailleTxtY = metricsButton.getAscent();
-                
-                graphics2D.setColor(Color.LIGHT_GRAY);
-                graphics2D.fillRect(x, y3, largeurBoutton, hauteurBoutton);
-                graphics2D.setColor(Color.BLACK);
-                graphics2D.drawLine(x, y3, x+largeurBoutton, y3);
-                graphics2D.drawLine(x, y3, x, y3+hauteurBoutton);
-                graphics2D.drawLine(x+largeurBoutton, y3, x+largeurBoutton, y3+hauteurBoutton);
-                graphics2D.drawLine(x, y3+hauteurBoutton, x+largeurBoutton, y3+hauteurBoutton);
-                
-                graphics2D.drawString(boutton3, x+(largeurBoutton / 2) - (boutton3TailleTxtX / 2), y3+(hauteurBoutton +boutton3TailleTxtY)/2); // changer le Y pour centrer 
-                
-                
-                
-                
-                // BOUTON 4
-                
-
-                
-
-                int boutton4TailleTxtX = metricsButton.stringWidth(boutton4);
-                int boutton4TailleTxtY = metricsButton.getAscent();
-                
-                graphics2D.setColor(Color.LIGHT_GRAY);
-                graphics2D.fillRect(x, y4, largeurBoutton, hauteurBoutton); 
-                graphics2D.setColor(Color.BLACK);
-                graphics2D.drawLine(x, y4, x+largeurBoutton, y4);
-                graphics2D.drawLine(x, y4, x, y4+hauteurBoutton);
-                graphics2D.drawLine(x+largeurBoutton, y4, x+largeurBoutton, y4+hauteurBoutton);
-                graphics2D.drawLine(x, y4+hauteurBoutton, x+largeurBoutton, y4+hauteurBoutton);
-                
-                graphics2D.drawString(boutton4, x+(largeurBoutton / 2) - (boutton4TailleTxtX / 2), y4+(hauteurBoutton +boutton4TailleTxtY)/2); // changer le Y pour centrer 
-
-                
-                
-                
-                
-                // BOUTON 5
-                              
-
-                int boutton5TailleTxtX = metricsButton.stringWidth(boutton5);
-                int boutton5TailleTxtY = metricsButton.getAscent();
-                
-                graphics2D.setColor(Color.LIGHT_GRAY);
-                graphics2D.fillRect(x, y5, largeurBoutton, hauteurBoutton); 
-                graphics2D.setColor(Color.BLACK);
-                graphics2D.drawLine(x, y5, x+largeurBoutton, y5);
-                graphics2D.drawLine(x, y5, x, y5+hauteurBoutton);
-                graphics2D.drawLine(x+largeurBoutton, y5, x+largeurBoutton, y5+hauteurBoutton);
-                graphics2D.drawLine(x, y5+hauteurBoutton, x+largeurBoutton, y5+hauteurBoutton);
-                
-                graphics2D.drawString(boutton5, x+(largeurBoutton / 2) - (boutton5TailleTxtX / 2), y5+(hauteurBoutton +boutton5TailleTxtY)/2); // changer le Y pour centrer 
             });
         }
 	}
-	
-	public void choixCartes(ApplicationContext context) {
-		var screenInfo = context.getScreenInfo();
-        var width = screenInfo.width();
-        var height = screenInfo.height();
-        
-        var string = "Choisissez vos cartes";
-
-        for (;;) {
-            Event event = context.pollOrWaitEvent(100);
-
-            if (event != null) {
-                System.out.println(event);
-
-                switch (event) {
-                    case PointerEvent pointerEvent -> {
-                        if (pointerEvent.action() == PointerEvent.Action.POINTER_UP) {
-                            context.dispose();
-                            return;
-                        }
-                    }
-                    case KeyboardEvent keyboardEvent -> {
-                        if (keyboardEvent.key() == KeyboardEvent.Key.ESCAPE) {
-                            context.dispose();
-                            return;
-                        }
-                    }
-                    default -> {}
-                }
-            }
-
-            context.renderFrame(graphics2D -> {
-                graphics2D.clearRect(0, 0, width, height);
-                graphics2D.setColor(Color.BLACK);
-                graphics2D.setFont(new Font("Arial", Font.BOLD, 50));   
-                FontMetrics metricsString = graphics2D.getFontMetrics();
-                int stringLarge = metricsString.stringWidth(string);
-                int stringHaut = 50;
-                
-                graphics2D.drawString(string, (width - stringLarge)/2, (height - stringHaut)/10);
-                
-            });
-        }
-	}
-	
-	
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException,IllegalAccessError {
         //RandomGenerator random = RandomGenerator.getDefault();
         // Start the application, create a drawing area, full screen
         Application.run(Color.WHITE, context -> {
         	var menu = new Menu();
-        	menu.start(context);
+        	try {
+                menu.start(context);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         	//menu.modes(context);
         });
     }
