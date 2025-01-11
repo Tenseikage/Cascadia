@@ -17,7 +17,7 @@ public class DisplayTools {
 	}
 
 	/**
-	 * This method initializes the grid
+	 * Initializes the grid
 	 */
 	public void initGrid(){
 		for (int i = 0; i <= maxY; i++) {
@@ -28,7 +28,7 @@ public class DisplayTools {
 	}
 
 	/**
-	 * This method adds a tile to the grid
+	 * Adds a tile to the grid
 	 * @param posY position Y of the tile
 	 * @param posX position X of the tile
 	 * @param tileRepresent the tile to add
@@ -38,7 +38,7 @@ public class DisplayTools {
 	}
 
 	/**
-	 * This method returns the grid
+	 * Returns the grid
 	 * @return
 	 */
 	public String[][] getGrid(){
@@ -46,7 +46,7 @@ public class DisplayTools {
 	}
 
 	/**
-	 * This method returns the maximum dimensions of the grid
+	 * Returns the maximum dimensions of the grid
 	 * @return
 	 */
 	public Position getMaxDim(){
@@ -54,7 +54,7 @@ public class DisplayTools {
 	}
 
 	/**
-	 * This method returns the length of the grid
+	 * Returns the length of the grid
 	 * @return length
 	 */
 	public int lengthGrid(){

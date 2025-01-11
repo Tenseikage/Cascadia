@@ -10,14 +10,15 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
+ * @author Christophe TARATIBU / Loïc BERGEOT
  * Class to calculate the scores
  */
 public class Scores {
 
 	/**
-	 * Method to check the tokens on the grid
+	 * Checks the tokens on the grid
 	 * @param env the environment
-	 * @return the tokens on the grid with their positions
+	 * @return Animal and their positions
 	 */
 	public HashMap<String, List<Position>> checkTokens(Environment env) {
 		Objects.requireNonNull(env, "Error : Null environment");
@@ -37,14 +38,22 @@ public class Scores {
 		return posAnimals;
   }
 
-	private void searchGroupHelper(HashMap<String, List<Position>> posAnimals, Set<Position> visited,
+	/**
+	 * Search the groups of animals
+	 * @param posAnimals Animal and positions on the environment
+	 * @param visitedPos Visited positions
+	 * @param currentAnimal Current animal in the environment
+	 * @param currentPos Current position
+	 * @param groupAnimals List of the animal's positions
+	 */
+	private void searchGroupHelper(HashMap<String, List<Position>> posAnimals, Set<Position> visitedPos,
     String currentAnimal, Position currentPos, List<Position> groupAnimals) {
-    visited.add(currentPos);
+    visitedPos.add(currentPos);
     groupAnimals.add(currentPos);
     var posNeighbors = currentPos.voisinAdjacent();
       for (var pos : posNeighbors) {
-        if (!visited.contains(pos) && posAnimals.getOrDefault(currentAnimal, Collections.emptyList()).contains(pos)) {
-          searchGroupHelper(posAnimals, visited, currentAnimal, pos, groupAnimals);
+        if (!visitedPos.contains(pos) && posAnimals.getOrDefault(currentAnimal, Collections.emptyList()).contains(pos)) {
+          searchGroupHelper(posAnimals, visitedPos, currentAnimal, pos, groupAnimals);
         }
       }
     }
@@ -52,22 +61,22 @@ public class Scores {
 	/**
 	 * Method to search the group of animals by deep search
 	 * @param posAnimals the animals with their positions
-	 * @param visited the visited positions
+	 * @param visitedPos the visitedPos positions
 	 * @param currentAnimal the current animal
 	 * @param currentPos the current position
 	 * @param groupAnimals the group of animals
 	 */
 	public Map<String, List<Integer>> SearchGroup(HashMap<String, List<Position>> posAnimals) {
 		Objects.requireNonNull(posAnimals, "Error : Null posAnimals");
-		Set<Position> visited = new HashSet<>();
+		Set<Position> visitedPos = new HashSet<>();
 		Map<String, List<Integer>> animalGroupSizes = new HashMap<>();
 
 		for (var entry : posAnimals.entrySet()) {
 			String animal = entry.getKey();
 			for (Position position : entry.getValue()) {
-				if (!visited.contains(position)) {
+				if (!visitedPos.contains(position)) {
 					List<Position> groupAnimals = new ArrayList<>();
-					searchGroupHelper(posAnimals, visited, animal, position, groupAnimals);
+					searchGroupHelper(posAnimals, visitedPos, animal, position, groupAnimals);
 					int groupSize = groupAnimals.size();
 					animalGroupSizes.computeIfAbsent(animal, _ -> new ArrayList<>()).add(groupSize);
 				}
@@ -77,7 +86,7 @@ public class Scores {
   }
 
 	/**
-	 * Method to calculate the score with the family variant
+	 * Computes the score with the family variant
 	 * @param animalGroupSizes the group sizes
 	 * @return the score
 	 */
@@ -98,7 +107,7 @@ public class Scores {
 	}
 
 	/**
-	 * Method to calculate the score with the intermediate variant
+	 * Computes the score with the intermediate variant
 	 * @param animalGroupSizes the group sizes
 	 * @return the score
 	 */
@@ -121,7 +130,7 @@ public class Scores {
 	}
 
 	/**
-	 * Method to calculate the score
+	 * Computes the score
 	 * @param animal the animals with their positions
 	 * @param mode the mode (family or intermediate)
 	 * @return the score

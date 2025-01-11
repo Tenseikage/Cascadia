@@ -17,7 +17,7 @@ public class Tile {
 	private final static ArrayList<ArrayList<PeerTileToken>> startTiles = new ArrayList<>();
 
 	/**
-	 * Method to add animals to the tile
+	 * Adds animals to the tile
 	 * @param animals the animals to add
 	 * @return the tile with the animals
 	 */
@@ -27,7 +27,7 @@ public class Tile {
   }
 
 	/**
-	 * Method to set the place of the tile
+	 * Sets the place of the tile
 	 * @param place	the place of the tile
 	 * @return the tile with the place
 	 */
@@ -45,7 +45,7 @@ public class Tile {
 	}
 
 	/**
-	 * Method to add the first starting tile
+	 * Adds the first starting tile
 	 * @return the first starting tile
 	 */
 	public static ArrayList<PeerTileToken> addStart1(){
@@ -57,7 +57,7 @@ public class Tile {
 	}
 
 	 /**
-     * Method to add the second starting tile
+     * Adds the second starting tile
      * @return the second starting tile
      */
     public static ArrayList<PeerTileToken> addStart2() {
@@ -70,11 +70,10 @@ public class Tile {
 
 
 	/**
-	 * Method to add the third starting tile
+	 * Adds the third starting tile
 	 * @return the third starting tile
 	 */
 	public static ArrayList<PeerTileToken> addStart3(){
-		//Troisième tuile de départ
 		ArrayList<PeerTileToken> tilesTokens3 = new ArrayList<>();
 		tilesTokens3.add(new PeerTileToken(new Tile().setPlace("Fo").addAnimals("Wa","Bu"),null));
 		tilesTokens3.add(new PeerTileToken(new Tile().setPlace("Mo").addAnimals("Bu", "Ou"),null));
@@ -84,7 +83,7 @@ public class Tile {
 	}
 
 	/**
-	 * Method to add the fourth starting tile
+	 * Adds the fourth starting tile
 	 * @return the fourth starting tile
 	 */
 	public static ArrayList<PeerTileToken> addStart4(){
@@ -98,7 +97,7 @@ public class Tile {
 
 
 	/**
-	 * Method to add the fifth starting tile
+	 * Adds the fifth starting tile
 	 * @return the fifth starting tile
 	 */
 	public static ArrayList<PeerTileToken> addStart5(){
@@ -113,7 +112,7 @@ public class Tile {
 
 
 	/**
-	 * Method to add the starting tiles
+	 * Adds the starting tiles
 	 * @return the list of starting tiles
 	 */
 	public static ArrayList<ArrayList<PeerTileToken>> startTiles(){
@@ -127,7 +126,7 @@ public class Tile {
 	}	
 
 	/**
-	 * Method to get the starting tiles (3 tiles)
+	 * Gets the starting tiles (3 tiles)
 	 * @return the starting tiles
 	 */
 	public static  ArrayList<PeerTileToken> getStartiles(){
@@ -137,7 +136,7 @@ public class Tile {
 
 
 	/**
-	 * Method to exploit the csv file which contains the tiles
+	 * Exploits the csv file which contains the tiles
 	 * @return the list of tiles
 	 * @throws IOException if the file is not found
 	 */
@@ -177,13 +176,18 @@ public class Tile {
 	}
 
 	/**
-	 * Method to shuffle the tiles
+	 * Shuffle the tiles
 	 * @param tiles the list of tiles
 	 */
 	public static void shuffTiles(ArrayList<Tile> tiles){
 		Collections.shuffle(tiles);
 	}
-
+  /**
+	 * Creates a bag 
+	 * @param tiles List of tiles
+	 * @param nbPlayers Number of players
+	 * @return
+	 */
 	public static ArrayList<Tile> tileBag(ArrayList<Tile> tiles, int nbPlayers){
 		var tilePool  = new ArrayList<Tile>();
 		var nbTiles = 20 * nbPlayers + 3;

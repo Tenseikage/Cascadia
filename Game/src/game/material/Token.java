@@ -25,7 +25,7 @@ public record Token(String espece, String color) {
 	}
 
 	/**
-	 * Method to create a list of tokens
+	 *Creates a list of tokens
 	 * @return the list of tokens
 	 */
 	public static ArrayList<Token> tokenList(){
@@ -49,7 +49,7 @@ public record Token(String espece, String color) {
 	}
 
 	/**
-	 * Method to fill the list of tokens
+	 * Fills the list of tokens
 	 * @param tokens list of tokenspeers
 	 * @param chosenTokens list of chosen tokens
 	 * @return the list of chosen tokens
@@ -67,7 +67,7 @@ public record Token(String espece, String color) {
 
 
 	/**
-	 * Method to change the list of tokens when there is overcrowding
+	 * Changes the list of tokens when there is overcrowding
 	 * @param tokens list of tokens
 	 * @param chosenTokens list of chosen tokens
 	 * @return the list of chosen tokens
@@ -89,7 +89,7 @@ public record Token(String espece, String color) {
 	}
 
 	/**
-	 * Method to complete the list of tokens
+	 * Completes the list of tokens
 	 * @param tokens list of tokens
 	 * @param chosenTokens list of chosen tokens
 	 * @param size size of the list
@@ -107,7 +107,7 @@ public record Token(String espece, String color) {
 	}
 
 	/**
-	 * Method to choose the tokens
+	 * Chooses the tokens
 	 * @param tokens list of tokens
 	 * @param chosenTokens list of chosen tokens
 	 * @return the list of chosen tokens
@@ -132,7 +132,7 @@ public record Token(String espece, String color) {
 	}
 
 	/**
-	 * Method to discard the tokens
+	 * Discards the tokens
 	 * @param chosenTokens= list of chosen tokens
 	 * @return the list of discarded tokens
 	 */
@@ -156,7 +156,7 @@ public record Token(String espece, String color) {
 	}
 
 	/**
-	 * Method to shuffle the tokens
+	 * Shuffles the tokens
 	 * @param tokens list of tokens
 	 */
 	public static void shuffeTokens(ArrayList<Token> tokens){
@@ -164,7 +164,7 @@ public record Token(String espece, String color) {
 	}
 
 	/**
-	 * Method to count the occurrences of the tokens
+	 * Counts the occurrences of the tokens
 	 * @param tokens list of tokens
 	 * @return the map of occurrences
 	 */
@@ -179,21 +179,19 @@ public record Token(String espece, String color) {
 	}
 
 	/**
-	 * Method to check if there is overcrowding
+	 * Check if there's overcrowding
 	 * @param chosenTokens list of chosen tokens
 	 * @param scanner scanner to read the player's choice
 	 * @return true if there is overcrowding, false otherwise
 	 */
 	public static boolean checkOvercrowding(Choice board, Scanner scanner, int displayMode){
 		Objects.requireNonNull(board, "Error : Null Board");
-		//Objects.requireNonNull(scanner, "Error : Null scanner");
 		var peer = board.getChoiceBoard();
 		if (peer.isEmpty()){
 			return false;
 		}
 		var mapTokens = countOccurrences(board.listChosenToken());
 	  int sameToken = Collections.max(mapTokens.values());
-		//System.out.println("même tokens : " + sameToken);
     return switch (sameToken) {
 			case 3 -> Player.choiceKeepOrPass(scanner,displayMode); // Fenêtre d'info sur le choix du joueur
 			case 4 -> true;
@@ -207,7 +205,7 @@ public record Token(String espece, String color) {
 	}
 
 	/**
-	 * Method to return the token in the list of tokens (bag)
+	 * Returns the token in the list of tokens (bag)
 	 * @param token the token to return
 	 * @param tokens the list of tokens
 	 * @return the list of tokens

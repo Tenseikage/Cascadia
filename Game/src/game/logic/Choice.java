@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Choice {
 	private final ArrayList<PeerTileToken> choicesBoard = new ArrayList<>();
 	/**
-	 * This method adds tokens and tiles to the choice board
+	 * Adds tokens and tiles to the choice board
 	 * @param tiles list of tiles of the game
 	 * @param tokens list of tokens created
 	 */
@@ -28,14 +28,13 @@ public class Choice {
 		for(int i = 0; i < 4; i++){
 			Random random = new Random();
 			int indexTile = random.nextInt(tiles.size());
-			//choiceBoard.put(tiles.remove(indexTile), chosenTokens.get(i));
 			choicesBoard.add(new PeerTileToken(tiles.remove(indexTile),tokens.get(i)));
 		}
 	}
 	
   /**
-	 * This method return the list of chosen tokens
-	 * @return
+	 * Return the list of chosen tokens
+	 * @return Return list of chosenTokens
 	 */
 	public ArrayList<Token> listChosenToken(){
     ArrayList<Token> chosenTokens = new ArrayList<>();
@@ -44,7 +43,7 @@ public class Choice {
 	}
 
 	/**
-	 * This method add each token to an associated tile
+	 * Adds each token to an associated tile
 	 * @param token
 	 */
 	private void setTokens(ArrayList<Token> chosenTokens){
@@ -54,8 +53,8 @@ public class Choice {
 
 
 	/**
-	 * This method set each tile associated to tile to null
-	 * @param discardedToken
+	 * Set each tile associated to tile to null
+	 * @param discardedToken Discarded token
 	 */
 	private void removeDiscardedTokens(Token discardedToken){
 		choicesBoard.stream().filter(peer -> peer.getToken().equals(discardedToken)).forEach(peer -> peer.setToken(null));
@@ -63,7 +62,7 @@ public class Choice {
 	}
 
 	/**
-	 * This method updates the choice board after players have chosen 1 tile and 1 token
+	 * Updates the choice board after players have chosen 1 tile and 1 token
 	 * @param tiles list of tiles of the game
 	 * @param chosenTokens list of tokens chosen by the player
 	 */
@@ -79,32 +78,27 @@ public class Choice {
 	}
 
 	/**
-	 * This method creates the choice board
+	 * Creates the choice board
 	 * @param tiles list of tiles of the game
 	 * @param tokens list of tokens of the game
 	 * @param display display object
 	 * @param scanner scanner object
 	 */
 	public void createChoiceBoard(ArrayList<Tile> tiles, ArrayList<Token> tokens, Scanner scanner, int displayMode){
-		//Objects.requireNonNull(scanner, "Error: scanner is null");
 		Objects.requireNonNull(tiles, "Error: tile list is null");
 		Objects.requireNonNull(tokens, "Error: token list is null");
 		var chosenTokens = Token.chooseTokens(tokens,this);
 		addTokensTiles(tiles, chosenTokens);
 		if (displayMode == 0){
 			System.out.println("\n");
-			//System.out.println("Choix des jetons et tuiles :");
-			System.out.println("\n");
 			if(Token.checkOvercrowding(this, scanner,displayMode)){
 				System.out.println("Surpopulation : choix de nouveaux jetons");
 				var discardedTokens = Token.discardTokens(choicesBoard);
-				//System.out.println(discardedTokens + "discarded tokens");
 				removeDiscardedTokens(discardedTokens.get(0));
 				var newTokens = Token.chooseTokens(tokens, this); 
 				setTokens(newTokens);
 				tokens.addAll(discardedTokens);
 		  }
-			//Définir avec swing une fenêtre de dialogue
 		}else if (displayMode == 1){
 			if(Token.checkOvercrowding(this,null,displayMode)){
 				WindowInfo.messageInfoError("Surpopulation : choix de nouveaux jetons","Surpopulation");
@@ -117,9 +111,9 @@ public class Choice {
 		}
 	}
   /**
-	 * This method completes the board after done player choices
-	 * @param tiles
-	 * @param tokens
+	 * Completes the board after done player choices
+	 * @param tiles List of tiles
+	 * @param tokens List of tokens
 	 */
 	public void completeTilesTokenList(ArrayList<Tile> tiles,ArrayList<Token> tokens){
 		int size = choicesBoard.size();
@@ -131,7 +125,7 @@ public class Choice {
 	}
   
 	/**
-	 * This method updates the choice board after the players have chosen 1 tile and 1 token
+	 * Updates the choice board after the players have chosen 1 tile and 1 token
 	 * @param tiles list of tiles of the game
 	 * @param tokens list of tokens of the game
 	 * @param chosenTokens list of tokens chosen by the player
@@ -168,13 +162,16 @@ public class Choice {
 	}
 
 	/**
-	 * This method returns the choice board
+	 * Returns the choice board
 	 * @return ArrayList of tiles and tokens
 	 */
 	public ArrayList<PeerTileToken> getChoiceBoard(){
 		return choicesBoard;
 	}
-
+  
+	/**
+	 * Displays the board
+	 */
 	public void displayBoard(){
 		for(var elem : choicesBoard){
 			if(elem.getTile() != null && elem.getToken() != null){

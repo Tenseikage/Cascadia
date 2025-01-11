@@ -1,6 +1,4 @@
 package game.graphic;
-
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Objects;
 import com.github.forax.zen.ApplicationContext;
@@ -11,16 +9,14 @@ import game.material.Token;
 import game.player.Player;
 
 
-
+/**
+ * @author Christophe TARATIBU
+ * This class stores all relative datas of graphic
+ * Some methods belongs to vincent, author of SimpleGameView.java 
+ */
 public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame dataGame,int rows, int column) {
-	/*public static GraphicGame initGame(int poScreenX,int poScreenY, int squareSize, DataGame dataGame){
-		Objects.requireNonNull(dataGame);
-		return new GraphicGame(poScreenX, poScreenY, squareSize, dataGame);
-
-	}*/
-
-	
 	/**
+	 * Author : vincent
 	 * Throws exception if the value is not in the required range.
 	 * 
 	 * @param min   Minimal acceptable value.
@@ -32,12 +28,14 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 			WindowInfo.messageInfoError("Dépasssement de zone", "Erreur");
 		}
 	}
-
+  /**
+	 * Checks if the object position is in the required range
+	 * @param position Position of the mouse pointer in the invisible grid
+	 * @return boolean 
+	 */
 	private boolean checkRangeCoord(Position position){
 		int coordI = position.getX();
 		int coordJ = position.getY();
-		//System.out.println("row : " + coordI + "rows : "+ rows);
-		//System.out.println("column : " + coordJ + "Columns : "+ column);
 		if(coordI >= rows || coordJ >= column){
 			WindowInfo.messageInfoError("Dépasssement de zone : Affichage de la tuile impossible", "Erreur");
 			return false;
@@ -49,6 +47,7 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 	}
 
 	/**
+	 * Author : vincent
 	 * Gets row or column number based on the given coordinate and the origin of the
 	 * display area for this coordinate.
 	 * 
@@ -61,6 +60,7 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 	}
 
 	/**
+	 * Author : vincent
 	 * Transforms a real y-coordinate into the index of the corresponding line.
 	 * 
 	 * @param y a float y-coordinate
@@ -74,6 +74,7 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 	}
 
 	/**
+	 * Author : vincent
 	 * Transforms a real x-coordinate into the index of the corresponding column.
 	 * 
 	 * @param x a float x-coordinate
@@ -87,6 +88,7 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 	}
 
 	/**
+	 * Author : vincent
 	 * Gets base coordinate for the given row /column.
 	 * 
 	 * @param index  Index of the row / column.
@@ -98,6 +100,7 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 	}
 
 	/**
+	 * Author : vincent
 	 * Gets base abscissa for the column of index i.
 	 * 
 	 * @param i Column index.
@@ -108,6 +111,7 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 	}
 
 	/**
+	 * Author : vincent
 	 * Gets base ordinate for the row of index j.
 	 * 
 	 * @param j Row index.
@@ -117,6 +121,12 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 		return realCoordFromIndex(j, poScreenY);
 	}
 
+	/**
+	 * verifies if a position is adjacent to an other position
+	 * @param position Position (x,y)
+	 * @param player Player's data
+	 * @return boolean
+	 */
 	private boolean isAdjacent(Position position, Player player){
 		var listAdjacentPos = position.voisinAdjacent();
 		var envPos = player.boardPlayer().getPositions();
@@ -124,6 +134,13 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 		//System.out.println(posi);
 		return posi;
 	}
+	/**
+	 * Draws a token with data written on it, on the screen
+	 * @param graphics  Graphics engine that will display the data of token and shape
+	 * @param coordI Coordinate I of place on the grid
+	 * @param coordJ Coordinate J of place on the grid
+	 * @param token Token of the game
+	 */
   private void drawToken(Graphics2D graphics,int coordI, int coordJ,Token token){
 		int smallSquareSize = 75;
 		var posX = (int)xFromI(coordI);
@@ -137,6 +154,13 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 
 	}
 
+	/**
+	 * Draws a tile with data written on it, on the screen
+	 * @param graphics  Graphics engine that will display the data of tile and shape
+	 * @param coordI Coordinate I of place on the grid
+	 * @param coordJ Coordinate J of place on the grid
+	 * @param tile Tile of the game
+	 */
   private void drawTile(Graphics2D graphics,int coordI, int coordJ,Tile tile){
 		//var tile = peer.getTile();
 		var posX = xFromI(coordI);
@@ -149,6 +173,11 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 
 	}
 
+	/**
+	 * Draws the tiles of player's environment
+	 * @param graphics  Graphics engine that will display the data of env
+	 * @param player Player's data which contains his/her environment
+	 */
 	public void drawEnvTile(Graphics2D graphics,Player player){
 		var envPlayer = player.boardPlayer().getEnvironment();
 		envPlayer.entrySet().stream().forEach(element -> {
@@ -157,7 +186,12 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 			drawTile(graphics, position.getX(), position.getY(), tile);
 		});
 	}
-
+ 
+	/**
+	 * Draws the tokens of player's environment
+	 * @param graphics  Graphics engine that will display the data of environment
+	 * @param player Player's data which contains his/her environment
+	 */
 	public void drawEnvToken(Graphics2D graphics,Player player){
 		var envPlayer = player.boardPlayer().getEnvironment();
 		envPlayer.entrySet().stream().forEach(element -> {
@@ -169,7 +203,15 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 		});
 	}
 
-
+  /**
+	 * Sets and draw the tile on the environment
+	 * @param context using an existing context {@code ApplicationContext}.
+	 * @param player Player's data
+	 * @param coordI Coordinate I of the grid
+	 * @param coordJ Coordinate J of the grid
+	 * @param peer Peer of tile and token
+	 * @return
+	 */
 	public boolean setTileAndDraw(ApplicationContext context,Player player,int coordI, int coordJ,PeerTileToken peer){
 		if(!(coordI == 0 && (coordJ == 0 || coordJ == 1 || coordJ == 2))){
 			var position = new Position(coordI, coordJ);
@@ -195,6 +237,15 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 		}
 		
 	}
+	/**
+	 * Sets and draw the token on the environment
+	 * @param context  using an existing context {@code ApplicationContext}.
+	 * @param player Player's data
+	 * @param coordI Coordinate I of the grid
+	 * @param coordJ Coordinate J of the grid
+	 * @param peer Peer of tile and token
+	 * @return
+	 */
 	public boolean setTokenAndDraw(ApplicationContext context,Player player,int coordI, int coordJ,PeerTileToken peer){
 		var position = new Position(coordI, coordJ);
 		var envPlayer = player.boardPlayer();
@@ -217,6 +268,12 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 		}
 
 	}
+	/**
+	 * Draws the choices (tiles and token) from choiceboard
+	 * @param graphics Graphics engine that will display the data of choiceBoard
+	 * @param startX Coordinate X of starting
+	 * @param startY Coordinate Y of starting
+	 */
 	public void drawChoices(Graphics2D graphics,int startX, int startY){
 		var choice = dataGame.choiceboard().getChoiceBoard();
 		if(choice.size() <= 2){
@@ -237,7 +294,13 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 		}
 	}
 
-	//Draw startTiles env of player at the begining
+	/**
+	 * 	Draws the starting habitat of player's environment (3 tiles)
+	 * @param graphics Graphics engine that will display the data of starting tiles
+	 * @param startX Coordinate X of start
+	 * @param startY Coordinate Y of start
+	 * @param player Player's data
+	 */
 	private void drawStartTiles(Graphics2D graphics,int startX, int startY,Player player){
 		var starTiles = dataGame.getBeginTiles();
 		var envPlayer = player.boardPlayer();
@@ -253,7 +316,11 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 
 		
 	}
-
+  /**
+	 * Update the graphic window
+	 * @param context using an existing context {@code ApplicationContext}.
+	 * @param player Player's data
+	 */
 	public void updateScreen(ApplicationContext context,Player player){
 		var screenInfo = context.getScreenInfo();
     var width = screenInfo.width();
@@ -267,6 +334,10 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 		});
 	}
 
+	/**
+	 * Clear's the graphic window
+	 * @param context using an existing context {@code ApplicationContext}.
+	 */
 	public void cleanScreen(ApplicationContext context){
 		var screenInfo = context.getScreenInfo();
     var width = screenInfo.width();
@@ -276,9 +347,14 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 		});
 
 	}
+	/**
+	 * Draws the first state of the game
+	 * @param context  using an existing context {@code ApplicationContext}.
+	 * @param player Player's data
+	 * @param graphicGame Data of graphic game
+	 */
 	public static void drawBegin(ApplicationContext context, Player player, GraphicGame graphicGame){
 		context.renderFrame(graphics -> {
-			//graphics.clearRect(0, 0, width, height);
 			graphicGame.drawStartTiles(graphics, 50, 50, player);
 		  graphicGame.drawChoices(graphics, 1100, 35);} );
 	}

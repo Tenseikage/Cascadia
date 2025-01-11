@@ -10,15 +10,21 @@ import com.github.forax.zen.Event;
 import com.github.forax.zen.KeyboardEvent;
 import com.github.forax.zen.PointerEvent;
 import game.main.Terminal;
-
+/**
+ * @author Loic BERGEOT / Christophe TARATIBU
+ * This class displays the menu of the game
+ */
 public class Menu {
-	
+    /***
+     * Display title of Game and Jouer button
+     * @param context
+     * @throws IOException
+     * @throws IllegalAccessError
+     */
 	public void start(ApplicationContext context) throws IOException,IllegalAccessError {
 		var screenInfo = context.getScreenInfo();
         var width = screenInfo.width();
         var height = screenInfo.height();
-        
-        
         // COORDONNEES DU BOUTON
         
         int rectLarge = width/10;
@@ -118,6 +124,12 @@ public class Menu {
         }
 	}
 	
+    /**
+     * Displays the other choices of the game
+     * @param context using an existing context {@code ApplicationContext}.
+     * @throws IOException
+     * @throws IllegalAccessError
+     */
 	public void modes(ApplicationContext context) throws IOException,IllegalAccessError {
 		var screenInfo = context.getScreenInfo();
         var width = screenInfo.width();
@@ -202,9 +214,10 @@ public class Menu {
             });
         }
 	}
+    /**
+     * Main method of the project
+     */
     public static void main(String[] args) throws IOException,IllegalAccessError {
-        //RandomGenerator random = RandomGenerator.getDefault();
-        // Start the application, create a drawing area, full screen
         Application.run(Color.WHITE, context -> {
         	var menu = new Menu();
         	try {

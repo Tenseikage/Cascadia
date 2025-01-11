@@ -17,7 +17,7 @@ public class Environment{
 
 
 	/**
-	 * This method chooses the starting tiles,
+	 * Chooses the starting tiles,
 	 * @param tokenTiles ArrayList of tiles and null tokens
 	 * @return HashMap of tiles and null tokens with tile positions (start habitat)
 	 */
@@ -29,7 +29,7 @@ public class Environment{
 	}
 	
 	/**
-	 * This method returns the key of a map by its value
+	 * Returns the key of a map by its value
 	 * @param map map to search in
 	 * @param position position to search
 	 * @return key
@@ -44,7 +44,7 @@ public class Environment{
 
 	
 	/**
-	 * This method adds a tile and a token to the player's environment
+	 * Adds a tile and a token to the player's environment
 	 * @param key key of the map
 	 * @param position position of the tile
 	 */
@@ -54,7 +54,7 @@ public class Environment{
 	}
 
 	/**
-	 * This method checks if the token can be placed on the tile
+	 * Checks if the token can be placed on the tile
 	 * @param tile tile to check
 	 * @param token token to check
 	 * @return true if the token can be placed, false otherwise
@@ -65,7 +65,7 @@ public class Environment{
 	}
 
 	/**
-	 * This method adds a token to the player's environment
+	 *  Adds a token to the player's environment
 	 * @param tile tile to add
 	 * @param token token to add
 	 * @param position position of the tile
@@ -104,14 +104,14 @@ public class Environment{
 	  }
 	
 	/**
-	 * This method returns the environment of the player
+	 * Returns the environment of the player
 	 * @return the environment of the player
 	 */
 	public HashMap<PeerTileToken,Position> getEnvironment(){
 		return tokenTilesList;
 	}
 	/**
-	 * This method sets the environment of the player with starting tiles
+	 * Sets the environment of the player with starting tiles
 	 * @param data data to set
 	 */
 	public void setEnvironment(HashMap<PeerTileToken,Position> data){
@@ -120,7 +120,7 @@ public class Environment{
 	}
 
 	/**
-	 * This method a list which contains the positions of the tiles
+	 * Creates a list which contains the positions of the tiles
 	 * @return list of positions
 	 */
 	public ArrayList<Position> getPositions(){

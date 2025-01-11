@@ -14,9 +14,17 @@ import java.util.List;
 import java.util.Scanner;
 
 
-
+/**
+ * @author Christophe TARATIBU
+ */
 public class Terminal {
 
+	/**
+	 * Create a list of 2 players
+	 * @param scanner Scanner
+	 * @param nbPlayers 
+	 * @return
+	 */
 	public static List<Player> listPlayers(Scanner scanner, int nbPlayers){
 		if(nbPlayers <= 0 || nbPlayers > 2){
 			System.err.println("Nombre incorrect");
@@ -36,7 +44,7 @@ public class Terminal {
 					}
 				} else {
 					System.err.println("Entrée invalide. Veuillez entrer un nombre entier.");
-					scanner.next(); // Consommer l'entrée invalide
+					scanner.next();
 				}
 		  }
 			players.add(new Player(name, age, 0, new Environment()));
@@ -44,6 +52,11 @@ public class Terminal {
 		return players;
 	}
 
+	/**
+	 * Creates a list of 2 grids of players
+	 * @param nbPlayers
+	 * @return
+	 */
 	public static List<DisplayTools> listGrids(int nbPlayers){
 		if(nbPlayers <= 0 || nbPlayers > 2){
 			System.err.println("Nombre incorrect");
@@ -58,7 +71,7 @@ public class Terminal {
 		return grids;
 	}
 	/**
-	 * Method to loop the game with exceptions
+	 * Loops the game with exceptions
 	 * @param scanner scanner
 	 * @param display display
 	 * @param player1 first player
@@ -94,7 +107,7 @@ public class Terminal {
 		}
 
 		/**
-		 * Main method
+		 * Main Terminal method
 		 * @param args arguments
 		 * @throws IOException Exceptions of the input/output of the game
 		 * @throws IllegalAccessError Exceptions of the access of the game

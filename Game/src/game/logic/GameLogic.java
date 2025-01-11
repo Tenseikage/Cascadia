@@ -18,7 +18,7 @@ import java.util.Scanner;
 public class GameLogic {
 
 	/**
-	 * This method returns the tile by its index
+	 * Returns the tile by its index
 	 * @param map map
 	 * @param index index
 	 * @return tile
@@ -40,7 +40,7 @@ public class GameLogic {
 
 	
 	/**
-	 * This method return the player's choice
+	 * Return the player's choice
 	 * @param scanner scanner
 	 * @param board  choice board	
 	 * @return player's choice
@@ -60,7 +60,7 @@ public class GameLogic {
 	}
 
 	/**
-	 * This method returns the position of a tile
+	 * Returns the position of a tile
 	 * @param env environment
 	 * @param scanner scanner
 	 * @return position of the new tile
@@ -82,7 +82,7 @@ public class GameLogic {
 	}
 
 	/**
-	 * This method returns the position of a token.
+	 * Returns the position of a token.
 	 * In case the player can't place the token, it returns null
 	 * @param scanner scanner
 	 * @return position of the new token
@@ -100,7 +100,7 @@ public class GameLogic {
 	}
 
 	/**
-	 * This method returns updated environment
+	 * Returns updated environment
 	 * @param scanner scanner
 	 * @param chosenPos position of the new tile
 	 * @param chosenTile tile to place
@@ -111,7 +111,6 @@ public class GameLogic {
 	public Environment getDirection(Scanner scanner, Position chosenPos,PeerTileToken tilesTokens, Environment env) {
 		Objects.requireNonNull(scanner, "Error : Null scanner");
 		Objects.requireNonNull(chosenPos, "Error : Null position");
-		//Objects.requireNonNull(chosenTile, "Error : Null tile");
 		Objects.requireNonNull(tilesTokens, "Error : Null tilesTokens");
 		System.out.println("Choisissez l'endroit où poser la tuile");
 		System.out.println("Haut/Bas/Gauche/Droite");
@@ -128,7 +127,7 @@ public class GameLogic {
 
 	
 	/**
-	 * This method adds a token to the environment
+	 * Adds a token to the environment
 	 * @param env environment
 	 * @param chosenToken token to add
 	 * @param chosenPos position of the token
@@ -142,7 +141,7 @@ public class GameLogic {
 	}
 
 	/**
-	 * This method returns the final choice of the player
+	 * Returns the final choice of the player
 	 * @param choice player's choice
 	 * @param choiceBoard choice board
 	 * @return final choice
@@ -154,7 +153,7 @@ public class GameLogic {
 	}
 
 	/**
-	 * This method places a token in the environment
+	 * Places a token in the environment
 	 * @param board choice board
 	 * @param scanner scanner
 	 * @param display display
@@ -187,7 +186,7 @@ public class GameLogic {
 	}
 
 	/**
-	 * This method represents a game turn
+	 * Represents a game turn
 	 * @param scanner scanner
 	 * @param display display
 	 * @param player player
@@ -201,7 +200,6 @@ public class GameLogic {
 		Objects.requireNonNull(display, "Error : Null display");
 		Objects.requireNonNull(player, "Error : Null player");
 		Objects.requireNonNull(board, "Error : Null board");
-		//Objects.requireNonNull(env, "Error : Null env");
 		Objects.requireNonNull(grid, "Error : Null grid");
 		Objects.requireNonNull(tokens, "Error : Null tokens");
 		System.out.println("Environnement " + player.name()); 

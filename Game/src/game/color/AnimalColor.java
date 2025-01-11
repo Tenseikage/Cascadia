@@ -3,7 +3,7 @@ import java.util.Objects;
 
 /**
  * @author Christophe TARATIBU
- * This class enums the colors which are used for the game
+ * This class enums the colors which are used for the game (animals)
  */
 public enum AnimalColor{
 	RESET("\033[0m"),
@@ -27,7 +27,7 @@ public enum AnimalColor{
 
 	
  /**
-	* This method returns the ansi code linked with a color
+	* Returns the ansi code linked with a color
 	* @return ansiCode
   */
 	public String get() {

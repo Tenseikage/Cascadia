@@ -43,7 +43,7 @@ public class Display {
 	}
 	
 	/**
-	 * Method which set colors to tiles or tokens
+	 * Sets colors to tiles or tokens
 	 * @param color color(Animal,represented with 2 letters
 	 * @return Color attributed, default blank
 	 */
@@ -60,7 +60,7 @@ public class Display {
 	}
 	
 	/**
-	 * Method which displays the token in ASCII.
+	 * Displays the token in ASCII.
 	 * @param choiceBoard Board which contains the 4 chosen tokens and tokens
 	 * 
 	 */
@@ -88,7 +88,7 @@ public class Display {
 	}
 	
 	/**
-	 * Method which displays the rules of Cascadia
+	 * Displays the rules of Cascadia
 	 */
 	public void displayRules() {
 		System.out.println("===== CASCADIA ======\n");
@@ -104,7 +104,7 @@ public class Display {
 	}
 	
 	/**
-	 * Method which displays the environment of a player contains tiles and tokens
+	 * Displays the environment of a player contains tiles and tokens
 	 * @param gridEnv Player's grid with token and tiles placed.
 	 */
 	public void displayGridEnvPlayer(DisplayTools gridEnv){
@@ -130,7 +130,7 @@ public class Display {
 	}
 
 	/**
-	 * This method checks if a token is in environment
+	 * Checks if a token is in environment
 	 * @param token
 	 * @return
 	*/
@@ -139,7 +139,7 @@ public class Display {
 	}
 
 	/**
-	 * This method displays a tile with no color if no token is placed and a colored tile
+	 * Displays a tile with no color if no token is placed and a colored tile
 	 * in the other case
 	 * @param tile  Tile of an environment
 	 * @param entry Environment converted in a entry
@@ -169,7 +169,7 @@ public class Display {
 	}
 
 	/**
-	 * This method displays the environment (tiles and tokens) of a player
+	 * Displays the environment (tiles and tokens) of a player
 	 * @param env Player's environment
 	 * @param grid Player's grid (tiles and tokens)
 	 * @param player Player data
@@ -201,7 +201,7 @@ public class Display {
 				
 
 	/**
-	 * This method displays the mode for the final score count in 
+	 * Displays the mode for the final score count in 
 	 * this game
 	 * @param scanner choice of 1st player
 	 * @return int: family mode 1 or Intermediate mode 2, default 1
@@ -227,7 +227,7 @@ public class Display {
 		return mode;
 	}
   /***
-	 * Method which displays tiles and tokens for to choose
+	 * Displays tiles and tokens for to choose
 	 * @param board Board which contains the 4 chosen tiles and tokens
 	 */
 	public void displayAll(Choice board){

@@ -11,7 +11,7 @@ import java.util.Objects;
 public record Position(int posX,int posY) {
 
 	/**
-	 * Method to get the x coordinate of the position
+	 * Gets the x coordinate of the position
 	 * @return the x coordinate
 	 */
 	public int getX(){
@@ -19,7 +19,7 @@ public record Position(int posX,int posY) {
 	}
 
 	/**
-	 * Method to get the y coordinate of the position
+	 * Gets the y coordinate of the position
 	 * @return the y coordinate
 	 */
 	public int getY(){
@@ -27,7 +27,7 @@ public record Position(int posX,int posY) {
 	}
 	
 	/**
-	 * Method to update the position of the player
+	 * Updates the position of the player
 	 * @param direction the direction to move
 	 * @return the new position
 	 */
@@ -43,7 +43,7 @@ public record Position(int posX,int posY) {
 	}
 
 	/**
-	 * Method to check if the position is valid
+	 * Checks if the position is valid
 	 * @param maxX the maximum x coordinate
 	 * @param maxY the maximum y coordinate
 	 * @return true if the position is valid, false otherwise
@@ -53,7 +53,7 @@ public record Position(int posX,int posY) {
 	}
 
 	/**
-	 * Method to set the maximum position
+	 * Sets the maximum position
 	 * @return the maximum position
 	 */
 	public static Position setMaxPos(){
@@ -61,7 +61,7 @@ public record Position(int posX,int posY) {
 	}
 
 	/**
-	 * Method to get the position of the player
+	 * Gets the position of the player
 	 * @param positionStr the position of the player
 	 * @return the position of the player
 	 */
@@ -77,7 +77,7 @@ public record Position(int posX,int posY) {
   }  
 	
 	/**
-	 * Method to get the adjacent positions
+	 * Gets the adjacent positions
 	 * @return list of the adjacent positions
 	 */
 	public List<Position> voisinAdjacent() {

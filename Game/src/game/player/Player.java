@@ -20,7 +20,7 @@ public record Player(String name, int age,int points,Environment boardPlayer) {
 	}
 
 	/**
-	 * This method returns the name of the player
+	 * Returns the name of the player
 	 * @param scanner the scanner to read the input
 	 * @return the name of the player
 	 */
@@ -61,7 +61,7 @@ public record Player(String name, int age,int points,Environment boardPlayer) {
 	}
 
 	/**
-	 * This method displays the winner of the game
+	 * Displays the winner of the game
 	 * @param player1 first player
 	 * @param score1 score of the first player
 	 * @param player2 second player

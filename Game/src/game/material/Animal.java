@@ -16,7 +16,7 @@ public enum Animal implements Biome {
 	private final String specie;
 
 	/**
-	 * This constructor affects the animal's specie
+	 * Affects the animal's specie
 	 * @param specie
 	 */
 	Animal(String specie) {
@@ -26,7 +26,7 @@ public enum Animal implements Biome {
 
 	
  /**
-	* This method returns the animal specie linked with a string
+	* Returns the animal specie linked with a string
 	* @return specie
   */
 	@Override

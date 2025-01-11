@@ -8,15 +8,19 @@ import com.github.forax.zen.ApplicationContext;
 import com.github.forax.zen.Event;
 import com.github.forax.zen.KeyboardEvent;
 import com.github.forax.zen.PointerEvent;
-
 import game.logic.Scores;
 import game.material.PeerTileToken;
 import game.player.Player;
 
+/**
+ * @author Christophe TARATIBU
+ * This class represent the graphic controller of the game (graphic tiles version only)
+ * Some methods belongs to vincent
+ */
 public class GraphicTileToken {
 	/**
-	 * This method lets the players set their name and age
-	 * @param nbPlayers
+	 * Lets the players set their name and age
+	 * @param nbPlayers Number of players
 	 * @return players 	 List containing the players*/
 	private static List<Player> listPlayers(int nbPlayers){
 		if(nbPlayers <= 0 || nbPlayers > 4){
@@ -30,7 +34,11 @@ public class GraphicTileToken {
 		}
 		return players;
 	} 
-
+  /**
+	 * Displays the winner with his/her final score
+	 * @param players List of players
+	 * @param mode Mode chosen for the game
+	 */
 	private static void displayScore(List<Player> players, int mode){
 		var score  = new Scores();
 		var player1 = players.get(0);
@@ -53,6 +61,7 @@ public class GraphicTileToken {
 	}
 
 	/**
+	 * Author : Vincent
    * Tries sleeping for a given duration.
    * 
    * @param duration Sleep duration, in milliseconds.
@@ -68,7 +77,7 @@ public class GraphicTileToken {
   }
 
 	/**
-	 * This method lets the player place his/her tile
+	 * Lets the player place his/her tile
 	 * @param context
 	 * @param player
 	 * @param graphicGame
@@ -104,7 +113,7 @@ public class GraphicTileToken {
 	}
 
 	/**
-	 * This method lets player place his/her token on a tile already put
+	 * Lets player place his/her token on a tile already put
 	 * @param context
 	 * @param player
 	 * @param graphicGame
@@ -140,11 +149,11 @@ public class GraphicTileToken {
 	}
 	
 	/**
-	 * This method  simulate the game turn between two players
-	 * @param context
-	 * @param dataGame
-	 * @param player
-	 * @param graphicGame
+	 * Simulate the game turn between two players
+	 * @param context  using an existing context {@code ApplicationContext}.
+	 * @param dataGame Game's data
+	 * @param player  Player's data
+	 * @param graphicGame Graphicgame data
 	 * @return
 	 */
 	private static boolean gameTurn(ApplicationContext context,DataGame dataGame ,Player player,GraphicGame graphicGame){
@@ -161,6 +170,15 @@ public class GraphicTileToken {
 		graphicGame.updateScreen(context,player);
 		return true;
 	}
+
+	/***
+	 * Loops the game 20 times
+	 * @param context  using an existing context {@code ApplicationContext}.
+	 * @param dataGame Game's data
+	 * @param players List of players
+	 * @param graphicGame Graphic data
+	 * @param mode Game mode
+	 */
 	private static void gameLoop(ApplicationContext context,DataGame dataGame, List<Player> players,GraphicGame graphicGame, int mode){
 		for(int i = 0; i < 20; i++){
 			if(i < 2){
@@ -180,6 +198,11 @@ public class GraphicTileToken {
 		displayScore(players, mode); //End of game
 		context.dispose();
 	}
+	/**
+	 * Begins the game
+	 * @param context
+	 * @throws IOException
+	 */
 	public static void beginGame(ApplicationContext context) throws IOException {
 		try {
 			var graphicGame = new GraphicGame(50 , 50, 150,new DataGame(),6,4);
@@ -194,7 +217,10 @@ public class GraphicTileToken {
 		}
 	}
 
-	
+	/**
+	 * Main of the graphic version of Cascadia
+	 * @throws IOException
+	 */
 	public static void GraphicMain() throws IOException {
 		Application.run(Color.WHITE, context -> {
 			try {
