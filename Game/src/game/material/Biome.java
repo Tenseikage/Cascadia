@@ -1,5 +1,8 @@
 package game.material;
 
+/**
+ * @author Christophe TARATIBU
+ */
 public sealed interface Biome permits Places, Animal{
   String get();
 	static boolean contains(Class<? extends Biome> enumString, String data){

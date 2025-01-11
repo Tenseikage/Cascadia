@@ -74,7 +74,7 @@ public class Main {
 	public static void loopWithExecptions(Scanner scanner,Display display,List<Player> players, Choice board, 
 		List<DisplayTools> grids, ArrayList<Token> tokens,ArrayList<Tile> tiles){
 			var logic = new GameLogic();
-			int nbturns = 5;
+			int nbturns = 6;
 			for(int i = 0; i < nbturns; i++){
 				boolean validInput = false;
 				while(!validInput){
@@ -83,14 +83,12 @@ public class Main {
 						board.updateChoiceBoard(tiles, tokens,scanner,0);
 						validInput = true;
 					} catch (Exception e) {
-						//e.printStackTrace();
 						System.err.println("Invalid entry");
 					} catch(IllegalAccessError e){
 						System.err.println("Invalid position");
 						scanner.nextLine();
 					}
 				}
-			
 			}
 
 		}
@@ -113,8 +111,6 @@ public class Main {
 			var tiles = Tile.ExploitCsv();
 			var tokens = Token.tokenList();
 			tiles = Tile.tileBag(tiles, 2);
-			//var player1 = new Player("Toto",18,0,env1);
-			//var player2 = new Player("Tota",18,0,env2);
 			Tile.startTiles();
 			var choice1 = Tile.getStartiles();
 			var choice2 = Tile.getStartiles(); 
@@ -124,7 +120,6 @@ public class Main {
 			players.get(1).boardPlayer().setEnvironment(playTiles2);
 			board.createChoiceBoard(tiles,tokens,scanner,0); // Ajout mode Affichage
 			loopWithExecptions(scanner, display, players, board, listGrids, tokens, tiles);
-			//System.out.println(mode);
 			var player1 = players.get(0);
 			var player2 = players.get(1);
 			var env1 = players.get(0).boardPlayer();
@@ -134,13 +129,13 @@ public class Main {
 				var posAnimals2 = score.checkTokens(env2);
 				int score1 = score.scoreMode(posAnimals1, mode);
 				int score2 = score.scoreMode(posAnimals2, mode);
-				Player.displayWinner(player1, score1, player2, score2);
+				Player.displayWinner(player1, score1, player2, score2,0);
 			} else {
 					var posAnimals1 = score.checkTokens(env1);
 					var posAnimals2 = score.checkTokens(env2);
 					int score1 = score.scoreMode(posAnimals1, mode);
 					int score2 = score.scoreMode(posAnimals2, mode);
-					Player.displayWinner(player1, score1, player2, score2);
+					Player.displayWinner(player1, score1, player2, score2,0);
 			}
 	}
 }

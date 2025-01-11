@@ -9,6 +9,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
+ * @author Christophe TARATIBU
  * Class which represents the environment of the player
  */
 public class Environment{
@@ -70,22 +71,37 @@ public class Environment{
 	 * @param position position of the tile
 	 * @return true if the token has been added, false otherwise
 	 */
-	public boolean addTokenPlayer(PeerTileToken peer,Token token, Position position, int displayMode){
-		Objects.requireNonNull(token, "Error : Null token");
-		Objects.requireNonNull(position, "Error : Null position");
-		var tile = peer.getTile();
-		if(checkPutToken(tile, token)){
-			peer.setToken(token);
-			return true;
-		} else if (displayMode == 0) {
-			System.out.println("Erreur : Placement du jeton impossible");
-			return false;
-		} else {
-			WindowInfo.messageInfoError("Erreur : Placement du jeton impossible", "Erreur");
-			return false;
-		}
+		public boolean addTokenPlayer(PeerTileToken peer,Token token, Position position, int displayMode){
+			Objects.requireNonNull(token, "Error : Null token");
+			Objects.requireNonNull(position, "Error : Null position");
+			var tile = peer.getTile();
+			var peerToken = peer.getToken();
+			if(peerToken == null){
+				if(checkPutToken(tile, token)){
+					peer.setToken(token);
+					return true;
+				} else {
+					if (displayMode == 0) {
+						System.out.println("Erreur : Placement du jeton impossible");
+						return false;
+					} else {
+						WindowInfo.messageInfoError("Erreur : Placement du jeton impossible", "Erreur");
+						return false;
+					}
+				}
 
-	}
+			} else {
+				if (displayMode == 0) {
+					System.out.println("Erreur : Placement du jeton impossible");
+					return false;
+				} else {
+					WindowInfo.messageInfoError("Erreur : Placement du jeton impossible", "Erreur");
+					return false;
+				}
+
+			}
+
+	  }
 	
 	/**
 	 * This method returns the environment of the player

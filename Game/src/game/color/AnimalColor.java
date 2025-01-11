@@ -2,6 +2,7 @@ package game.color;
 import java.util.Objects;
 
 /**
+ * @author Christophe TARATIBU
  * This class enums the colors which are used for the game
  */
 public enum AnimalColor{

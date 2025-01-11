@@ -1,7 +1,9 @@
 package game.material;
 
 import java.util.Objects;
-
+/**
+ * @author Christophe TARATIBU
+ */
 public enum Animal implements Biome {
 	BUSE("Bu"),
 	WAPITI("Wa"),

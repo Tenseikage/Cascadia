@@ -12,6 +12,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 /**
+ * @author Christophe TARATIBU
  * This class represents the game logic
  */
 public class GameLogic {

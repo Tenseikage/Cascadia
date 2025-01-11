@@ -1,5 +1,7 @@
 package game.material;
-
+/**
+ * @author Christophe TARATIBU
+ */
 public class PeerTileToken{
 	private Tile tile;
 	private Token token;

@@ -2,6 +2,7 @@ package game.display;
 import game.logic.Position;
 
 /**
+ * @author Christophe TARATIBU
  * This class is used to display the environment
  */
 public class DisplayTools {

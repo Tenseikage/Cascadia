@@ -12,6 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
+ * @author Christophe TARATIBU
  * This class represents the choice of tiles and tokens
  */
 public class Choice {
@@ -73,7 +74,7 @@ public class Choice {
 		for (int i = 0; i < size; i++){
 			Random random = new Random();
 			int indexTile = random.nextInt(tiles.size());
-			choicesBoard.add(new PeerTileToken(tiles.remove(indexTile), tokens.get(3 - i)));
+			choicesBoard.add(new PeerTileToken(tiles.remove(indexTile), tokens.get(size - i)));
 		}
 	}
 
@@ -97,7 +98,7 @@ public class Choice {
 			if(Token.checkOvercrowding(this, scanner,displayMode)){
 				System.out.println("Surpopulation : choix de nouveaux jetons");
 				var discardedTokens = Token.discardTokens(choicesBoard);
-				System.out.println(discardedTokens + "discarded tokens");
+				//System.out.println(discardedTokens + "discarded tokens");
 				removeDiscardedTokens(discardedTokens.get(0));
 				var newTokens = Token.chooseTokens(tokens, this); 
 				setTokens(newTokens);
@@ -152,6 +153,7 @@ public class Choice {
 						tokens.addAll(discardedTokens);
 				}	
 			} else{
+				completeTilesTokenList(tiles, tokens);
 				if(!Token.checkOvercrowding(this,scanner,displayMode)){
 					updateTokenTiles(tiles, listChosenToken());
 				} else {

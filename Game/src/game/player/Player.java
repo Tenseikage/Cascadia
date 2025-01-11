@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 
 /**
+ * @author Christophe TARATIBU / Loïc BERGEOT
  * This class represents the player of the game
  */
 public record Player(String name, int age,int points,Environment boardPlayer) {
@@ -66,15 +67,25 @@ public record Player(String name, int age,int points,Environment boardPlayer) {
 	 * @param player2 second player
 	 * @param score2 	score of the second player
 	 */
-	public static void displayWinner(Player player1,int score1,Player player2,int score2){
+	public static void displayWinner(Player player1,int score1,Player player2,int score2, int displayMode){
 		Objects.requireNonNull(player1, "Error : Null player");
 		Objects.requireNonNull(player2, "Error : Null player");
-		if(score1 > score2){
-			System.out.println(player1.name() + " a gagné");
-		} else if(score1 < score2){
-			System.out.println(player2.name() + " a gagné");
-		} else {
-			System.out.println("Egalité");
+		if(displayMode == 0){
+			if(score1 > score2){
+				System.out.println(player1.name() + " a gagné avec " + score1 + "points");
+			} else if(score1 < score2){
+				System.out.println(player2.name() + " a gagné avec " + score2 + "points");
+			} else {
+				System.out.println("Egalité avec " + score1 + " points");
+			}
+		} else{
+			if(score1 > score2){
+				WindowInfo.messageInfoError(player1.name() + " a gagné avec " + score1 + "points", "Information");
+			} else if(score1 < score2){
+				WindowInfo.messageInfoError(player2.name() + " a gagné avec " + score2 + "points", "Information");
+			} else {
+				WindowInfo.messageInfoError("Egalité avec " + score1 + " points", "Information");
+			}
 		}
 
 	}

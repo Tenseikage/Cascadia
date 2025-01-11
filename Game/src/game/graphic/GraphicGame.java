@@ -130,7 +130,7 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 		var posY = (int)yFromJ(coordJ);
 		int posSmallX = posX + (squareSize - smallSquareSize)/2;
 		int posSmallY = posY + (squareSize - smallSquareSize)/2;
-		var color = dataGame.setColor(token.color());
+		var color = dataGame.setColorAnimal(token.color());
 		graphics.setColor(color.getColor());
 		graphics.fillRect(posSmallX, posSmallY, smallSquareSize, smallSquareSize);
 		Fonts.fontManageToken(graphics, posSmallX,posSmallY, smallSquareSize,token,15);
@@ -141,7 +141,10 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 		//var tile = peer.getTile();
 		var posX = xFromI(coordI);
 		var posY = yFromJ(coordJ);
+		var color = dataGame.setColorPlace(tile.getPlace());
+		graphics.setColor(color.getColor());
 	  graphics.drawRect((int)posX, (int)posY, squareSize, squareSize);
+		graphics.fillRect((int)posX, (int)posY, squareSize, squareSize);
 		Fonts.fontManageTiles(graphics,(int)posX, (int)posY, squareSize, tile,20);
 
 	}
@@ -150,7 +153,6 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 		var envPlayer = player.boardPlayer().getEnvironment();
 		envPlayer.entrySet().stream().forEach(element -> {
 			var position = element.getValue();
-			//System.out.println(position);
 			var tile = element.getKey().getTile();
 			drawTile(graphics, position.getX(), position.getY(), tile);
 		});
@@ -160,7 +162,6 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 		var envPlayer = player.boardPlayer().getEnvironment();
 		envPlayer.entrySet().stream().forEach(element -> {
 			var position = element.getValue();
-			//System.out.println(position);
 			var token = element.getKey().getToken();
 			if(token != null){
 				drawToken(graphics, position.getX(), position.getY(), token);
@@ -207,7 +208,7 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 				return true;
 			} else {
 				WindowInfo.messageInfoError("Positionnement impossible", "Erreur");
-				return false;
+				return dataGame.returnToken(token);
 			}
       
 		} else {
@@ -218,28 +219,34 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 	}
 	public void drawChoices(Graphics2D graphics,int startX, int startY){
 		var choice = dataGame.choiceboard().getChoiceBoard();
+		if(choice.size() <= 2){
+			dataGame.choiceboard().updateChoiceBoard(dataGame.tiles(), dataGame.tokens(), null, 1);
+			choice =  dataGame.choiceboard().getChoiceBoard();
+		}
 		for(int j = 0; j < choice.size(); j ++){
 			Token token = choice.get(j).getToken();
-			var color = dataGame.setColor(token.color());
+			var color = dataGame.setColorAnimal(token.color());
 			graphics.setColor(color.getColor());
 			graphics.fillRect(startX, startY + (squareSize + 25) * j, squareSize, squareSize);
 			Fonts.fontManageToken(graphics, startX,startY + (squareSize + 25) * j, squareSize, choice.get(j).getToken(),20);
-			graphics.setColor(Color.BLACK);
+			var colorPlace = dataGame.setColorPlace(choice.get(j).getTile().getPlace());
+			graphics.setColor(colorPlace.getColor());
 			graphics.drawRect(startX + 175, startY + (squareSize + 25) * j, squareSize, squareSize);
+			graphics.fillRect(startX + 175, startY + (squareSize + 25) * j, squareSize, squareSize);
 			Fonts.fontManageTiles(graphics, startX + 175,startY + (squareSize + 25) * j, squareSize, choice.get(j).getTile(),15);
 		}
 	}
 
 	//Draw startTiles env of player at the begining
 	private void drawStartTiles(Graphics2D graphics,int startX, int startY,Player player){
-		//Tile.startTiles();
-		//var startChoice = Tile.getStartiles();
 		var starTiles = dataGame.getBeginTiles();
 		var envPlayer = player.boardPlayer();
 		Objects.requireNonNull(graphics);
-		graphics.setColor(Color.BLACK);
 		for(int i = 0; i < 3; i ++){
+			var color = dataGame.setColorPlace(starTiles.get(i).getTile().getPlace());
+			graphics.setColor(color.getColor());
 			graphics.drawRect(startX, startY + squareSize * i, squareSize, squareSize);
+			graphics.fillRect(startX, startY + squareSize * i, squareSize, squareSize);
 			Fonts.fontManageTiles(graphics, startX,startY + squareSize * i , squareSize, starTiles.get(i).getTile(),20);
 		}
 		envPlayer.setEnvironment(envPlayer.choseStartTile(starTiles));
@@ -253,6 +260,7 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
     var height = screenInfo.height();
 		context.renderFrame(graphics -> {
 			graphics.clearRect(0, 0, width, height);
+			Fonts.drawPlayerName(context, player, 0, 0, 20);
 			drawEnvTile(graphics, player);
 			drawEnvToken(graphics, player);
 			drawChoices(graphics, 1100, 35);

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * @author Christophe TARATIBU
  * Class which represents a position on the grid
  */
 public record Position(int posX,int posY) {

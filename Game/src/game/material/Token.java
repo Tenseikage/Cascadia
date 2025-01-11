@@ -13,6 +13,7 @@ import java.util.Set;
 
 
 /**
+ * @author Christophe TARATIBU
  * Class which represents a token of the game
  */
 public record Token(String espece, String color) {

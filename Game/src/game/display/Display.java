@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
 /**
+ * @author Christophe TARATIBU
  * Class which implements token and tile displaying on terminal
  */
 public class Display {

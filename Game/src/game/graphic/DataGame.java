@@ -1,5 +1,6 @@
 package game.graphic;
 import game.color.GraphicAnimalColor;
+import game.color.GraphicPlaceColor;
 import game.logic.Choice;
 import game.material.PeerTileToken;
 import game.material.Tile;
@@ -15,7 +16,6 @@ public record DataGame(ArrayList<Tile> tiles, ArrayList<Token> tokens,Choice cho
 	}
 
 	public ArrayList<PeerTileToken> getBeginTiles(){
-		//System.out.println(Tile.getStartiles());
 		return Tile.getStartiles();
 	}
   public void createBoard(){
@@ -25,11 +25,17 @@ public record DataGame(ArrayList<Tile> tiles, ArrayList<Token> tokens,Choice cho
 		choiceboard.updateChoiceBoard(tiles, tokens, null, 1);
 
 	}
-  /*public static void main(String[] args) throws IOException {
-		var data = new dataGame();
-		
-	}*/
-	public GraphicAnimalColor setColor(String color){
+	public boolean returnToken(Token token){
+		int choice = WindowInfo.choiceReturnToken();
+		if(choice == 0){
+			tokens.add(token);
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+	public GraphicAnimalColor setColorAnimal(String color){
 		Objects.requireNonNull(color, "Erreur : couleur inexistante !");
 		return switch (color) {
 			case "Ma" -> GraphicAnimalColor.BROWN;
@@ -37,6 +43,17 @@ public record DataGame(ArrayList<Tile> tiles, ArrayList<Token> tokens,Choice cho
 			case "Ro" -> GraphicAnimalColor.PINK;
 			case "Bl" -> GraphicAnimalColor.BLUE;
 			case "Or" -> GraphicAnimalColor.ORANGE;
+			default -> null;
+		};
+	}
+	public GraphicPlaceColor setColorPlace(String place){
+		Objects.requireNonNull(place, "Erreur : couleur inexistante !");
+		return switch (place) {
+			case "Mo" -> GraphicPlaceColor.GREY;
+			case "Fo" -> GraphicPlaceColor.DARKGREEN;
+			case "Pr" -> GraphicPlaceColor.YELLOW;
+			case "Ma" -> GraphicPlaceColor.LIGHTGREEN;
+			case "Ri" -> GraphicPlaceColor.LIGHTBLUE;
 			default -> null;
 		};
 	}

@@ -11,17 +11,17 @@ import javax.swing.*;
 public class WindowInfo {
     public static void messageInfoError(String message, String tag){
       switch (tag) {
-            case "Information" -> {
+        case "Information" -> {
               JOptionPane.showMessageDialog(null, message, tag, JOptionPane.INFORMATION_MESSAGE);
-            }   
-            case "Erreur" -> {
-              JOptionPane.showMessageDialog(null, message, tag, JOptionPane.ERROR_MESSAGE);
-            }
-            case "Surpopulation" -> {
-              JOptionPane.showMessageDialog(null, message, tag, JOptionPane.WARNING_MESSAGE);
-            }
-            default -> {}    
+        }   
+        case "Erreur" -> {
+          JOptionPane.showMessageDialog(null, message, tag, JOptionPane.ERROR_MESSAGE);
         }
+        case "Surpopulation" -> {
+            JOptionPane.showMessageDialog(null, message, tag, JOptionPane.WARNING_MESSAGE);
+          }
+        default -> {}    
+      }
       
     }
 
@@ -31,22 +31,27 @@ public class WindowInfo {
       return option;
     }
 
-    public static PeerTileToken choice(DataGame dataGame){
-      String message = "<html>Choisissez une paire tuile/jeton<br> (Veuillez entrer un numéro entre 1 et 4)</html>";
-      String input = JOptionPane.showInputDialog(null, message);
-      int choice = -1; // Valeur par défaut en cas d'erreur de conversion
-      try {
+    public static PeerTileToken choice(DataGame dataGame) {
+      int maxChoice  = dataGame.choiceboard().getChoiceBoard().size();
+      String message = "<html>Choisissez une paire tuile/jeton<br> (Veuillez entrer un numéro entre 1 et "+ maxChoice+ ")</html>";
+      int choice = -1;
+      while (choice < 1 || choice > maxChoice) {
+        String input = JOptionPane.showInputDialog(null, message);
+        try {
           choice = Integer.parseInt(input);
-          if (choice > 4){
-            System.err.println("Nombre trop grand !");
+          if (choice < 1 || choice > 4) {
+            JOptionPane.showMessageDialog(null, "Choix de paire impossible ! Veuillez entrer un numéro entre 1 et " + maxChoice + ".", "Erreur", JOptionPane.ERROR_MESSAGE);
           }
-      } catch (NumberFormatException e) {
-          System.err.println("Entrée invalide : " + input);
+       } catch (NumberFormatException exception) {
+            JOptionPane.showMessageDialog(null, "Entrée invalide : " + input + ". Veuillez entrer un numéro entre 1 et " + maxChoice + ".", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
       }
+
       var peer = GameLogic.finalChoiceTileToken(choice, dataGame.choiceboard().getChoiceBoard());
       dataGame.choiceboard().getChoiceBoard().remove(choice - 1);
       return peer;
-    }
+  }
+
 
     public static Player createPlayer() {
       String name = null;
@@ -67,12 +72,37 @@ public class WindowInfo {
               JOptionPane.showMessageDialog(null, "Age trop petit : impossible de jouer au jeu", "Erreur", JOptionPane.ERROR_MESSAGE);
               age = -1;
           }
-          } catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
               JOptionPane.showMessageDialog(null, "Entrée invalide : " + ageInput, "Erreur", JOptionPane.ERROR_MESSAGE);
           }
       }
       return new Player(name, age, 0, new Environment());
     }
+
+
+    public static int modScore(){
+      int mode = -1;
+      while(mode != 1 && mode != 0){
+        String msgMode = "<html> Choisissez votre mode <br>(tapez 1 pour le mode familial ou 0 pour le mode intermédiaire)</html>";
+        String modeInput = JOptionPane.showInputDialog(null, msgMode);
+        try{
+          mode = Integer.parseInt(modeInput);
+          if(mode != 1 && mode != 0){
+            JOptionPane.showMessageDialog(null, "Mode inexistant : " + modeInput, "Erreur", JOptionPane.ERROR_MESSAGE);
+          }
+        } catch (NumberFormatException e) {
+          JOptionPane.showMessageDialog(null, "Entrée invalide : " + modeInput, "Erreur", JOptionPane.ERROR_MESSAGE);
+      }
+    }
+    return mode; 
+  }
+  public static int choiceReturnToken(){
+    String message = "<html>Souhaitez remettre le jeton dans le sac ?<br>Oui(Yes) / Non(No)</html>";
+    int option = JOptionPane.showConfirmDialog(null, message, "Choix", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+    return option;
+  }
+
+
     public static void main(String[] args) {
       var player = createPlayer();
       System.out.println(player.name());

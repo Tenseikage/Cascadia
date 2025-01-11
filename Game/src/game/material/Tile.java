@@ -8,6 +8,7 @@ import java.util.Collections;
 
 
 /**
+ * @author Christophe TARATIBU
  * Class which represents a tile of the game
  */
 public class Tile {

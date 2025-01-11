@@ -1,14 +1,18 @@
 package game.graphic;
 import game.material.Tile;
 import game.material.Token;
+import game.player.Player;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 
+import com.github.forax.zen.ApplicationContext;
+
 public class Fonts {
 	/**
-	 * Management of Cascadia's fonts
+	 * @author Christophe TARATIBU
+	 * Management of Cascadia's game fonts
 	 */
 	public static void fontManage(Graphics2D graphics,int posSquareX, int posSquareY, int squareSize){
 		String word = "Tuile";
@@ -28,7 +32,7 @@ public class Fonts {
 	public static void fontManageTiles(Graphics2D graphics,int posSquareX, int posSquareY, int squareSize,Tile tile, int size){
 		/*Gestion affichage données tuile */
 		//var board = new Choice();
-
+    graphics.setColor(Color.WHITE);
 		String place = tile.getPlace();
 		String animals = tile.getListAnimals().toString();
     Font font = new Font("Arial", Font.BOLD, size); // Créer une nouvelle instance de Font avec la taille souhaitée
@@ -53,4 +57,27 @@ public class Fonts {
 		int text1Y = posSquareY  + ((squareSize - metrics.getHeight()) / 2);
 		graphics.drawString(animal, text1X, text1Y);
 	}
+
+	public static void drawPlayerName(ApplicationContext context,Player player, int posX, int posY, int size) {
+		context.renderFrame(graphics -> {
+			graphics.setColor(Color.BLACK); // Définir la couleur du texte
+			Font font = new Font("Arial", Font.BOLD, size); // Créer une nouvelle instance de Font avec la taille souhaitée
+			graphics.setFont(font);
+			String playerName = "Environnement de " + player.name();
+			FontMetrics metrics = graphics.getFontMetrics();
+			int textX = posX;
+			int textY = posY + metrics.getAscent(); // Ajouter l'ascent pour positionner correctement le texte
+			graphics.drawString(playerName, textX, textY);
+		});
+  }
+
+	public void drawCenterPlayerText(ApplicationContext context, int size){
+		context.renderFrame(graphics -> {
+			graphics.setColor(Color.BLACK); // Définir la couleur du texte
+      Font font = new Font("Arial", Font.BOLD, size); // Créer une nouvelle instance de Font avec la taille souhaitée
+      graphics.setFont(font);
+		});
+	}
+
+
 }
