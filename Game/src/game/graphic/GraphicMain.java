@@ -1,13 +1,17 @@
 package game.graphic;
-import com.github.forax.zen.*;
-import game.material.Environment;
-import game.material.PeerTileToken;
-import game.material.Places;
-import game.player.Player;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.github.forax.zen.Application;
+import com.github.forax.zen.ApplicationContext;
+import com.github.forax.zen.Event;
+import com.github.forax.zen.KeyboardEvent;
+import com.github.forax.zen.PointerEvent;
+
+import game.material.PeerTileToken;
+import game.player.Player;
 
 public class GraphicMain {
 	private static List<Player> listPlayers(int nbPlayers){
