@@ -20,9 +20,9 @@ import java.util.Observable;
  * @param squareSize Side of the square
  * @param dataGame Data of the game
  * @param rows Max number of rows
- * @param colums Max number of columns
+ * @param columns Max number of columns
  */
-public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame dataGame,int rows, int column) {
+public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame dataGame,int rows, int columns) {
 	/**
 	 * Author : vincent
 	 * Throws exception if the value is not in the required range.
@@ -44,7 +44,7 @@ public record GraphicGame(int poScreenX, int poScreenY,int squareSize, DataGame 
 	private boolean checkRangeCoord(Position position){
 		int coordI = position.getX();
 		int coordJ = position.getY();
-		if(coordI >= rows || coordJ >= column){
+		if(coordI >= rows || coordJ >= columns){
 			WindowInfo.messageInfoError("Dépasssement de zone : Affichage de la tuile impossible", "Erreur");
 			return false;
 

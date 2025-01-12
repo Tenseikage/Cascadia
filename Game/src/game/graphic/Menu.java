@@ -17,9 +17,9 @@ import java.util.Objects;
 public class Menu {
     /***
      * Display title of Game and Jouer button
-     * @param context
-     * @throws IOException
-     * @throws IllegalAccessError
+     * @param context using an existing {@code ApplicationContext}.
+     * @throws IOException Throws this exception if csv file (Tuiles.csv no found)
+     * @throws IllegalAccessError Theows this exception if the player wants to put the outside the bounds of the grid(Terminal only)
      */
 	public void start(ApplicationContext context) throws IOException,IllegalAccessError {
         Objects.requireNonNull(context);

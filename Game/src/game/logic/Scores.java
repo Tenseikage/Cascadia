@@ -61,6 +61,7 @@ public class Scores {
 	/**
 	 * Method to search the group of animals by deep search
 	 * @param posAnimals the animals with their positions
+	 * @return Map containing the Animal and list of differents group sizes
 	 */
 	public Map<String, List<Integer>> SearchGroup(HashMap<String, List<Position>> posAnimals) {
 		Objects.requireNonNull(posAnimals, "Error : Null posAnimals");

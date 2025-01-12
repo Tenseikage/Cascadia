@@ -65,7 +65,7 @@ public class Choice {
 	/**
 	 * Updates the choice board after players have chosen 1 tile and 1 token
 	 * @param tiles list of tiles of the game
-	 * @param chosenTokens list of tokens chosen by the player
+	 * @param tokens list of tokens of game
 	 */
 	public void updateTokenTiles(ArrayList<Tile> tiles, ArrayList<Token> tokens){
 		Objects.requireNonNull(tiles);

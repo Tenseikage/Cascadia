@@ -14,6 +14,9 @@ import java.util.Scanner;
  * @param boardPlayer environment of player
  */
 public record Player(String name, int age,int points,Environment boardPlayer) {
+	/**
+	 * Constructor player
+	 */
 	public Player {
 		Objects.requireNonNull(name);
 		if (age < 0){
@@ -25,6 +28,7 @@ public record Player(String name, int age,int points,Environment boardPlayer) {
 	/**
 	 * Returns the name of the player
 	 * @param scanner the scanner to read the input
+	 * @param displayMode Game mode (0 : terminal or 1: graphic)
 	 * @return the name of the player
 	 */
 	public static boolean choiceKeepOrPass(Scanner scanner, int displayMode){

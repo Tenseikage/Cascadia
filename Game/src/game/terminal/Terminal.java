@@ -105,7 +105,6 @@ public class Terminal {
 
 		/**
 		 * Main Terminal method
-		 * @param args arguments
 		 * @throws IOException Exceptions of the input/output of the game
 		 * @throws IllegalAccessError Exceptions of the access of the game
 		 */

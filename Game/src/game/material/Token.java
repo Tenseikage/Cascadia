@@ -19,6 +19,11 @@ import java.util.Set;
  * @param color Color of the token
  */
 public record Token(String espece, String color) {
+	/**
+	 * Creates the token
+	 * @param espece Animal (2 first letters of animal name)
+	 * @param color Color of token
+	 */
 	public Token(String espece,String color){
 		Objects.requireNonNull(espece);
 		Objects.requireNonNull(color);
@@ -69,8 +74,8 @@ public record Token(String espece, String color) {
 
 	/**
 	 * Changes the list of tokens when there is overcrowding
+	 * @param board Choice board of the game
 	 * @param tokens list of tokens
-	 * @param chosenTokens list of chosen tokens
 	 * @return the list of chosen tokens
 	 */
 	public static ArrayList<Token> changeTokenList(Choice board ,ArrayList<Token> tokens){
@@ -108,7 +113,7 @@ public record Token(String espece, String color) {
 	/**
 	 * Chooses the tokens
 	 * @param tokens list of tokens
-	 * @param chosenTokens list of chosen tokens
+	 * @param board Choice board of the game
 	 * @return the list of chosen tokens
 	 */
 	public static ArrayList<Token> chooseTokens(ArrayList<Token> tokens, Choice board){
@@ -132,7 +137,7 @@ public record Token(String espece, String color) {
 
 	/**
 	 * Discards the tokens
-	 * @param chosenTokens list of chosen tokens
+	 * @param peer list of peers (only tokens)
 	 * @return the list of discarded tokens
 	 */
 	public static ArrayList<Token> discardTokens(ArrayList<PeerTileToken> peer){
@@ -179,7 +184,7 @@ public record Token(String espece, String color) {
 
 	/**
 	 * Check if there's overcrowding
-	 * @param chosenTokens list of chosen tokens
+	 * @param board Choice board
 	 * @param scanner scanner to read the player's choice
 	 * @param displayMode Display moode (terminal 0 or 1 graphic)
 	 * @return true if there is overcrowding, false otherwise

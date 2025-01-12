@@ -47,7 +47,7 @@ public class Tile {
 
 	/**
 	 * Gets the list of animals
-	 * @return
+	 * @return List of animals
 	 */
 	public ArrayList<String> getListAnimals(){
 		return listAnimals;

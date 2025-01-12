@@ -169,7 +169,6 @@ public class Display {
 
 	/**
 	 * Displays the environment (tiles and tokens) of a player
-	 * @param env Player's environment
 	 * @param grid Player's grid (tiles and tokens)
 	 * @param player Player data
 	 */

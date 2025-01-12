@@ -28,7 +28,6 @@ public class Environment{
 	
 	/**
 	 * Returns the key of a map by its value
-	 * @param map map to search in
 	 * @param position position to search
 	 * @return key
 	 */
@@ -42,7 +41,7 @@ public class Environment{
 
 	/**
 	 * Adds a tile and a token to the player's environment
-	 * @param key key of the map
+	 * @param tile Tile
 	 * @param position position of the tile
 	 */
 	public void addTilePlayer(Tile tile,Position position){	
@@ -63,9 +62,10 @@ public class Environment{
 
 	/**
 	 *  Adds a token to the player's environment
-	 * @param tile tile to add
+	 * @param peer peer Tile/Token
 	 * @param token token to add
 	 * @param position position of the tile
+	 * @param displayMode Game mode (0: terminal and 1 : graphique)
 	 * @return true if the token has been added, false otherwise
 	 */
 		public boolean addTokenPlayer(PeerTileToken peer,Token token, Position position, int displayMode){

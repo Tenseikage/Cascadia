@@ -16,6 +16,7 @@ import java.util.Objects;
  *  @param tiles list containing the tiles of game
  *  @param tokens list containing the tokens of game
  *  @param choiceboard board containing 4 tokens and tiles (a player chooses a peer tile/token)
+ *  @param startTiles Starting tiles
  */
 public record DataGame(ArrayList<Tile> tiles, ArrayList<Token> tokens,Choice choiceboard, ArrayList<ArrayList<PeerTileToken>> startTiles) {
 	/**
