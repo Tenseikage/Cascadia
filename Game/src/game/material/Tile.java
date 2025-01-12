@@ -144,7 +144,7 @@ public class Tile {
 		ArrayList<Tile> tiles = new ArrayList<>();
 		try {
 		  //Path path = Path.of("bin/game/data/Tuiles.csv"); // Jar file
-			Path path = Path.of("Game/data/Tuiles.csv"); // IDE
+			Path path = Path.of("data/Tuiles.csv"); // IDE
       //System.out.println(Files.exists(path) + " fichier existe");
 			var dataList = Files.readAllLines(path);
 			for(var line : dataList){
