@@ -9,11 +9,16 @@ import game.player.Player;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
+
 /**
  * Class which implements token and tile displaying on terminal
  * @author Christophe TARATIBU
  */
 public class Display {
+	/**
+	 * Height of the ascii square
+	 */
+	public static final int HEIGHT_SQUARE = 5;
 	/**
 	 * Method which displays the tile in ASCII
 	 * @param choiceBoard Board which contains the 4 chosen tiles and tokens
@@ -110,10 +115,10 @@ public class Display {
 		Objects.requireNonNull(gridEnv);
 		var maxPos = gridEnv.getMaxDim();
 		var grid = gridEnv.getGrid();
-		int presentTile = gridEnv.lengthGrid() * 5;
+		int presentTile = gridEnv.lengthGrid() * HEIGHT_SQUARE;
 		int dataTiles = 0;
 		for (int i = 0; i <= maxPos.getY(); i++) {
-			for (int line = 0; line < 5; line++) { // Chaque tuile a 5 lignes
+			for (int line = 0; line < HEIGHT_SQUARE; line++) { // Chaque tuile a 5 lignes
 				for (int j = 0; j <= maxPos.getX(); j++) {
 					if(!grid[i][j].equals("")){
 						dataTiles++;

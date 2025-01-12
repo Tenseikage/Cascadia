@@ -57,6 +57,8 @@ public class Environment{
 	 * @return true if the token can be placed, false otherwise
 	 */
 	public Boolean checkPutToken(Tile tile, Token token){
+		Objects.requireNonNull(tile);
+		Objects.requireNonNull(token);
 		return tile.getListAnimals().get(0).equals(token.espece())
     || tile.getListAnimals().get(1).equals(token.espece());
 	}

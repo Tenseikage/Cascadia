@@ -84,7 +84,7 @@ public class Terminal {
 	private static void loopWithExecptions(Scanner scanner,Display display,List<Player> players, Choice board, 
 		List<DisplayTools> grids, List<Token> tokens, List<Tile> tiles){
 			var logic = new GameLogic();
-			int nbturns = 6;
+			int nbturns = 4;
 			for(int i = 0; i < nbturns; i++){
 				boolean validInput = false;
 				while(!validInput){
@@ -94,6 +94,7 @@ public class Terminal {
 						validInput = true;
 					} catch (Exception e) {
 						System.err.println("Invalid entry");
+						scanner.nextLine();
 					} catch(IllegalAccessError e){
 						System.err.println("Invalid position");
 						scanner.nextLine();
