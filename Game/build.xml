@@ -2,7 +2,7 @@
     <property name="src" value="src"/>
     <property name="classes" value="classes"/>
     <property name="docs" value="docs/doc"/>
-    <property name="main" value="Game.src.game.main"/>
+    <property name="main" value="Game.src.game.main.Main"/>
     <property name="jar" value="jar"/>
 
     <target name="compile">
@@ -16,7 +16,13 @@
 
     <target name="jar" depends="compile">
         <mkdir dir="${jar}"/>
-        <jar destfile="${jar}/Cascadia.jar" basedir="${classes}"/>
+        <jar destfile="${jar}/Cascadia.jar" basedir="${classes}">
+            <manifest>
+                <attribute name="Main-Class" value="game.main.Main"/>
+            </manifest>
+            <zipgroupfileset dir="lib" includes="zen-6.0.jar"/>
+            <fileset dir="." includes="data/**"/>
+        </jar>
     </target>
 
     <target name="javadoc">

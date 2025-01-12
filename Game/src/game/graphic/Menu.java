@@ -214,18 +214,4 @@ public class Menu {
             });
         }
 	}
-    /**
-     * Main method of the project
-     */
-    public static void main(String[] args) throws IOException,IllegalAccessError {
-        Application.run(Color.WHITE, context -> {
-        	var menu = new Menu();
-        	try {
-                menu.start(context);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        	//menu.modes(context);
-        });
-    }
 }

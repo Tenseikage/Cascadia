@@ -161,7 +161,7 @@ public class GraphicTileToken {
 		var peer = WindowInfo.choice(dataGame);
 		boolean setTile = false;
 		boolean setToken = false;
-    while(!setTile){
+		while(!setTile){
 			setTile = manageEventTile(context,player,graphicGame,peer);
 		}
 		while(!setToken){
@@ -189,9 +189,9 @@ public class GraphicTileToken {
 				sleep(3000);
 				graphicGame.cleanScreen(context);
 			} else {
-				  graphicGame.updateScreen(context, players.get(i % 2));
-					gameTurn(context,dataGame,players.get(i % 2), graphicGame);
-					sleep(3000);
+				graphicGame.updateScreen(context, players.get(i % 2));
+				gameTurn(context,dataGame,players.get(i % 2), graphicGame);
+			    sleep(3000);
 			  	graphicGame.cleanScreen(context);
 			}
 		}
