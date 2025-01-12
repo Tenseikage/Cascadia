@@ -1,0 +1,36 @@
+<project name="Cascadia" default="jar" basedir=".">
+    <property name="src" value="src"/>
+    <property name="classes" value="classes"/>
+    <property name="docs" value="docs/doc"/>
+    <property name="main" value="Game.src.game.main"/>
+    <property name="jar" value="jar"/>
+
+    <target name="compile">
+        <mkdir dir="${classes}"/>
+            <javac srcdir="${src}" destdir="${classes}" includeantruntime="false">
+                <classpath>
+                    <pathelement path="lib/zen-6.0.jar"/>
+                </classpath>
+            </javac>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="${jar}"/>
+        <jar destfile="${jar}/Cascadia.jar" basedir="${classes}"/>
+    </target>
+
+    <target name="javadoc">
+        <mkdir dir="${docs}"/>
+        <javadoc destdir="${docs}" sourcepath="${src}">
+            <classpath>
+                <pathelement path="lib/zen-6.0.jar"/>
+            </classpath>
+        </javadoc>
+    </target> 
+
+    <target name="clean">
+        <delete dir="${classes}"/>
+        <delete dir="${jar}"/>
+        <delete dir="${docs}"/>
+    </target>
+</project>
