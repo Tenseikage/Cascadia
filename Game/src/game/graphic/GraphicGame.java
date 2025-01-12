@@ -7,7 +7,6 @@ import game.material.PeerTileToken;
 import game.material.Tile;
 import game.material.Token;
 import game.player.Player;
-import java.util.Observable;
 
 
 /**

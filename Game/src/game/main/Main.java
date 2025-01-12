@@ -1,10 +1,7 @@
 package game.main;
-
 import java.awt.Color;
 import java.io.IOException;
-
 import com.github.forax.zen.Application;
-
 import game.graphic.Menu;
 
 /**
