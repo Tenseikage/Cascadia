@@ -6,7 +6,7 @@ import game.material.PeerTileToken;
 import game.material.Tile;
 import game.material.Token;
 import game.player.Player;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
@@ -145,7 +145,7 @@ public class GameLogic {
 	 * @param choiceBoard choice board
 	 * @return final choice
 	 */
-	public static PeerTileToken finalChoiceTileToken(int choice, ArrayList<PeerTileToken> choiceBoard) {
+	public static PeerTileToken finalChoiceTileToken(int choice, List<PeerTileToken> choiceBoard) {
 		Objects.requireNonNull(choiceBoard);
 		var chosenTileToken = choiceBoard.get(choice - 1); // Tuile  et jeton choisie
 		return chosenTileToken;
@@ -164,7 +164,7 @@ public class GameLogic {
 	 * @param tokens List of tokens
 	 * @return True if the token was placed, false otherwise
 	 */
-	public boolean puTokenToEnv(Choice board, Scanner scanner, Display display, DisplayTools grid, Environment env, Tile chosenTile, Token chosenToken, Player player, ArrayList<Token> tokens) {
+	public boolean puTokenToEnv(Choice board, Scanner scanner, Display display, DisplayTools grid, Environment env, Tile chosenTile, Token chosenToken, Player player, List<Token> tokens) {
 		Objects.requireNonNull(board);
 		Objects.requireNonNull(scanner);
 		Objects.requireNonNull(display);
@@ -193,7 +193,7 @@ public class GameLogic {
 	 * @param grid player's grid
 	 * @param tokens tokens list
 	 */
-	public void gameTurn(Scanner scanner, Display display, Player player, Choice board, DisplayTools grid, ArrayList<Token> tokens) {
+	public void gameTurn(Scanner scanner, Display display, Player player, Choice board, DisplayTools grid, List<Token> tokens) {
 		Objects.requireNonNull(scanner);
 		Objects.requireNonNull(display);
 		Objects.requireNonNull(player);

@@ -3,6 +3,7 @@ import game.graphic.WindowInfo;
 import game.logic.Position;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
@@ -13,13 +14,13 @@ import java.util.stream.Collectors;
  * @author Christophe TARATIBU
  */
 public class Environment{
-	private final HashMap<PeerTileToken,Position> tokenTilesList = new HashMap<>();
+	private final Map<PeerTileToken,Position> tokenTilesList = new HashMap<>();
 	/**
 	 * Chooses the starting tiles,
 	 * @param tokenTiles ArrayList of tiles and null tokens
 	 * @return HashMap of tiles and null tokens with tile positions (start habitat)
 	 */
-	public HashMap<PeerTileToken,Position> choseStartTile(ArrayList<PeerTileToken> tokenTiles){
+	public Map<PeerTileToken,Position> choseStartTile(List<PeerTileToken> tokenTiles){
 		Objects.requireNonNull(tokenTiles);
 		int[] index = {0};
 		var data = tokenTiles.stream().collect(Collectors.toMap(Function.identity(), _ -> new Position(0,index[0]++)));
@@ -104,14 +105,14 @@ public class Environment{
 	 * Returns the environment of the player
 	 * @return the environment of the player
 	 */
-	public HashMap<PeerTileToken,Position> getEnvironment(){
+	public Map<PeerTileToken,Position> getEnvironment(){
 		return tokenTilesList;
 	}
 	/**
 	 * Sets the environment of the player with starting tiles
 	 * @param data data to set
 	 */
-	public void setEnvironment(HashMap<PeerTileToken,Position> data){
+	public void setEnvironment(Map<PeerTileToken,Position> data){
 		Objects.requireNonNull(data);
 		tokenTilesList.putAll(data);
 	}
@@ -120,8 +121,8 @@ public class Environment{
 	 * Creates a list which contains the positions of the tiles
 	 * @return list of positions
 	 */
-	public ArrayList<Position> getPositions(){
-		ArrayList<Position> listPositions = new ArrayList<>();
+	public List<Position> getPositions(){
+		List<Position> listPositions = new ArrayList<>();
 		for (var entry : tokenTilesList.entrySet()){
 			listPositions.add(entry.getValue());
 		}
@@ -135,7 +136,7 @@ public class Environment{
 	 * @param position position to check
 	 * @return true if the position is valid, false otherwise
 	 */
-	public boolean validPos(ArrayList<Position> positions, Position position){
+	public boolean validPos(List<Position> positions, Position position){
 		Objects.requireNonNull(positions);
 		Objects.requireNonNull(position);
 		return positions.contains(position);
@@ -148,11 +149,6 @@ public class Environment{
 	 */
 	public boolean noTileInPos(Position position){
 		return getKeyByPos(position) != null;
-	}
-	
-	@Override
-	public String toString(){
-		return tokenTilesList.toString();
 	}
 
 }

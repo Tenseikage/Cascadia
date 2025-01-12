@@ -48,9 +48,4 @@ public class PeerTileToken{
 		this.tile = tile;
 	}
 
-	@Override
-	public String toString(){
-		return tile.toString() + " : Tuile " + token.toString() + " : token";
-	}
-
 }

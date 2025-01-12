@@ -20,9 +20,9 @@ public class Scores {
 	 * @param env the environment
 	 * @return Animal and their positions
 	 */
-	public HashMap<String, List<Position>> checkTokens(Environment env) {
+	public Map<String, List<Position>> checkTokens(Environment env) {
 		Objects.requireNonNull(env);
-		HashMap<String, List<Position>> posAnimals = new HashMap<>();
+		Map<String, List<Position>> posAnimals = new HashMap<>();
 		var envPlayer = env.getEnvironment();
 
 		for (var entry : envPlayer.entrySet()) {
@@ -45,7 +45,7 @@ public class Scores {
 	 * @param currentPos Current position
 	 * @param groupAnimals List of the animal's positions
 	 */
-	private void searchGroupHelper(HashMap<String, List<Position>> posAnimals, Set<Position> visitedPos,
+	private void searchGroupHelper(Map<String, List<Position>> posAnimals, Set<Position> visitedPos,
     String currentAnimal, Position currentPos, List<Position> groupAnimals) {
     visitedPos.add(currentPos);
     groupAnimals.add(currentPos);
@@ -62,11 +62,10 @@ public class Scores {
 	 * @param posAnimals the animals with their positions
 	 * @return Map containing the Animal and list of differents group sizes
 	 */
-	public Map<String, List<Integer>> SearchGroup(HashMap<String, List<Position>> posAnimals) {
+	public Map<String, List<Integer>> SearchGroup(Map<String, List<Position>> posAnimals) {
 		Objects.requireNonNull(posAnimals);
 		Set<Position> visitedPos = new HashSet<>();
 		Map<String, List<Integer>> animalGroupSizes = new HashMap<>();
-
 		for (var entry : posAnimals.entrySet()) {
 			String animal = entry.getKey();
 			for (Position position : entry.getValue()) {
@@ -131,7 +130,7 @@ public class Scores {
 	 * @param mode the mode (family or intermediate)
 	 * @return the score
 	 */
-	public int scoreMode(HashMap<String,List<Position>> animal, int mode){
+	public int scoreMode(Map<String,List<Position>> animal, int mode){
 		Objects.requireNonNull(animal);
 		var animalGroupSizes = SearchGroup(animal);
     if(mode == 1){

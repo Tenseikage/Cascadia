@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
@@ -35,7 +36,7 @@ public record Token(String espece, String color) {
 	 *Creates a list of tokens
 	 * @return the list of tokens
 	 */
-	public static ArrayList<Token> tokenList(){
+	public static List<Token> tokenList(){
 		var tokens = new ArrayList<Token>();
 		for (int i = 0; i < 100; i++) {
 			if (i < 20) {
@@ -60,7 +61,7 @@ public record Token(String espece, String color) {
 	 * @param chosenTokens list of chosen tokens
 	 * @return the list of chosen tokens
 	 */
-	public static ArrayList<Token> fillTokenList(ArrayList<Token> tokens, ArrayList<Token> chosenTokens){
+	public static List<Token> fillTokenList(List<Token> tokens, List<Token> chosenTokens){
 		Objects.requireNonNull(tokens);
 		Objects.requireNonNull(chosenTokens);
 		for (int i = 0; i < 4; i++){
@@ -78,7 +79,7 @@ public record Token(String espece, String color) {
 	 * @param tokens list of tokens
 	 * @return the list of chosen tokens
 	 */
-	public static ArrayList<Token> changeTokenList(Choice board ,ArrayList<Token> tokens){
+	public static List<Token> changeTokenList(Choice board ,List<Token> tokens){
 		Objects.requireNonNull(tokens);
 		Objects.requireNonNull(board);
 		var chosenTokens = board.listChosenToken();
@@ -99,7 +100,7 @@ public record Token(String espece, String color) {
 	 * @param size size of the list
 	 * @return the list of chosen tokens
 	 */
-	public static ArrayList<Token> completeTokenList(ArrayList<Token> tokens, ArrayList<Token> chosenTokens,int size){
+	public static List<Token> completeTokenList(List<Token> tokens,List<Token> chosenTokens,int size){
 		Objects.requireNonNull(tokens);
 		Objects.requireNonNull(chosenTokens);
 		for (int i = 0; i < size; i++) {
@@ -116,7 +117,7 @@ public record Token(String espece, String color) {
 	 * @param board Choice board of the game
 	 * @return the list of chosen tokens
 	 */
-	public static ArrayList<Token> chooseTokens(ArrayList<Token> tokens, Choice board){
+	public static List<Token> chooseTokens(List<Token> tokens, Choice board){
 		Objects.requireNonNull(tokens);
 		Objects.requireNonNull(board);
 		if(tokens.isEmpty()){
@@ -140,7 +141,7 @@ public record Token(String espece, String color) {
 	 * @param peer list of peers (only tokens)
 	 * @return the list of discarded tokens
 	 */
-	public static ArrayList<Token> discardTokens(ArrayList<PeerTileToken> peer){
+	public static List<Token> discardTokens(List<PeerTileToken> peer){
 		Objects.requireNonNull(peer);
 		ArrayList<Token> discardedTokens = new ArrayList<>();
 		if(peer.isEmpty()){
@@ -163,7 +164,7 @@ public record Token(String espece, String color) {
 	 * Shuffles the tokens
 	 * @param tokens list of tokens
 	 */
-	public static void shuffeTokens(ArrayList<Token> tokens){
+	public static void shuffeTokens(List<Token> tokens){
 		Collections.shuffle(tokens);
 	}
 
@@ -172,7 +173,7 @@ public record Token(String espece, String color) {
 	 * @param tokens list of tokens
 	 * @return the map of occurrences
 	 */
-	public static Map<Token,Integer> countOccurrences(ArrayList<Token> tokens){
+	public static Map<Token,Integer> countOccurrences(List<Token> tokens){
 		Objects.requireNonNull(tokens);
 		Map<Token,Integer> mapOccur = new HashMap<>();
 		for(var item : tokens){
@@ -215,7 +216,7 @@ public record Token(String espece, String color) {
 	 * @param tokens the list of tokens
 	 * @return the list of tokens
 	 */
-	public static ArrayList<Token> returnToken(Token token, ArrayList<Token> tokens){
+	public static List<Token> returnToken(Token token, List<Token> tokens){
 		tokens.add(token);
 		return tokens;
 	}

@@ -82,7 +82,7 @@ public class Terminal {
 	 * @param tiles List of tiles
 	 */
 	private static void loopWithExecptions(Scanner scanner,Display display,List<Player> players, Choice board, 
-		List<DisplayTools> grids, ArrayList<Token> tokens,ArrayList<Tile> tiles){
+		List<DisplayTools> grids, List<Token> tokens, List<Tile> tiles){
 			var logic = new GameLogic();
 			int nbturns = 6;
 			for(int i = 0; i < nbturns; i++){

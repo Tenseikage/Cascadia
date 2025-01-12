@@ -4,6 +4,7 @@ import game.material.PeerTileToken;
 import game.material.Tile;
 import game.material.Token;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
@@ -16,13 +17,13 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author Christophe TARATIBU
  */
 public class Choice {
-	private final ArrayList<PeerTileToken> choicesBoard = new ArrayList<>();
+	private final List<PeerTileToken> choicesBoard = new ArrayList<>();
 	/**
 	 * Adds tokens and tiles to the choice board
 	 * @param tiles list of tiles of the game
 	 * @param tokens list of tokens created
 	 */
-	public void addTokensTiles(ArrayList<Tile> tiles,ArrayList<Token> tokens){
+	public void addTokensTiles(List<Tile> tiles,List<Token> tokens){
 		Objects.requireNonNull(tiles);
 		Objects.requireNonNull(tokens);
 		for(int i = 0; i < 4; i++){
@@ -36,8 +37,8 @@ public class Choice {
 	 * Return the list of chosen tokens
 	 * @return Return list of chosenTokens
 	 */
-	public ArrayList<Token> listChosenToken(){
-    ArrayList<Token> chosenTokens = new ArrayList<>();
+	public List<Token> listChosenToken(){
+    List<Token> chosenTokens = new ArrayList<>();
 		choicesBoard.stream().filter(peer -> peer.getToken() != null).forEach(peer -> chosenTokens.add(peer.getToken()));
 		return chosenTokens;
 	}
@@ -46,7 +47,7 @@ public class Choice {
 	 * Adds each token to an associated tile
 	 * @param chosenTokens list of tokens alone (They're four)
 	 */
-	private void setTokens(ArrayList<Token> chosenTokens){
+	private void setTokens(List<Token> chosenTokens){
 		Objects.requireNonNull(chosenTokens);
 		AtomicInteger i = new AtomicInteger(0);
 		choicesBoard.stream().forEach(peer -> peer.setToken(chosenTokens.get(i.getAndIncrement())));
@@ -67,7 +68,7 @@ public class Choice {
 	 * @param tiles list of tiles of the game
 	 * @param tokens list of tokens of game
 	 */
-	public void updateTokenTiles(ArrayList<Tile> tiles, ArrayList<Token> tokens){
+	public void updateTokenTiles(List<Tile> tiles, List<Token> tokens){
 		Objects.requireNonNull(tiles);
 		Objects.requireNonNull(tokens);
 		int size = 4 - choicesBoard.size(); 
@@ -85,7 +86,7 @@ public class Choice {
 	 * @param scanner scanner object
 	 * @param displayMode Display mode(0 : terminal, 1 : graphic)
 	 */
-	public void createChoiceBoard(ArrayList<Tile> tiles, ArrayList<Token> tokens, Scanner scanner, int displayMode){
+	public void createChoiceBoard(List<Tile> tiles, List<Token> tokens, Scanner scanner, int displayMode){
 		Objects.requireNonNull(tiles);
 		Objects.requireNonNull(tokens);
 		var chosenTokens = Token.chooseTokens(tokens,this);
@@ -116,7 +117,7 @@ public class Choice {
 	 * @param tiles List of tiles
 	 * @param tokens List of tokens
 	 */
-	public void completeTilesTokenList(ArrayList<Tile> tiles,ArrayList<Token> tokens){
+	public void completeTilesTokenList(List<Tile> tiles,List<Token> tokens){
 		Objects.requireNonNull(tiles);
 		Objects.requireNonNull(tokens);
 		int size = choicesBoard.size();
@@ -134,7 +135,7 @@ public class Choice {
 	 * @param scanner scanner object
 	 * @param displayMode Display mode(0 : terminal, 1 : graphic)
 	 */
-	public void updateChoiceBoard(ArrayList<Tile> tiles, ArrayList<Token> tokens, Scanner scanner, int displayMode){
+	public void updateChoiceBoard(List<Tile> tiles, List<Token> tokens, Scanner scanner, int displayMode){
 		Objects.requireNonNull(tiles);
 		Objects.requireNonNull(tokens);
 		if(choicesBoard.size() <= 2){
@@ -168,21 +169,8 @@ public class Choice {
 	 * Returns the choice board
 	 * @return ArrayList of tiles and tokens
 	 */
-	public ArrayList<PeerTileToken> getChoiceBoard(){
+	public List<PeerTileToken> getChoiceBoard(){
 		return choicesBoard;
-	}
-  
-	/**
-	 * Displays the board
-	 */
-	public void displayBoard(){
-		for(var elem : choicesBoard){
-			if(elem.getTile() != null && elem.getToken() != null){
-				System.out.println("Tile: " + elem.getTile() + ", Token: " + elem.getToken());
-			} else {
-				System.out.println("Tile: " + elem.getTile() + ", Token: null ");
-			}
-		}
 	}
 }
 

@@ -6,7 +6,7 @@ import game.material.PeerTileToken;
 import game.material.Tile;
 import game.material.Token;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -18,7 +18,7 @@ import java.util.Objects;
  *  @param choiceboard board containing 4 tokens and tiles (a player chooses a peer tile/token)
  *  @param startTiles Starting tiles
  */
-public record DataGame(ArrayList<Tile> tiles, ArrayList<Token> tokens,Choice choiceboard, ArrayList<ArrayList<PeerTileToken>> startTiles) {
+public record DataGame(List<Tile> tiles, List<Token> tokens,Choice choiceboard, List<List<PeerTileToken>> startTiles) {
 	/**
 	 * This constructor initializes the record's fields
 	 * @throws IOException Throws exception if file not found
@@ -30,7 +30,7 @@ public record DataGame(ArrayList<Tile> tiles, ArrayList<Token> tokens,Choice cho
 	 * Returns the starting habitat (composed by 3 tiles)
 	 * @return list of 3 tiles (start tiles)
 	 */
-	public ArrayList<PeerTileToken> getBeginTiles(){
+	public List<PeerTileToken> getBeginTiles(){
 		return Tile.getStartiles();
 	}
 	/**
