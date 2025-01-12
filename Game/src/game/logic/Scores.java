@@ -21,7 +21,7 @@ public class Scores {
 	 * @return Animal and their positions
 	 */
 	public HashMap<String, List<Position>> checkTokens(Environment env) {
-		Objects.requireNonNull(env, "Error : Null environment");
+		Objects.requireNonNull(env);
 		HashMap<String, List<Position>> posAnimals = new HashMap<>();
 		var envPlayer = env.getEnvironment();
 
@@ -34,7 +34,6 @@ public class Scores {
 				posAnimals.computeIfAbsent(animal, _ -> new ArrayList<>()).add(position);
 			}
 		}
-		System.out.println(posAnimals);
 		return posAnimals;
   }
 
@@ -64,7 +63,7 @@ public class Scores {
 	 * @return Map containing the Animal and list of differents group sizes
 	 */
 	public Map<String, List<Integer>> SearchGroup(HashMap<String, List<Position>> posAnimals) {
-		Objects.requireNonNull(posAnimals, "Error : Null posAnimals");
+		Objects.requireNonNull(posAnimals);
 		Set<Position> visitedPos = new HashSet<>();
 		Map<String, List<Integer>> animalGroupSizes = new HashMap<>();
 

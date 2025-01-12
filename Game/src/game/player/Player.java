@@ -80,17 +80,17 @@ public record Player(String name, int age,int points,Environment boardPlayer) {
 		Objects.requireNonNull(player2);
 		if(displayMode == 0){
 			if(score1 > score2){
-				System.out.println(player1.name() + " a gagné avec " + score1 + "points");
+				System.out.println(player1.name() + " a gagné avec " + score1 + " points");
 			} else if(score1 < score2){
-				System.out.println(player2.name() + " a gagné avec " + score2 + "points");
+				System.out.println(player2.name() + " a gagné avec " + score2 + " points");
 			} else {
 				System.out.println("Egalité avec " + score1 + " points");
 			}
 		} else{
 			if(score1 > score2){
-				WindowInfo.messageInfoError(player1.name() + " a gagné avec " + score1 + "points", "Information");
+				WindowInfo.messageInfoError(player1.name() + " a gagné avec " + score1 + " points", "Information");
 			} else if(score1 < score2){
-				WindowInfo.messageInfoError(player2.name() + " a gagné avec " + score2 + "points", "Information");
+				WindowInfo.messageInfoError(player2.name() + " a gagné avec " + score2 + " points", "Information");
 			} else {
 				WindowInfo.messageInfoError("Egalité avec " + score1 + " points", "Information");
 			}
