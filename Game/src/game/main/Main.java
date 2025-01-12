@@ -12,6 +12,7 @@ public class Main {
 
     /**
      * Main method of the project
+     * @param args List of args
      * @throws IOException Throws this exception if csv file (Tuiles.csv) is not found
      * @throws IllegalAccessError Theows this exception if the player wants to put the outside the bounds of the grid(Terminal only)
      */
