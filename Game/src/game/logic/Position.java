@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @author Christophe TARATIBU
  * Class which represents a position on the grid
+ * @author Christophe TARATIBU
  */
 public record Position(int posX,int posY) {
 
@@ -32,7 +32,7 @@ public record Position(int posX,int posY) {
 	 * @return the new position
 	 */
 	public Position updatePosition(String direction){
-		Objects.requireNonNull(direction, "Error: Null direction");
+		Objects.requireNonNull(direction);
 		return switch (direction) {
 			case "Haut" -> new Position(posX, posY - 1);
 			case "Bas" -> new Position(posX, posY + 1);
@@ -46,7 +46,7 @@ public record Position(int posX,int posY) {
 	 * Checks if the position is valid
 	 * @param maxX the maximum x coordinate
 	 * @param maxY the maximum y coordinate
-	 * @return true if the position is valid, false otherwise
+	 * @return True if the position is valid, false otherwise
 	 */
 	public boolean isValid(int maxX, int maxY) {
 		return posX >= 0 && posX < maxX && posY >= 0 && posY < maxY;

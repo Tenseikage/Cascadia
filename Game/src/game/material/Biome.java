@@ -1,6 +1,7 @@
 package game.material;
 
 /**
+ * Interface for places and Animals of the game
  * @author Christophe TARATIBU
  */
 public sealed interface Biome permits Places, Animal{
@@ -10,7 +11,6 @@ public sealed interface Biome permits Places, Animal{
 			if(elem.get().equals(data)){
 				return true;
 			}
-			
 		}
 		return false;
 	}

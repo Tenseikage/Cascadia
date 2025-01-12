@@ -10,8 +10,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
 /**
- * @author Christophe TARATIBU
  * Class which implements token and tile displaying on terminal
+ * @author Christophe TARATIBU
  */
 public class Display {
 	/**
@@ -44,7 +44,7 @@ public class Display {
 	
 	/**
 	 * Sets colors to tiles or tokens
-	 * @param color color(Animal,represented with 2 letters
+	 * @param color color(Animal,represented with 2 letters)
 	 * @return Color attributed, default blank
 	 */
 	public AnimalColor setColor(String color){
@@ -62,7 +62,6 @@ public class Display {
 	/**
 	 * Displays the token in ASCII.
 	 * @param choiceBoard Board which contains the 4 chosen tokens and tokens
-	 * 
 	 */
 	public void displayToken(Choice choiceBoard){
 		Objects.requireNonNull(choiceBoard, "Error : inexistent tile and token choice !");
@@ -108,7 +107,7 @@ public class Display {
 	 * @param gridEnv Player's grid with token and tiles placed.
 	 */
 	public void displayGridEnvPlayer(DisplayTools gridEnv){
-		Objects.requireNonNull(gridEnv, "Error : Null environment");
+		Objects.requireNonNull(gridEnv);
 		var maxPos = gridEnv.getMaxDim();
 		var grid = gridEnv.getGrid();
 		int presentTile = gridEnv.lengthGrid() * 5;
@@ -132,7 +131,7 @@ public class Display {
 	/**
 	 * Checks if a token is in environment
 	 * @param token
-	 * @return
+	 * @return boolean
 	*/
 	public boolean checkTokenEnv(Token token){
 		return token != null;
@@ -148,9 +147,9 @@ public class Display {
 	 * @return Stringbuilder which contains the ASCII of a tile
 	 */
 	public StringBuilder displayTileEnv(Tile tile, Map.Entry<PeerTileToken, Position> entry, AnimalColor color, Token token) {
-		Objects.requireNonNull(tile, "Error : Null tile");
-		Objects.requireNonNull(entry, "Error : Null entry");
-		Objects.requireNonNull(color, "Error : Null entry");
+		Objects.requireNonNull(tile);
+		Objects.requireNonNull(entry);
+		Objects.requireNonNull(color);
 		StringBuilder tileRepresentation = new StringBuilder();
 		if (token == null){ // No token was placed by the player
 			tileRepresentation.append(color.get()).append("----------\n").append(AnimalColor.RESET.get()); // Coin supérieur gauche, bord supérieur, coin supérieur droit
@@ -175,9 +174,8 @@ public class Display {
 	 * @param player Player data
 	 */
 	public void displayEnvPlayer(DisplayTools grid, Player player){
-		//Objects.requireNonNull(env, "Error : Null environment");
-		Objects.requireNonNull(grid, "Error : Null grid");
-		Objects.requireNonNull(player, "Error : Null player");
+		Objects.requireNonNull(grid);
+		Objects.requireNonNull(player);
 		System.out.println("Environnement " + player.name());
 		var envPlayer = player.boardPlayer().getEnvironment();
 		AnimalColor animalColor;
@@ -207,7 +205,7 @@ public class Display {
 	 * @return int: family mode 1 or Intermediate mode 2, default 1
 	 */
 	public int displayChoiceMod(Scanner scanner){
-		Objects.requireNonNull(scanner, "Error : Null scanner");
+		Objects.requireNonNull(scanner);
 		System.out.println("SELECTIONNER LE MODE :\n\t(1) -> MODE FAMILIALE\n\t(2) -> MODE INTERMEDIAIRE\n");
 		int mode = scanner.nextInt();
 		switch (mode) {
@@ -226,7 +224,7 @@ public class Display {
 		}
 		return mode;
 	}
-  /***
+  /**
 	 * Displays tiles and tokens for to choose
 	 * @param board Board which contains the 4 chosen tiles and tokens
 	 */

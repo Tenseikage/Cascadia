@@ -5,11 +5,12 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 
 
 /**
- * @author Christophe TARATIBU
  * Class which represents a tile of the game
+ * @author Christophe TARATIBU
  */
 public class Tile {
   private String places = new String();
@@ -34,12 +35,20 @@ public class Tile {
 	public Tile setPlace(String place) {
 		this.places = place;
 		return this;
-}
+  }
 
+	/**
+	 * Gets the place
+	 * @return place
+	 */
 	public String getPlace(){
 		return places;
 	}
 
+	/**
+	 * Gets the list of animals
+	 * @return
+	 */
 	public ArrayList<String> getListAnimals(){
 		return listAnimals;
 	}
@@ -60,13 +69,13 @@ public class Tile {
      * Adds the second starting tile
      * @return the second starting tile
      */
-    public static ArrayList<PeerTileToken> addStart2() {
-        ArrayList<PeerTileToken> tilesTokens2 = new ArrayList<>();
-        tilesTokens2.add(new PeerTileToken(new Tile().setPlace("Mo").addAnimals("Ou", "Bu"), null));
-        tilesTokens2.add(new PeerTileToken(new Tile().setPlace("Ma").addAnimals("Sa", "Ou"), null));
-        tilesTokens2.add(new PeerTileToken(new Tile().setPlace("Fo").addAnimals("Wa", "Re"), null));
-        return tilesTokens2;
-    }
+  public static ArrayList<PeerTileToken> addStart2() {
+    ArrayList<PeerTileToken> tilesTokens2 = new ArrayList<>();
+    tilesTokens2.add(new PeerTileToken(new Tile().setPlace("Mo").addAnimals("Ou", "Bu"), null));
+    tilesTokens2.add(new PeerTileToken(new Tile().setPlace("Ma").addAnimals("Sa", "Ou"), null));
+    tilesTokens2.add(new PeerTileToken(new Tile().setPlace("Fo").addAnimals("Wa", "Re"), null));
+    return tilesTokens2;
+  }
 
 
 	/**
@@ -107,7 +116,6 @@ public class Tile {
 		tilesTokens5.add(new PeerTileToken(new Tile().setPlace("Ri").addAnimals("Sa", "Bu"),null));
 		tilesTokens5.add(new PeerTileToken(new Tile().setPlace("Mo").addAnimals("Ou", "Wa"),null));
 		return tilesTokens5;
-    
 	}
 
 
@@ -143,8 +151,8 @@ public class Tile {
 	public static ArrayList<Tile> ExploitCsv() throws IOException {
 		ArrayList<Tile> tiles = new ArrayList<>();
 		try {
-		  Path path = Path.of("data/Tuiles.csv"); // Jar file
-			//Path path = Path.of("Game/data/Tuiles.csv"); // IDE
+		  //Path path = Path.of("data/Tuiles.csv"); // Jar file
+			Path path = Path.of("Game/data/Tuiles.csv"); // IDE
       //System.out.println(Files.exists(path) + " fichier existe");
 			var dataList = Files.readAllLines(path);
 			for(var line : dataList){
@@ -180,15 +188,17 @@ public class Tile {
 	 * @param tiles the list of tiles
 	 */
 	public static void shuffTiles(ArrayList<Tile> tiles){
+		Objects.requireNonNull(tiles);
 		Collections.shuffle(tiles);
 	}
   /**
 	 * Creates a bag 
 	 * @param tiles List of tiles
 	 * @param nbPlayers Number of players
-	 * @return
+	 * @return List of tiles
 	 */
 	public static ArrayList<Tile> tileBag(ArrayList<Tile> tiles, int nbPlayers){
+		Objects.requireNonNull(tiles);
 		var tilePool  = new ArrayList<Tile>();
 		var nbTiles = 20 * nbPlayers + 3;
 		var iterator = tiles.iterator();

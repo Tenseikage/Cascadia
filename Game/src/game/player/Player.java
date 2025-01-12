@@ -5,14 +5,17 @@ import java.util.Objects;
 import java.util.Scanner;
 
 
-/**
- * @author Christophe TARATIBU / Loïc BERGEOT
+/** 
  * This class represents the player of the game
+ * @author Christophe TARATIBU / Loïc BERGEOT
+ * @param name Name of player
+ * @param age Age of player
+ * @param points Points of player
+ * @param boardPlayer environment of player
  */
 public record Player(String name, int age,int points,Environment boardPlayer) {
 	public Player {
-		Objects.requireNonNull(name,"Unknown player name");
-		//Objects.requireNonNull(boardPlayer,"Unknow player board");
+		Objects.requireNonNull(name);
 		if (age < 0){
 			throw new IllegalArgumentException("Error : Negative age");
 		}
@@ -66,10 +69,11 @@ public record Player(String name, int age,int points,Environment boardPlayer) {
 	 * @param score1 score of the first player
 	 * @param player2 second player
 	 * @param score2 	score of the second player
+	 * @param displayMode Game mode
 	 */
 	public static void displayWinner(Player player1,int score1,Player player2,int score2, int displayMode){
-		Objects.requireNonNull(player1, "Error : Null player");
-		Objects.requireNonNull(player2, "Error : Null player");
+		Objects.requireNonNull(player1);
+		Objects.requireNonNull(player2);
 		if(displayMode == 0){
 			if(score1 > score2){
 				System.out.println(player1.name() + " a gagné avec " + score1 + "points");
@@ -89,7 +93,5 @@ public record Player(String name, int age,int points,Environment boardPlayer) {
 		}
 
 	}
-	
-	
 	
 }

@@ -10,8 +10,8 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * @author Christophe TARATIBU / Loïc BERGEOT
  * Class to calculate the scores
+ * @author Christophe TARATIBU / Loïc BERGEOT
  */
 public class Scores {
 
@@ -61,10 +61,6 @@ public class Scores {
 	/**
 	 * Method to search the group of animals by deep search
 	 * @param posAnimals the animals with their positions
-	 * @param visitedPos the visitedPos positions
-	 * @param currentAnimal the current animal
-	 * @param currentPos the current position
-	 * @param groupAnimals the group of animals
 	 */
 	public Map<String, List<Integer>> SearchGroup(HashMap<String, List<Position>> posAnimals) {
 		Objects.requireNonNull(posAnimals, "Error : Null posAnimals");
@@ -91,7 +87,7 @@ public class Scores {
 	 * @return the score
 	 */
 	public int familyVariant(Map<String,List<Integer>> animalGroupSizes){
-		Objects.requireNonNull(animalGroupSizes, "Error : Inexistent group sizes");
+		Objects.requireNonNull(animalGroupSizes);
 		int total = 0;
 		for (var entry : animalGroupSizes.entrySet()){
 			var groups = entry.getValue();
@@ -112,7 +108,7 @@ public class Scores {
 	 * @return the score
 	 */
 	public int IntermediateVariant(Map<String,List<Integer>> animalGroupSizes){
-		Objects.requireNonNull(animalGroupSizes, "Error : Inexistent group sizes");
+		Objects.requireNonNull(animalGroupSizes);
 		int total = 0;
 		for (var entry : animalGroupSizes.entrySet()){
 			var groups = entry.getValue();
@@ -136,17 +132,13 @@ public class Scores {
 	 * @return the score
 	 */
 	public int scoreMode(HashMap<String,List<Position>> animal, int mode){
-		Objects.requireNonNull(animal, "Error : Null map of animals");
+		Objects.requireNonNull(animal);
 		var animalGroupSizes = SearchGroup(animal);
     if(mode == 1){
 			return familyVariant(animalGroupSizes);
 		}
 		return IntermediateVariant(animalGroupSizes);
 	}
-
-	
-
-
 }
 	
 

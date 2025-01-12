@@ -2,17 +2,20 @@ package game.display;
 import game.logic.Position;
 
 /**
- * @author Christophe TARATIBU
  * This class is used to display the environment
+ *  @author Christophe TARATIBU
  */
 public class DisplayTools {
 	private final String[][] gridEnv; // Grille d'affichage de l'environnement
 	private final int maxX;
 	private final int maxY;
 
+	/**
+	 * Constructor which initializes the grid
+	 */
 	public DisplayTools(){
-		this.maxX = 10;
-		this.maxY = 10;
+		this.maxX = 5;
+		this.maxY = 5;
 		gridEnv = new String[maxX + 1][maxY + 1];
 	}
 
@@ -39,7 +42,7 @@ public class DisplayTools {
 
 	/**
 	 * Returns the grid
-	 * @return
+	 * @return Grid env
 	 */
 	public String[][] getGrid(){
 		return gridEnv;
@@ -47,7 +50,7 @@ public class DisplayTools {
 
 	/**
 	 * Returns the maximum dimensions of the grid
-	 * @return
+	 * @return Max position
 	 */
 	public Position getMaxDim(){
 		return new Position(maxX,maxY);

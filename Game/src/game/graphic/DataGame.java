@@ -11,8 +11,8 @@ import java.util.Objects;
 
 
 /**
- * 	@author Christophe TARATIBU
  *  This class stores all data relative of the game
+ *  @author Christophe TARATIBU
  *  @param tiles list containing the tiles of game
  *  @param tokens list containing the tokens of game
  *  @param choiceboard board containing 4 tokens and tiles (a player chooses a peer tile/token)
@@ -20,7 +20,7 @@ import java.util.Objects;
 public record DataGame(ArrayList<Tile> tiles, ArrayList<Token> tokens,Choice choiceboard, ArrayList<ArrayList<PeerTileToken>> startTiles) {
 	/**
 	 * This constructor initializes the record's fields
-	 * @throws IOException
+	 * @throws IOException Throws exception if file not found
 	 */
 	public DataGame() throws IOException{
 		this(Tile.ExploitCsv(), Token.tokenList(), new Choice(), Tile.startTiles());
@@ -47,10 +47,11 @@ public record DataGame(ArrayList<Tile> tiles, ArrayList<Token> tokens,Choice cho
 	}
 	/**
 	 *  Asks the player if he/her wants to return the chosen token
-	 * @param token
-	 * @return
+	 * @param token Token chosen by the player
+	 * @return Boolean
 	 */
 	public boolean returnToken(Token token){
+		Objects.requireNonNull(token);
 		int choice = WindowInfo.choiceReturnToken();
 		if(choice == 0){
 			tokens.add(token);
@@ -58,15 +59,14 @@ public record DataGame(ArrayList<Tile> tiles, ArrayList<Token> tokens,Choice cho
 		} else {
 			return false;
 		}
-
 	}
 	/**
 	 * Sets the color on the token following the name of the animal (2 first letters)
-	 * @param color
+	 * @param color First 2 letters of colors(in french)
 	 * @return color of animal (ANSI code symbolized by GraphicAnimalColor object)
 	 */
 	public GraphicAnimalColor setColorAnimal(String color){
-		Objects.requireNonNull(color, "Erreur : couleur inexistante !");
+		Objects.requireNonNull(color);
 		return switch (color) {
 			case "Ma" -> GraphicAnimalColor.BROWN;
 			case "Ta" -> GraphicAnimalColor.TAUPE;
@@ -78,11 +78,11 @@ public record DataGame(ArrayList<Tile> tiles, ArrayList<Token> tokens,Choice cho
 	}
 	/**
 	 * Sets the color on the tile following the name of place (2 first letters)
-	 * @param color
+	 * @param place First 2 letters of places (in french)
 	 * @return color of animal (awt color symbolized by GraphicPlaceColor object)
 	 */
 	public GraphicPlaceColor setColorPlace(String place){
-		Objects.requireNonNull(place, "Erreur : couleur inexistante !");
+		Objects.requireNonNull(place);
 		return switch (place) {
 			case "Mo" -> GraphicPlaceColor.GREY;
 			case "Fo" -> GraphicPlaceColor.DARKGREEN;

@@ -1,15 +1,15 @@
 package game.graphic;
-
 import game.logic.GameLogic;
 import game.material.Environment;
 import game.material.PeerTileToken;
 import game.player.Player;
+import java.util.Objects;
 import javax.swing.*;
 
 
 /**
- * @author Christophe TARATIBU
  * This class displays dialog boxes to players
+ * @author Christophe TARATIBU
  */
 public class WindowInfo {
   /**
@@ -18,6 +18,8 @@ public class WindowInfo {
    * @param tag Tag for the type of message
    */
   public static void messageInfoError(String message, String tag){
+    Objects.requireNonNull(message);
+    Objects.requireNonNull(tag);
     switch (tag) {
       case "Information" -> {
         JOptionPane.showMessageDialog(null, message, tag, JOptionPane.INFORMATION_MESSAGE);
@@ -33,9 +35,9 @@ public class WindowInfo {
   }
 
   /**
-   * Displays a dialog box which let the player the choice
+   * Displays a dialog box which lets the player the choice
    * to keep or dismiss the chosen peers (tiles/tokens)
-   * @return
+   * @return Choice of player(int)
    */
   public static int keepOrPass(){
     String message = "<html>Souhaitez-vous garder les jetons ?<br>Oui(Yes) / Non(No)</html>";
@@ -44,11 +46,12 @@ public class WindowInfo {
   }
 
   /**
-   * Displays a dialog box which let the player chose a peer
+   * Displays a dialog box which lets the player choose a peer
    * @param dataGame Game's data
    * @return Chosen peer
    */
   public static PeerTileToken choice(DataGame dataGame) {
+    Objects.requireNonNull(dataGame);
     int maxChoice  = dataGame.choiceboard().getChoiceBoard().size();
     String message = "<html>Choisissez une paire tuile/jeton<br> (Veuillez entrer un numéro entre 1 et "+ maxChoice+ ")</html>";
     int choice = -1;
@@ -68,8 +71,9 @@ public class WindowInfo {
     return peer;
   }
 
-  /*
+  /***
    * Creates a player
+   * @return New player
    */
   public static Player createPlayer() {
     String name = null;
@@ -98,7 +102,7 @@ public class WindowInfo {
   }
 
   /**
-   * Let first player chose the game mode
+   * Lets first player choose the game mode
    * @return game mode
    */
   public static int modScore(){
@@ -120,7 +124,7 @@ public class WindowInfo {
   
   /**
    * Ask the player if he/she wants to return the token
-   * @return
+   * @return Choice of player (int)
    */
   public static int choiceReturnToken(){
     String message = "<html>Souhaitez remettre le jeton dans le sac ?<br>Oui(Yes) / Non(No)</html>";

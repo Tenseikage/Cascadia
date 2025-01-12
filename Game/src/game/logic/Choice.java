@@ -12,8 +12,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
- * @author Christophe TARATIBU
  * This class represents the choice of tiles and tokens
+ * @author Christophe TARATIBU
  */
 public class Choice {
 	private final ArrayList<PeerTileToken> choicesBoard = new ArrayList<>();
@@ -23,8 +23,8 @@ public class Choice {
 	 * @param tokens list of tokens created
 	 */
 	public void addTokensTiles(ArrayList<Tile> tiles,ArrayList<Token> tokens){
-		Objects.requireNonNull(tiles, "Error: Null tile list");
-		Objects.requireNonNull(tokens, "Error: Null chosen token list");
+		Objects.requireNonNull(tiles);
+		Objects.requireNonNull(tokens);
 		for(int i = 0; i < 4; i++){
 			Random random = new Random();
 			int indexTile = random.nextInt(tiles.size());
@@ -44,9 +44,10 @@ public class Choice {
 
 	/**
 	 * Adds each token to an associated tile
-	 * @param token
+	 * @param chosenTokens list of tokens alone (They're four)
 	 */
 	private void setTokens(ArrayList<Token> chosenTokens){
+		Objects.requireNonNull(chosenTokens);
 		AtomicInteger i = new AtomicInteger(0);
 		choicesBoard.stream().forEach(peer -> peer.setToken(chosenTokens.get(i.getAndIncrement())));
 	}
@@ -67,8 +68,8 @@ public class Choice {
 	 * @param chosenTokens list of tokens chosen by the player
 	 */
 	public void updateTokenTiles(ArrayList<Tile> tiles, ArrayList<Token> tokens){
-		Objects.requireNonNull(tiles, "Error : tile list is null");
-		Objects.requireNonNull(tokens, "Error : token list is null");
+		Objects.requireNonNull(tiles);
+		Objects.requireNonNull(tokens);
 		int size = 4 - choicesBoard.size(); 
 		for (int i = 0; i < size; i++){
 			Random random = new Random();
@@ -81,12 +82,12 @@ public class Choice {
 	 * Creates the choice board
 	 * @param tiles list of tiles of the game
 	 * @param tokens list of tokens of the game
-	 * @param display display object
 	 * @param scanner scanner object
+	 * @param displayMode Display mode(0 : terminal, 1 : graphic)
 	 */
 	public void createChoiceBoard(ArrayList<Tile> tiles, ArrayList<Token> tokens, Scanner scanner, int displayMode){
-		Objects.requireNonNull(tiles, "Error: tile list is null");
-		Objects.requireNonNull(tokens, "Error: token list is null");
+		Objects.requireNonNull(tiles);
+		Objects.requireNonNull(tokens);
 		var chosenTokens = Token.chooseTokens(tokens,this);
 		addTokensTiles(tiles, chosenTokens);
 		if (displayMode == 0){
@@ -116,6 +117,8 @@ public class Choice {
 	 * @param tokens List of tokens
 	 */
 	public void completeTilesTokenList(ArrayList<Tile> tiles,ArrayList<Token> tokens){
+		Objects.requireNonNull(tiles);
+		Objects.requireNonNull(tokens);
 		int size = choicesBoard.size();
 		for(int i = 0; i < 4 - size; i++){
 			Random random = new Random();
@@ -128,12 +131,12 @@ public class Choice {
 	 * Updates the choice board after the players have chosen 1 tile and 1 token
 	 * @param tiles list of tiles of the game
 	 * @param tokens list of tokens of the game
-	 * @param chosenTokens list of tokens chosen by the player
 	 * @param scanner scanner object
+	 * @param displayMode Display mode(0 : terminal, 1 : graphic)
 	 */
 	public void updateChoiceBoard(ArrayList<Tile> tiles, ArrayList<Token> tokens, Scanner scanner, int displayMode){
-		Objects.requireNonNull(tiles, "Error: tile list is null");
-		Objects.requireNonNull(tokens, "Error: token list is null");
+		Objects.requireNonNull(tiles);
+		Objects.requireNonNull(tokens);
 		if(choicesBoard.size() <= 2){
 			if(displayMode == 0){
 				completeTilesTokenList(tiles, tokens);
@@ -181,10 +184,6 @@ public class Choice {
 			}
 		}
 	}
-
-	
-
-
 }
 
 	

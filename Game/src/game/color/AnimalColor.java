@@ -2,8 +2,8 @@ package game.color;
 import java.util.Objects;
 
 /**
- * @author Christophe TARATIBU
  * This class enums the colors which are used for the game (animals)
+ * @author Christophe TARATIBU
  */
 public enum AnimalColor{
 	RESET("\033[0m"),
@@ -21,7 +21,7 @@ public enum AnimalColor{
 	 * @param ansiCode
 	 */
 	AnimalColor(String ansiCode) {
-		Objects.requireNonNull(ansiCode, "Error: null ansi code");
+		Objects.requireNonNull(ansiCode);
 		this.ansiCode = ansiCode;
 	}
 

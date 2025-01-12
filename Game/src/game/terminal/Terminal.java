@@ -1,4 +1,4 @@
-package game.main;
+package game.terminal;
 import game.display.Display;
 import game.display.DisplayTools;
 import game.logic.Choice;
@@ -15,6 +15,7 @@ import java.util.Scanner;
 
 
 /**
+ * This class represents the terminal mode of the game
  * @author Christophe TARATIBU
  */
 public class Terminal {
@@ -23,9 +24,9 @@ public class Terminal {
 	 * Create a list of 2 players
 	 * @param scanner Scanner
 	 * @param nbPlayers 
-	 * @return
+	 * @return List of players
 	 */
-	public static List<Player> listPlayers(Scanner scanner, int nbPlayers){
+	private static List<Player> listPlayers(Scanner scanner, int nbPlayers){
 		if(nbPlayers <= 0 || nbPlayers > 2){
 			System.err.println("Nombre incorrect");
 			return null;
@@ -55,9 +56,9 @@ public class Terminal {
 	/**
 	 * Creates a list of 2 grids of players
 	 * @param nbPlayers
-	 * @return
+	 * @return List of grids
 	 */
-	public static List<DisplayTools> listGrids(int nbPlayers){
+	private static List<DisplayTools> listGrids(int nbPlayers){
 		if(nbPlayers <= 0 || nbPlayers > 2){
 			System.err.println("Nombre incorrect");
 			return null;
@@ -74,17 +75,13 @@ public class Terminal {
 	 * Loops the game with exceptions
 	 * @param scanner scanner
 	 * @param display display
-	 * @param player1 first player
-	 * @param player2 second player
-	 * @param board choice board
-	 * @param env1 first player environment
-	 * @param env2 second player environment
-	 * @param grid1 first player grid
-	 * @param grid2 second player grid
-	 * @param tokens list of tokens
-	 * @param tiles list of tiles
+	 * @param players List of players
+	 * @param board Choice board of the game
+	 * @param grids List of grids
+	 * @param tokens List of tokens
+	 * @param tiles List of tiles
 	 */
-	public static void loopWithExecptions(Scanner scanner,Display display,List<Player> players, Choice board, 
+	private static void loopWithExecptions(Scanner scanner,Display display,List<Player> players, Choice board, 
 		List<DisplayTools> grids, ArrayList<Token> tokens,ArrayList<Tile> tiles){
 			var logic = new GameLogic();
 			int nbturns = 6;

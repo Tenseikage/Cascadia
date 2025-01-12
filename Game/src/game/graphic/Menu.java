@@ -3,16 +3,16 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.io.IOException;
-
 import com.github.forax.zen.Application;
 import com.github.forax.zen.ApplicationContext;
 import com.github.forax.zen.Event;
 import com.github.forax.zen.KeyboardEvent;
 import com.github.forax.zen.PointerEvent;
-import game.main.Terminal;
+import game.terminal.Terminal;
+import java.util.Objects;
 /**
- * @author Loic BERGEOT / Christophe TARATIBU
  * This class displays the menu of the game
+ * @author Loic BERGEOT / Christophe TARATIBU
  */
 public class Menu {
     /***
@@ -22,28 +22,21 @@ public class Menu {
      * @throws IllegalAccessError
      */
 	public void start(ApplicationContext context) throws IOException,IllegalAccessError {
+        Objects.requireNonNull(context);
 		var screenInfo = context.getScreenInfo();
         var width = screenInfo.width();
         var height = screenInfo.height();
-        // COORDONNEES DU BOUTON
-        
         int rectLarge = width/10;
         int rectHaut = height/14;
-        
         int rectX = (width - rectLarge) / 2;
         int rectY = height * 4/ 6; 
-
         int boutonX1 = rectX;
         int boutonX2 = rectX + rectLarge;
         int boutonY1 = rectY;
         int boutonY2 = rectY + rectHaut;
-
         for (;;) {
             Event event = context.pollOrWaitEvent(100);
-
             if (event != null) {
-                //System.out.println(event);
-
                 switch (event) {
                     case PointerEvent pointerEvent -> {
                         if (pointerEvent.action() == PointerEvent.Action.POINTER_UP) {
@@ -73,52 +66,31 @@ public class Menu {
                 String welcom = "Welcome to";
                 String cascadia = "CASCADIA";
                 String boutton = "JOUER";
-                
                 FontMetrics metricsWelcom = graphics2D.getFontMetrics();
                 int textWidthWelcom = metricsWelcom.stringWidth(welcom);
                 int textHeightWelcom = metricsWelcom.getAscent();
-
                 FontMetrics metricsC = graphics2D.getFontMetrics();
                 int textWidthCascadia = metricsC.stringWidth(cascadia);
-                
                 int welcomY = (height / 2) - (textHeightWelcom / 2);
                 int welcomX = (width - textWidthWelcom) / 2;
-                
                 int xStringCascadia = (width - textWidthCascadia) / 2;
                 int yStringCascadia = (height) / 2 + height/40;
-                
-                
                 graphics2D.drawString(welcom, welcomX, welcomY);
                 graphics2D.drawString(cascadia, xStringCascadia, yStringCascadia);
-                
-                
-                
-                // RECTANGLE BOUTON
-                
                 graphics2D.setColor(Color.LIGHT_GRAY);
                 graphics2D.fillRect(rectX, rectY, rectLarge, rectHaut); 
-                
-                // CONTOUR DU BOUTON
-                
                 graphics2D.setColor(Color.BLACK);
                 graphics2D.drawLine(rectX, rectY, rectX+rectLarge, rectY);
                 graphics2D.drawLine(rectX, rectY, rectX, rectY+rectHaut);
                 graphics2D.drawLine(rectX+rectLarge, rectY, rectX+rectLarge, rectY+rectHaut);
                 graphics2D.drawLine(rectX, rectY+rectHaut, rectX+rectLarge, rectY+rectHaut);
-
-                
-              
                 graphics2D.setColor(Color.BLACK);
                 graphics2D.setFont(new Font("Arial", Font.BOLD, 30));
-
                 FontMetrics metricsButton = graphics2D.getFontMetrics();
                 int buttonTextWidth = metricsButton.stringWidth(boutton);
                 int buttonTextHeight = metricsButton.getAscent();
-
-                // Centrer le texte "Jouer" dans le rectangle
                 int buttonX = rectX + (rectLarge - buttonTextWidth) / 2;
                 int buttonY = rectY + (rectHaut + buttonTextHeight) / 2;
-
                 graphics2D.drawString(boutton, buttonX, buttonY);
             });
         }
@@ -127,10 +99,10 @@ public class Menu {
     /**
      * Displays the other choices of the game
      * @param context using an existing context {@code ApplicationContext}.
-     * @throws IOException
-     * @throws IllegalAccessError
+     * @throws IOException Throws an exception if the file (Tuiles.csv) is not found
+     * @throws IllegalAccessError Theows this exception if the player wants to put the outside the bounds of the grid(Terminal only)
      */
-	public void modes(ApplicationContext context) throws IOException,IllegalAccessError {
+	private void modes(ApplicationContext context) throws IOException,IllegalAccessError {
 		var screenInfo = context.getScreenInfo();
         var width = screenInfo.width();
         var height = screenInfo.height();
@@ -145,8 +117,6 @@ public class Menu {
         for (;;) {
             Event event = context.pollOrWaitEvent(100);
             if (event != null) {
-                //System.out.println(event);
-
                 switch (event) {
                     case PointerEvent pointerEvent -> {
                         if (pointerEvent.action() == PointerEvent.Action.POINTER_UP) {
@@ -154,14 +124,10 @@ public class Menu {
                             var yclic = pointerEvent.location().y();
                             if (xclic < x + largeurBoutton && xclic > x) {
                             	if (yclic < y1 + hauteurBoutton && yclic > y1) {
-                            		//System.out.println("mode choisi -> "+ boutton1);
-                            		//choixCartes(context);
                             		context.dispose();
                                     Terminal.TerminalMain();
                                     return;
                             	} else if (yclic < y2 + hauteurBoutton && yclic > y2) {
-                            		//System.out.println("mode choisi -> "+boutton2);
-                            		//choixCartes(context);
                             		context.dispose();
                                     GraphicTileToken.GraphicMain();
                                     return;
@@ -187,7 +153,6 @@ public class Menu {
                 int stringHaut = 50;
                 graphics2D.drawString(string, (width - stringLarge)/2, (height - stringHaut)/10);
                 graphics2D.setFont(new Font("Arial", Font.BOLD, 25));
-                // BOUTON 1
                 FontMetrics metricsButton = graphics2D.getFontMetrics();
                 int boutton1TailleTxtX = metricsButton.stringWidth(boutton1);
                 int boutton1TailleTxtY = metricsButton.getAscent();
@@ -199,8 +164,6 @@ public class Menu {
                 graphics2D.drawLine(x+largeurBoutton, y1, x+largeurBoutton, y1+hauteurBoutton);
                 graphics2D.drawLine(x, y1+hauteurBoutton, x+largeurBoutton, y1+hauteurBoutton);
                 graphics2D.drawString(boutton1, x+(largeurBoutton / 2) - (boutton1TailleTxtX / 2), y1+(hauteurBoutton +boutton1TailleTxtY)/2); // changer le Y pour centrer 
-                // BOUTON 2
-
                 int boutton2TailleTxtX = metricsButton.stringWidth(boutton2);
                 int boutton2TailleTxtY = metricsButton.getAscent();
                 graphics2D.setColor(Color.LIGHT_GRAY);

@@ -2,15 +2,30 @@ package game.color;
 import java.awt.Color;
 import java.util.Objects;
 /**
+ * This class enums the colors (ANSI COLOR code) which are used for the graphic game (animals)
  * @author Christophe TARATIBU
- * This class enums the colors which are used for the graphic game (animals)
  */
 public enum GraphicAnimalColor{
+	/*
+	 * Color blue
+	 */
 	BLUE(Color.BLUE),
-	BROWN(new Color(165, 42, 42)), // Définir la couleur marron avec les valeurs RGB
+	/*
+	 * Color brown
+	 */
+	BROWN(new Color(165, 42, 42)), 
+	/*
+	 * Color pink
+	 */
 	PINK(Color.PINK),
-	ORANGE(new Color(255, 165, 0)), // Définir la couleur orange avec les valeurs RGB
-	TAUPE(new Color(72, 60, 50)); // Définir la couleur taupe avec les valeurs RGB
+	/**
+	 * Color orange
+	 */
+	ORANGE(new Color(255, 165, 0)),
+	/**
+	 * Color taupe
+	 */
+	TAUPE(new Color(72, 60, 50)); 
 
 	//Color instance field
 	private final Color color;
@@ -25,7 +40,7 @@ public enum GraphicAnimalColor{
 	}
 	/**
 	 * Returns the color
-	 * @return
+	 * @return Color object
 	 */
 	public Color getColor() {
 			return color;

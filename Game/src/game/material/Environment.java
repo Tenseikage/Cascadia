@@ -9,20 +9,18 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * @author Christophe TARATIBU
  * Class which represents the environment of the player
+ * @author Christophe TARATIBU
  */
 public class Environment{
 	private final HashMap<PeerTileToken,Position> tokenTilesList = new HashMap<>();
-
-
 	/**
 	 * Chooses the starting tiles,
 	 * @param tokenTiles ArrayList of tiles and null tokens
 	 * @return HashMap of tiles and null tokens with tile positions (start habitat)
 	 */
 	public HashMap<PeerTileToken,Position> choseStartTile(ArrayList<PeerTileToken> tokenTiles){
-		Objects.requireNonNull(tokenTiles, "Data for start tiles is null");
+		Objects.requireNonNull(tokenTiles);
 		int[] index = {0};
 		var data = tokenTiles.stream().collect(Collectors.toMap(Function.identity(), _ -> new Position(0,index[0]++)));
 		return new HashMap<>(data);
@@ -42,14 +40,13 @@ public class Environment{
 		
 	}
 
-	
 	/**
 	 * Adds a tile and a token to the player's environment
 	 * @param key key of the map
 	 * @param position position of the tile
 	 */
 	public void addTilePlayer(Tile tile,Position position){	
-		Objects.requireNonNull(tile, "Error : Null tile");
+		Objects.requireNonNull(tile);
 		tokenTilesList.put(new PeerTileToken(tile,null), position);
 	}
 
@@ -72,8 +69,8 @@ public class Environment{
 	 * @return true if the token has been added, false otherwise
 	 */
 		public boolean addTokenPlayer(PeerTileToken peer,Token token, Position position, int displayMode){
-			Objects.requireNonNull(token, "Error : Null token");
-			Objects.requireNonNull(position, "Error : Null position");
+			Objects.requireNonNull(token);
+			Objects.requireNonNull(position);
 			var tile = peer.getTile();
 			var peerToken = peer.getToken();
 			if(peerToken == null){
@@ -115,7 +112,7 @@ public class Environment{
 	 * @param data data to set
 	 */
 	public void setEnvironment(HashMap<PeerTileToken,Position> data){
-		Objects.requireNonNull(data, "Erreur : données requises pour la mise à jour !");
+		Objects.requireNonNull(data);
 		tokenTilesList.putAll(data);
 	}
 
@@ -139,6 +136,8 @@ public class Environment{
 	 * @return true if the position is valid, false otherwise
 	 */
 	public boolean validPos(ArrayList<Position> positions, Position position){
+		Objects.requireNonNull(positions);
+		Objects.requireNonNull(position);
 		return positions.contains(position);
 	}
 	

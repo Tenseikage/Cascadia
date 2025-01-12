@@ -13,9 +13,9 @@ import game.material.PeerTileToken;
 import game.player.Player;
 
 /**
- * @author Christophe TARATIBU
  * This class represent the graphic controller of the game (graphic tiles version only)
  * Some methods belongs to vincent
+ * @author Christophe TARATIBU
  */
 public class GraphicTileToken {
 	/**
@@ -63,7 +63,6 @@ public class GraphicTileToken {
 	/**
 	 * Author : Vincent
    * Tries sleeping for a given duration.
-   * 
    * @param duration Sleep duration, in milliseconds.
    * @return True if you managed to sleep that long, False otherwise.
    */
@@ -78,11 +77,11 @@ public class GraphicTileToken {
 
 	/**
 	 * Lets the player place his/her tile
-	 * @param context
-	 * @param player
-	 * @param graphicGame
-	 * @param peer
-	 * @return
+	 * @param context using an existing context {@code ApplicationContext}.
+	 * @param player Player's data
+	 * @param graphicGame Data of graphic game
+	 * @param peer Peer Tile/token
+	 * @return Boolean which checks if a tile is set and drawn
 	 */
 	private static boolean manageEventTile(ApplicationContext context,Player player,GraphicGame graphicGame, PeerTileToken peer){
 		for(;;){
@@ -93,7 +92,6 @@ public class GraphicTileToken {
 					case PointerEvent ev -> {
 						if(ev.action() ==  PointerEvent.Action.POINTER_UP ){
 							var location = ev.location();
-							//System.out.println("Position X: " + location.x() + " Position Y: " + location.y()); // Coord pointeur souris
 							setTile = graphicGame.setTileAndDraw(context, player, graphicGame.columnFromX(location.x()), graphicGame.lineFromY(location.y()),peer);
 						return setTile;
 						}
@@ -114,11 +112,11 @@ public class GraphicTileToken {
 
 	/**
 	 * Lets player place his/her token on a tile already put
-	 * @param context
-	 * @param player
-	 * @param graphicGame
-	 * @param peer
-	 * @return
+	 * @param context using an existing context {@code ApplicationContext}.
+	 * @param player Player's data
+	 * @param graphicGame Data of graphic game
+	 * @param peer Peer Tile/token
+	 * @return Boolean which checks if a token is set and drawn
 	 */
 	private static boolean manageEventToken(ApplicationContext context,Player player,GraphicGame graphicGame, PeerTileToken peer){
 		for(;;){
@@ -156,7 +154,7 @@ public class GraphicTileToken {
 	 * @param graphicGame Graphicgame data
 	 * @return
 	 */
-	private static boolean gameTurn(ApplicationContext context,DataGame dataGame ,Player player,GraphicGame graphicGame){
+	private static void gameTurn(ApplicationContext context,DataGame dataGame ,Player player,GraphicGame graphicGame){
 		WindowInfo.messageInfoError("Votre tour : Choisissez une tuile et un jeton", "Information");
 		var peer = WindowInfo.choice(dataGame);
 		boolean setTile = false;
@@ -168,7 +166,6 @@ public class GraphicTileToken {
 			setToken = manageEventToken(context, player, graphicGame, peer);
 		}
 		graphicGame.updateScreen(context,player);
-		return true;
 	}
 
 	/***
@@ -200,8 +197,8 @@ public class GraphicTileToken {
 	}
 	/**
 	 * Begins the game
-	 * @param context
-	 * @throws IOException
+	 * @param context using an existing context {@code ApplicationContext}.
+	 * @throws IOException Throws an exception if the file is not found
 	 */
 	public static void beginGame(ApplicationContext context) throws IOException {
 		try {
@@ -219,7 +216,7 @@ public class GraphicTileToken {
 
 	/**
 	 * Main of the graphic version of Cascadia
-	 * @throws IOException
+	 * @throws IOException Throws an exception if the file is not found
 	 */
 	public static void GraphicMain() throws IOException {
 		Application.run(Color.WHITE, context -> {

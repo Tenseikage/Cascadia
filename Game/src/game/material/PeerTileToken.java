@@ -1,5 +1,6 @@
 package game.material;
 /**
+ * This class creates the a peer which contains a tile and a token
  * @author Christophe TARATIBU
  */
 public class PeerTileToken{
@@ -26,7 +27,7 @@ public class PeerTileToken{
 
   /**
 	 * Gets the token
-	 * @return
+	 * @return token
 	 */
 	public Token getToken() {
 		return token;
@@ -34,14 +35,14 @@ public class PeerTileToken{
 
 	/**
 	 * Sets the token to the PeerTileToken
-	 * @param token
+	 * @param token Token to set
 	 */
 	public void setToken(Token token) {
 		this.token = token;
 	}
   /**
 	 * Sets the tile to the PeerTileToken
-	 * @param tile
+	 * @param tile Tile to set
 	 */
 	public void setTile(Tile tile){
 		this.tile = tile;

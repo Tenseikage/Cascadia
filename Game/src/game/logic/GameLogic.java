@@ -12,8 +12,8 @@ import java.util.Objects;
 import java.util.Scanner;
 
 /**
- * @author Christophe TARATIBU
  * This class represents the game logic
+ * @author Christophe TARATIBU
  */
 public class GameLogic {
 
@@ -24,7 +24,7 @@ public class GameLogic {
 	 * @return tile
 	 */
 	public Tile getTileByIndex(Map<Tile,Token> map, int index) {
-		Objects.requireNonNull(map, "Error : Null map");
+		Objects.requireNonNull(map);
 		if (index < 0 || index >= map.size()) {
 			throw new IndexOutOfBoundsException("Index out of bounds: " + index);
 		}
@@ -46,8 +46,8 @@ public class GameLogic {
 	 * @return player's choice
 	 */
 	public int getPlayerChoice(Scanner scanner, Choice board) {
-		Objects.requireNonNull(scanner, "Error : Null scanner");
-		Objects.requireNonNull(board, "Error : Null board");
+		Objects.requireNonNull(scanner);
+		Objects.requireNonNull(board);
 		if (board.getChoiceBoard().size() == 4) {
 			System.out.println("  ( 01 )      ( 02 )      ( 03 )      ( 04 )\n");
 			System.out.println("QUELLE PAIRE CHOISISSEZ VOUS (1 - 2 - 3 - 4) ? : ");
@@ -66,14 +66,13 @@ public class GameLogic {
 	 * @return position of the new tile
 	 */
 	public Position getPosition(Environment env, Scanner scanner) {
-		Objects.requireNonNull(env, "Error : Null environment");
-		Objects.requireNonNull(scanner, "Error : Null scanner");
+		Objects.requireNonNull(env);
+		Objects.requireNonNull(scanner);
 		System.out.println("Choisissez la position d'une tuile existante où poser votre tuile (format: (x,y))");
 		String answerPos = scanner.next();
 		var pos = Position.fromString(answerPos);
 		var positions = env.getPositions();
 		var bool = env.validPos(positions, pos);
-		System.out.println("Booléen : " + bool);
 		if (!bool) {
 			throw new IllegalAccessError("Position not in environnement");
 		} else {
@@ -88,7 +87,7 @@ public class GameLogic {
 	 * @return position of the new token
 	 */
 	public Position geTokenPosition(Scanner scanner) {
-		Objects.requireNonNull(scanner, "Error : Null scanner");
+		Objects.requireNonNull(scanner);
 		System.out.println("Choisissez la position où poser votre jeton, Tapez Non si impossibilité");
 		var answerPos = scanner.next();
 		if (answerPos.equals("Non")) {
@@ -103,15 +102,15 @@ public class GameLogic {
 	 * Returns updated environment
 	 * @param scanner scanner
 	 * @param chosenPos position of the new tile
-	 * @param chosenTile tile to place
-	 * @param tilesTokens tiles and tokens
+	 * @param tilesTokens Peer of tile and token to place (Only tile)
 	 * @param env environment
 	 * @return environment
 	 */
 	public Environment getDirection(Scanner scanner, Position chosenPos,PeerTileToken tilesTokens, Environment env) {
-		Objects.requireNonNull(scanner, "Error : Null scanner");
-		Objects.requireNonNull(chosenPos, "Error : Null position");
-		Objects.requireNonNull(tilesTokens, "Error : Null tilesTokens");
+		Objects.requireNonNull(scanner);
+		Objects.requireNonNull(chosenPos);
+		Objects.requireNonNull(tilesTokens);
+		Objects.requireNonNull(env);
 		System.out.println("Choisissez l'endroit où poser la tuile");
 		System.out.println("Haut/Bas/Gauche/Droite");
 		String answer = scanner.next();
@@ -133,9 +132,9 @@ public class GameLogic {
 	 * @param chosenPos position of the token
 	 */
 	public void addTokenToEnv(Environment env, Token chosenToken, Position chosenPos) {
-		Objects.requireNonNull(env, "Environment cannot be null");
-		Objects.requireNonNull(chosenToken, "Chosen token cannot be null");
-		Objects.requireNonNull(chosenPos, "Chosen position cannot be null");
+		Objects.requireNonNull(env);
+		Objects.requireNonNull(chosenToken);
+		Objects.requireNonNull(chosenPos);
 		var peerTilePos = env.getKeyByPos(chosenPos);
 		env.addTokenPlayer(peerTilePos, chosenToken, chosenPos,0);
 	}
@@ -147,7 +146,7 @@ public class GameLogic {
 	 * @return final choice
 	 */
 	public static PeerTileToken finalChoiceTileToken(int choice, ArrayList<PeerTileToken> choiceBoard) {
-		Objects.requireNonNull(choiceBoard, "Choice board cannot be null");
+		Objects.requireNonNull(choiceBoard);
 		var chosenTileToken = choiceBoard.get(choice - 1); // Tuile  et jeton choisie
 		return chosenTileToken;
 	}
@@ -162,18 +161,18 @@ public class GameLogic {
 	 * @param chosenTile chosen tile
 	 * @param chosenToken chosen token
 	 * @param player player
-	 * @param tokens tokens
-	 * @return true if the token was placed, false otherwise
+	 * @param tokens List of tokens
+	 * @return True if the token was placed, false otherwise
 	 */
 	public boolean puTokenToEnv(Choice board, Scanner scanner, Display display, DisplayTools grid, Environment env, Tile chosenTile, Token chosenToken, Player player, ArrayList<Token> tokens) {
-		Objects.requireNonNull(board, "Error : Null board");
-		Objects.requireNonNull(scanner, "Error : Null scanner");
-		Objects.requireNonNull(display, "Error : Null display");
-		Objects.requireNonNull(grid, "Error : Null grid");
-		Objects.requireNonNull(env, "Error : Null env");
-		Objects.requireNonNull(chosenTile, "Error : Null chosen tile");
-		Objects.requireNonNull(chosenToken, "Error : Null chosen token");
-		Objects.requireNonNull(player, "Error : Null player");
+		Objects.requireNonNull(board);
+		Objects.requireNonNull(scanner);
+		Objects.requireNonNull(display);
+		Objects.requireNonNull(grid);
+		Objects.requireNonNull(env);
+		Objects.requireNonNull(chosenTile);
+		Objects.requireNonNull(chosenToken);
+		Objects.requireNonNull(player);
 		System.out.println("Environnement " + player.name());
 		var chosenPos = geTokenPosition(scanner); 
 		if (chosenPos == null) {
@@ -189,19 +188,18 @@ public class GameLogic {
 	 * Represents a game turn
 	 * @param scanner scanner
 	 * @param display display
-	 * @param player player
+	 * @param player Player's data
 	 * @param board choice board
-	 * @param env player's environment
 	 * @param grid player's grid
 	 * @param tokens tokens list
 	 */
 	public void gameTurn(Scanner scanner, Display display, Player player, Choice board, DisplayTools grid, ArrayList<Token> tokens) {
-		Objects.requireNonNull(scanner, "Error : Null scanner");
-		Objects.requireNonNull(display, "Error : Null display");
-		Objects.requireNonNull(player, "Error : Null player");
-		Objects.requireNonNull(board, "Error : Null board");
-		Objects.requireNonNull(grid, "Error : Null grid");
-		Objects.requireNonNull(tokens, "Error : Null tokens");
+		Objects.requireNonNull(scanner);
+		Objects.requireNonNull(display);
+		Objects.requireNonNull(player);
+		Objects.requireNonNull(board);
+		Objects.requireNonNull(grid);
+		Objects.requireNonNull(tokens);
 		System.out.println("Environnement " + player.name()); 
 		var env = player.boardPlayer();
 		display.displayEnvPlayer(grid, player);

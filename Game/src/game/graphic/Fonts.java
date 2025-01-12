@@ -6,17 +6,17 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
-
 import com.github.forax.zen.ApplicationContext;
+import java.util.Objects;
 
 
 /**
-* @author Christophe TARATIBU
 * This class manages all of Cascadia's fonts
+* @author Christophe TARATIBU
 */
 public class Fonts {
   /**
-	 *  Writes the place and possble animals on a drawn tile
+	 * Writes the place and possble animals on a drawn tile
 	 * @param graphics Graphics engine that will display the data of tile
 	 * @param posSquareX Postion x of the square
 	 * @param posSquareY Postion y of the square
@@ -25,6 +25,8 @@ public class Fonts {
 	 * @param size Font size
 	 */
 	public static void fontManageTiles(Graphics2D graphics,int posSquareX, int posSquareY, int squareSize,Tile tile, int size){
+		Objects.requireNonNull(graphics);
+		Objects.requireNonNull(tile);
     graphics.setColor(Color.WHITE);
 		String place = tile.getPlace();
 		String animals = tile.getListAnimals().toString();
@@ -50,9 +52,11 @@ public class Fonts {
 	 * @param size Font size
 	 */
 	public static void fontManageToken(Graphics2D graphics,int posSquareX, int posSquareY, int squareSize,Token token, int size){
+		Objects.requireNonNull(graphics);
+		Objects.requireNonNull(token);
 		var animal = token.espece();
 		graphics.setColor(Color.WHITE);
-    Font font = new Font("Arial", Font.BOLD, size); // Créer une nouvelle instance de Font avec la taille souhaitée
+    Font font = new Font("Arial", Font.BOLD, size);
     graphics.setFont(font);
 		FontMetrics metrics = graphics.getFontMetrics();
 		int text1X = posSquareX + (squareSize - metrics.stringWidth(animal)) / 2;
@@ -62,26 +66,24 @@ public class Fonts {
 	
   /**
 	 * Draws the player's name at the top-left of the screen
-	 * using an existing {@code ApplicationContext}.
-	 * @param context  @param context {@code ApplicationContext} of the game.
+	 * @param context  using an existing {@code ApplicationContext}.
 	 * @param player Player's data
 	 * @param posX Position x on the screen
 	 * @param posY Position y on the screen
 	 * @param size Font size
 	 */
 	public static void drawPlayerName(ApplicationContext context,Player player, int posX, int posY, int size) {
+		Objects.requireNonNull(context);
+		Objects.requireNonNull(player);
 		context.renderFrame(graphics -> {
-			graphics.setColor(Color.BLACK); // Définir la couleur du texte
-			Font font = new Font("Arial", Font.BOLD, size); // Créer une nouvelle instance de Font avec la taille souhaitée
+			graphics.setColor(Color.BLACK);
+			Font font = new Font("Arial", Font.BOLD, size);
 			graphics.setFont(font);
 			String playerName = "Environnement de " + player.name();
 			FontMetrics metrics = graphics.getFontMetrics();
 			int textX = posX;
-			int textY = posY + metrics.getAscent(); // Ajouter l'ascent pour positionner correctement le texte
+			int textY = posY + metrics.getAscent();
 			graphics.drawString(playerName, textX, textY);
 		});
-  }
-
-	
-
+	}	
 }
