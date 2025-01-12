@@ -15,7 +15,7 @@ public class Main {
      * @throws IOException Throws this exception if csv file (Tuiles.csv) is not found
      * @throws IllegalAccessError Theows this exception if the player wants to put the outside the bounds of the grid(Terminal only)
      */
-    public static void main() throws IOException,IllegalAccessError {
+	public static void main(String[] args) throws IOException,IllegalAccessError {
         Application.run(Color.WHITE, context -> {
         	var menu = new Menu();
         	try {
